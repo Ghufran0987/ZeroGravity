@@ -1,0 +1,50 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgInputLayout"
+             BackgroundColor="Transparent"
+             x:Name="Root">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <border:SfBorder BorderWidth="1"
+                             BorderColor="#F2F2F2"
+                             BackgroundColor="#F2F2F2"
+                             CornerRadius="6"
+                             x:Name="Border">
+                <Grid RowSpacing="{Binding Source={x:Reference Root}, Path=GapHeight}" BackgroundColor="#F2F2F2" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold"
+                           Text="{Binding Source={x:Reference Root}, Path=Label}"
+                           FontFamily="{Binding Source={x:Reference Root}, Path=FontFamily}"
+                           FontSize="{Binding Source={x:Reference Root}, Path=FontSize}"
+                           TextColor="{Binding Source={x:Reference Root}, Path=TextColor}"
+                           Margin="{Binding Source={x:Reference Root}, Path=LabelMargin}"
+                           IsVisible="{Binding Source={x:Reference Root}, Path=IsLabelVisible}"
+                           WidthRequest="100"
+                           VerticalOptions="Center" VerticalTextAlignment="Center"  LineBreakMode="WordWrap"  />
+
+                    <ContentPresenter Grid.Row="0" Grid.Column="1"
+                                      x:Name="Presenter" HorizontalOptions="FillAndExpand"
+                                      Content="{Binding Source={x:Reference Root}, Path=Content}"
+                                      Margin="{Binding Source={x:Reference Root}, Path=ContentMargin}" VerticalOptions="Center" />
+                </Grid>
+
+                <border:SfBorder.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapped" />
+                </border:SfBorder.GestureRecognizers>
+                <border:SfBorder.Triggers>
+                    <DataTrigger TargetType="{x:Type border:SfBorder}"
+                                 Binding="{Binding Source={x:Reference Root}, Path=IsHighlighted}" Value="True">
+                        <Setter TargetName="Border" Property="BorderColor" Value="{Binding Source={x:Reference Root}, Path=HighlightColor}" />
+                    </DataTrigger>
+                </border:SfBorder.Triggers>
+            </border:SfBorder>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>

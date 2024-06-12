@@ -1,0 +1,1586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unity:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:unity="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+                        xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                        xmlns:xForms="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+                        xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                        xmlns:range="clr-namespace:Syncfusion.SfRangeSlider.XForms;assembly=Syncfusion.SfRangeSlider.XForms"
+                        xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                        xmlns:pickers="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+                        xmlns:comboBox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+                        xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms"
+                        xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                        xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+                        xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                        xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                        xmlns:behaviors="clr-namespace:ZeroGravity.Mobile.Behaviors;assembly=ZeroGravity.Mobile"
+                        x:Class="ZeroGravity.Mobile.App">
+    <Application.Resources>
+
+        <!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <Style x:Key="NavigationTitle-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=TextColor}" />
+                <Setter Property="FontSize" Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=FontSize}" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style TargetType="{x:Type NavigationPage}">
+                <Setter Property="BarBackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="BarTextColor" Value="{x:Static fonts:CustomColors.Pink}" />
+            </Style>
+
+            <!--example: set the FontFamily for all Labels to a custom font-->
+            <!--this has to be done for all controls with a Text/FontFamily property-->
+            <Style x:Key="CustomLabelFontStyleNormal" TargetType="Label">
+                <!--normal-->
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+
+            <Style x:Key="CustomLabelFontStyleBold" TargetType="Label">
+                <!--bold-->
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+            </Style>
+
+            <Style x:Key="CustomLabelFontStyleTitle" TargetType="Label">
+                <!--bold-->
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+                <Setter Property="FontSize" Value="22" />
+            </Style>
+
+            <!--SliderLabel-->
+            <Style x:Key="CustomSliderLabelFontStyleNormal" TargetType="Label">
+                <!--normal-->
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+
+            <Style x:Key="CustomSliderLabelFontStyleBold" TargetType="Label">
+                <!--bold-->
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+
+            <Style x:Key="RadioButtonLabelFontStyleBold" TargetType="Label">
+                <!--bold-->
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+
+            <Style x:Key="RadioButtonLabelFontStyleNormal" TargetType="Label">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+
+            <!--SfButton-->
+            <Style x:Key="CustomButtonTextFontStyleNormal" TargetType="buttons:SfButton">
+                <!--normal-->
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+            <Style x:Key="CustomButtonTextFontStyleBold" TargetType="buttons:SfButton">
+                <!--bold-->
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+            </Style>
+
+            <Style x:Key="BusyIndicatorStyle" TargetType="xForms:SfBusyIndicator">
+                <Setter Property="AnimationType" Value="ECG" />
+                <Setter Property="TextColor" Value="DarkRed" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+
+            <Style x:Key="BusyIndicatorStyle2" TargetType="xForms:SfBusyIndicator">
+                <Setter Property="AnimationType" Value="ECG" />
+                <Setter Property="TextColor" Value="DeepPink" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
+            </Style>
+
+            <!--  Common style for borders  -->
+            <Style x:Key="SfBorderStyle" TargetType="border:SfBorder">
+
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+
+            <Style x:Key="SfRangeSliderMonoColoredStyle" TargetType="range:SfRangeSlider">
+                <Setter Property="TrackColor" Value="#BDBDBD" />
+                <Setter Property="TrackThickness" Value="5" />
+                <Setter Property="KnobColor" Value="White" />
+                <Setter Property="ThumbSize">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android" Value="1.5" />
+                        <On Platform="iOS" Value="1" />
+                    </OnPlatform>
+                </Setter>
+                <Setter Property="LabelPlacement" Value="TopLeft" />
+                <Setter Property="ShowValueLabel" Value="False" />
+                <Setter Property="LabelColor" Value="Black" />
+                <Setter Property="SnapsTo" Value="StepValues" />
+                <Setter Property="StepFrequency" Value="1" />
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="ToolTipPlacement" Value="None" />
+                <Setter Property="ValuePlacement" Value="BottomRight" />
+                <Setter Property="ShowRange" Value="False" />
+                <Setter Property="TickPlacement" Value="None" />
+                <Setter Property="TrackSelectionColor" Value="#FF5869" />
+                <Setter Property="TrackSelectionThickness" Value="7" />
+                <Setter Property="ValueChangeMode" Value="OnThumb" />
+            </Style>
+
+            <Style x:Key="SfRadioButtonStyle" TargetType="buttons:SfRadioButton">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+                <Setter Property="CheckedColor" Value="LimeGreen" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+
+            <Style x:Key="SfCheckBoxStyle" TargetType="buttons:SfCheckBox">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="CheckedColor" Value="LimeGreen" />
+                <Setter Property="VerticalOptions" Value="Start" />
+            </Style>
+
+            <Style x:Key="SfDatePickerStyle" TargetType="pickers:SfDatePicker">
+                <Setter Property="Format" Value="dd_MM_yyyy" />
+                <Setter Property="PickerMode" Value="Dialog" />
+                <Setter Property="EnableLooping" Value="True" />
+                <Setter Property="HeaderBackgroundColor" Value="DeepPink" />
+                <Setter Property="HeaderTextColor" Value="White" />
+            </Style>
+
+            <Style x:Key="SfTimePickerStyle" TargetType="pickers:SfTimePicker">
+                <Setter Property="Format" Value="HH_mm" />
+                <Setter Property="PickerMode" Value="Dialog" />
+                <Setter Property="EnableLooping" Value="True" />
+                <Setter Property="HeaderBackgroundColor" Value="DeepPink" />
+                <Setter Property="HeaderTextColor" Value="White" />
+            </Style>
+
+            <Style x:Key="CardIcon-Label" TargetType="Label">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.FaLight300}" />
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.Pink}" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Style x:Key="SfComboBoxStyle" TargetType="comboBox:SfComboBox">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanRegular}" />
+                <Setter Property="DisplayMemberPath" Value="Text" />
+                <Setter Property="SelectedValuePath" Value="Id" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+            <Style x:Key="SfCardView" TargetType="cards:SfCardView">
+                <!--<Setter Property="ShadowColor" Value="#000019" />-->
+                <Setter Property="HeightRequest" Value="120" />
+                <Setter Property="WidthRequest" Value="120" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+            <Style x:Key="SfCardView-Xl" TargetType="cards:SfCardView">
+                <!--<Setter Property="ShadowColor" Value="#000019" />-->
+                <Setter Property="HeightRequest" Value="120" />
+                <Setter Property="WidthRequest" Value="200" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="SfCardView-S" TargetType="cards:SfCardView">
+                <!--<Setter Property="ShadowColor" Value="#000019" />-->
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="HasShadow" Value="False" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            </Style>
+
+            <Style x:Key="ListViewIcon-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ListViewItemIcon}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ListViewItemIcon}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ListViewItemIcon}, Path=TextColor}" />
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+            </Style>
+
+            <Style x:Key="ListViewTextSmall-Label" TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ListViewItemText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ListViewItemText}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ListViewItemText}, Path=TextColor}" />
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+            </Style>
+
+            <!-- delete everything above after everything is changed to styles below  -->
+
+            <!-- Joerg approved styles -->
+            <Style x:Key="ElementMargin"
+                   TargetType="{x:Type View}">
+                <Setter Property="Margin" Value="30,0,30,0" />
+            </Style>
+
+            <Style x:Key="HeadlineXl-Label"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}" />
+                <!--<Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineXl}, Path=FontFamily}" />-->
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineXl}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineXl}, Path=FontSize}" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.1" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.Pink}"></Setter>
+            </Style>
+
+            <Style x:Key="HeadlineL-Label"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=FontSize}" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.1" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+            <Style x:Key="HeadlinePM-Label"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlinePM}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineM}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineM}, Path=FontSize}" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.1" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="HeadlineM-Label"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineM}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineM}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineM}, Path=FontSize}" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.1" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="HeadlineS-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineS}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineS}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.HeadlineS}, Path=FontSize}" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.1" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+            <Style x:Key="Byline-PinkLabel"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.Pink}" />
+                <Setter Property="FontSize" Value="{Binding Source={x:Static fonts:Typography.ByBoldline}, Path=FontSize}" />
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+            </Style>
+            <Style x:Key="Byline-PurpleLabel"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=FontFamily}" />
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.Purple}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+                <Setter Property="FontAttributes" Value="Bold"></Setter>
+            </Style>
+
+            <Style x:Key="Byline-Label"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=TextColor}" />
+                <Setter Property="FontSize" Value="{Binding Source={x:Static fonts:Typography.Byline}, Path=FontSize}" />
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BylineIcon-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=FontSize}" />
+                <Setter Property="Margin"
+                        Value="30, 0, 0, 0" />
+            </Style>
+
+            <Style x:Key="Paragraph-ZgParagraph"
+                   TargetType="{x:Type customControls:ZgParagraph}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=FontSize}" />
+                <Setter Property="LineHeight"
+                        Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=LineHeight}" />
+            </Style>
+
+            <Style x:Key="ParagraphMedium-ZgParagraph"
+                   TargetType="{x:Type customControls:ZgParagraph}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=TextColor}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=FontSize}" />
+                <Setter Property="LineHeight"
+                        Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=LineHeight}" />
+            </Style>
+
+            <Style x:Key="InputLayout-ZgInputLayout"
+                   TargetType="{x:Type customControls:ZgInputLayout}"
+                               BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutLabel}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutLabel}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutLabel}, Path=TextColor}" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="LabelMargin" Value="10" />
+                <Setter Property="IsLabelVisible" Value="True" />
+                <!--<Setter Property="BackgroundColor" Value="#F2F2F2" />-->
+                <!--<Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightBackground}" />-->
+            </Style>
+
+            <Style x:Key="InputEntry-ZgEntry"
+                   TargetType="{x:Type customControls:ZgEntry}">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+            </Style>
+
+            <Style x:Key="InputEntry-Editor"
+                   TargetType="{x:Type Editor}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="BackgroundColor"
+                        Value="{x:Static fonts:CustomColors.White}" />
+            </Style>
+
+            <Style x:Key="InputComboBox-SfComboBox"
+                   TargetType="{x:Type comboBox:SfComboBox}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="TextSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="DropDownTextSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="ShowBorder" Value="False" />
+                <Setter Property="DropDownButtonSettings">
+                    <Setter.Value>
+                        <comboBox:DropDownButtonSettings>
+                            <comboBox:DropDownButtonSettings.View>
+                                <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf078;"
+                                       TextColor="{x:Static fonts:CustomColors.TextColorRegular}"
+                                       FontSize="18" />
+                            </comboBox:DropDownButtonSettings.View>
+                        </comboBox:DropDownButtonSettings>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="InputComboBox-ZgComboBox"
+                   TargetType="{x:Type customControls:ZgComboBox}">
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="TextSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="DropDownTextSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="ShowBorder" Value="False" />
+                <Setter Property="Padding" Value="0,4,0,4" />
+                <Setter Property="DropDownButtonSettings">
+                    <Setter.Value>
+                        <comboBox:DropDownButtonSettings>
+                            <comboBox:DropDownButtonSettings.View>
+                                <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf078;"
+                                       TextColor="{x:Static fonts:CustomColors.TextColorRegular}"
+                                       FontSize="18"
+                                       Padding="0"
+                                       Margin="0" />
+                            </comboBox:DropDownButtonSettings.View>
+                        </comboBox:DropDownButtonSettings>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="InputPicker-ZgPicker"
+                   TargetType="{x:Type customControls:ZgPicker}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="TitleColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="Padding" Value="0,4,0,4" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <!--<Setter Property="Margin">
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="Android" Value="0,-4,0,-4" />
+                        <On Platform="iOS" Value="0,-4,0,-4" />
+                    </OnPlatform>
+                </Setter>-->
+            </Style>
+
+            <Style x:Key="InputDate-ZgDatePicker"
+                   TargetType="{x:Type customControls:ZgDatePicker}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="Padding" Value="10" />
+
+                <Setter Property="HeightRequest">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="15" />
+                        <On Platform="Android" Value="20" />
+                    </OnPlatform>
+                </Setter>
+
+                <!--avoid black background on iOS DarkMode-->
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+            </Style>
+
+            <Style x:Key="InputTime-ZgTimePicker"
+                   TargetType="{x:Type customControls:ZgTimePicker}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=FontFamily}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+
+                <!--<Setter Property="HeightRequest">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="20" />
+                        <On Platform="Android" Value="25" />
+                    </OnPlatform>
+                </Setter>-->
+                <Setter Property="HeightRequest" Value="100"></Setter>
+                <Setter Property="WidthRequest" Value="150"></Setter>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="HorizontalOptions" Value="End"></Setter>
+                <Setter Property="FontSize" Value="32"></Setter>
+            </Style>
+
+            <Style x:Key="RadioButton-ZgRadioButton"
+                   TargetType="{x:Type customControls:ZgRadioButton}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="LabelFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLabel}, Path=FontFamily}" />
+                <Setter Property="LabelFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLabel}, Path=FontSize}" />
+                <Setter Property="LabelTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLabel}, Path=TextColor}" />
+                <Setter Property="DescriptionFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLDescription}, Path=FontFamily}" />
+                <Setter Property="DescriptionFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLDescription}, Path=FontSize}" />
+                <Setter Property="DescriptionTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLDescription}, Path=TextColor}" />
+                <Setter Property="DescriptionLineHeight"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonLDescription}, Path=LineHeight}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonIconChecked}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonIconChecked}, Path=FontSize}" />
+                <Setter Property="IconCheckedColor"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonIconChecked}, Path=TextColor}" />
+                <Setter Property="IconCheckedBackgroundColor" Value="{x:Static fonts:CustomColors.NewGreen}" />
+                <Setter Property="IconCheckedUnicode" Value="&#xf00c;" />
+                <Setter Property="IconUncheckedColor"
+                        Value="{Binding Source={x:Static fonts:Typography.RadioButtonIconUnchecked}, Path=TextColor}" />
+                <Setter Property="IconUncheckedBackgroundColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+                <Setter Property="IconUncheckedUnicode" Value="{x:Null}" />
+                <Setter Property="GapWidth" Value="20" />
+                <Setter Property="GapHeight" Value="0" />
+                <Setter Property="IconCornerRadius">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android" Value="50" />
+                        <On Platform="iOS" Value="15" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="RadioButtonWithDescription-ZgRadioButton"
+                   TargetType="{x:Type customControls:ZgRadioButton}"
+                   BasedOn="{StaticResource RadioButton-ZgRadioButton}">
+                <Setter Property="ShowDescription" Value="True" />
+            </Style>
+
+            <Style x:Key="CheckBox-ZgRadioButton"
+                   TargetType="{x:Type customControls:ZgRadioButton}"
+                   BasedOn="{StaticResource RadioButton-ZgRadioButton}">
+                <Setter Property="IconCornerRadius" Value="5" />
+            </Style>
+
+            <Style x:Key="CheckBoxWithDescription-ZgRadioButton"
+                   TargetType="{x:Type customControls:ZgRadioButton}"
+                   BasedOn="{StaticResource CheckBox-ZgRadioButton}">
+                <Setter Property="ShowDescription" Value="True" />
+            </Style>
+
+            <Style x:Key="Small-Button-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="ButtonMargin" Value="24,18,24,18" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontFamily}" />
+                <!--<Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontSize}" />-->
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.NewGreen}" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="GapWidth" Value="16" />
+                <Setter Property="BlurRadius" Value="3" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style x:Key="Button-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="ButtonMargin" Value="24,18,24,18" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.NewGreen}" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="GapWidth" Value="16" />
+                <!--<Setter Property="BlurRadius" Value="3" />-->
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+            <Style x:Key="Button-ZgButtonPink"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.Pink}" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HeightRequest" Value="55" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="CornerRadius" Value="10" />
+            </Style>
+
+            <Style x:Key="WhiteButton-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource Button-ZgButton}">
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.White}" />
+            </Style>
+
+            <Style x:Key="WhiteListItemButton-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource Button-ZgButton}">
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.White}" />
+            </Style>
+
+            <Style x:Key="RedBorderButton-ZgButton"
+                    TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource Button-ZgButton}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="BorderColor" Value="{x:Static fonts:CustomColors.Pink}" />
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.Pink}" />
+                <Setter Property="BorderWidth" Value="2" />
+            </Style>
+
+            <Style x:Key="IconButton-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource Button-ZgButton}">
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.White}" />
+                <!--   <Setter Property="GapWidth" Value="0" />
+                <Setter Property="ButtonMargin" Value="10,5" />
+                <Setter Property="Margin" Value="5,0" />-->
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="RoundButton-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="ButtonMargin" Value="0,16,0,16" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIcon}, Path=FontSize}" />
+
+                <!--<Setter Property="GapWidth" Value="16" />-->
+                <Setter Property="BlurRadius" Value="3" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="ButtonColor" Value="WhiteSmoke" />
+                <Setter Property="CornerRadius">
+                    <OnPlatform x:TypeArguments="CornerRadius">
+                        <On Platform="Android" Value="30" />
+                        <On Platform="iOS" Value="25" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="WhiteButton-Brands-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource WhiteButton-ZgButton}">
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=TextColor}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonTextInverted}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInverted}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInvertedBrands}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonIconInvertedBrands}, Path=FontSize}" />
+                <Setter Property="ButtonColor" Value="{x:Static fonts:CustomColors.LightBackground}" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightBackground}" />
+                <Setter Property="CornerRadius" Value="6" />
+            </Style>
+
+            <Style x:Key="FullWidthButton-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource Button-ZgButton}">
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HeightRequest" Value="55" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="CornerRadius" Value="10" />
+            </Style>
+
+            <Style x:Key="FullWidthButtonWithoutIcon-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource Button-ZgButton}">
+                <Setter Property="GapWidth" Value="0" />
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="Separator-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="Margin" Value="30,10,0,10" />
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+                <Setter Property="HeightRequest" Value="1" />
+            </Style>
+
+            <Style x:Key="VerticalSeparator-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+                <Setter Property="WidthRequest" Value="1" />
+            </Style>
+
+            <Style x:Key="BusyIndicator-SfBusyIndicator"
+                   TargetType="{x:Type xForms:SfBusyIndicator}">
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.Green}" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="AnimationType" Value="Material" />
+            </Style>
+
+            <Style x:Key="MainTabView-SfTabView"
+                   TargetType="{x:Type tabView:SfTabView}">
+                <Setter Property="DisplayMode" Value="ImageWithText" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="TabHeaderPosition" Value="Bottom" />
+                <Setter Property="TabHeaderBackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="TabHeight" Value="70" />
+                <Setter Property="SelectionIndicatorSettings">
+                    <Setter.Value>
+                        <tabView:SelectionIndicatorSettings StrokeThickness="0" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SubTabView-SfTabView"
+                   TargetType="{x:Type tabView:SfTabView}"
+                   BasedOn="{StaticResource MainTabView-SfTabView}">
+                <Setter Property="TabHeaderBackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="TabHeaderPosition" Value="Top" />
+                <Setter Property="SelectionIndicatorSettings">
+                    <Setter.Value>
+                        <tabView:SelectionIndicatorSettings Color="{x:Static fonts:CustomColors.Pink}"
+                                                            Position="Bottom"
+                                                            StrokeThickness="1" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Slider-ZgSlider"
+                   TargetType="{x:Type customControls:ZgSlider}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="HeaderFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.SliderHeader}, Path=FontFamily}" />
+                <Setter Property="HeaderFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.SliderHeader}, Path=FontSize}" />
+                <Setter Property="HeaderTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.SliderHeader}, Path=TextColor}" />
+                <Setter Property="HeaderValueFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.SliderValue}, Path=FontFamily}" />
+                <Setter Property="HeaderValueFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.SliderValue}, Path=FontSize}" />
+                <Setter Property="HeaderValueTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.SliderValue}, Path=TextColor}" />
+                <Setter Property="TrackColor" Value="#F2F2F2" />
+                <Setter Property="TrackSelectionColor" Value="#FF5869" />
+                <Setter Property="TrackThickness" Value="5" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="SliderHeightRequest" Value="10" />
+                <Setter Property="ThumbColor" Value="#FF5869" />
+                <Setter Property="ThumbBorderColor" Value="#FF5869" />
+                <Setter Property="ThumbSize" Value="20" />
+                <Setter Property="Padding" Value="0" />
+
+                <!--<Setter Property="ThumbSize">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android" Value="2" />
+                        <On Platform="iOS" Value="1.5" />
+                    </OnPlatform>
+                </Setter>-->
+
+                <Setter Property="HeaderLineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="Slider-ZgSlider-NoValueHeader"
+                   TargetType="{x:Type customControls:ZgSlider}"
+                   BasedOn="{StaticResource Slider-ZgSlider}">
+                <Setter Property="ShowHeaderValue" Value="False" />
+            </Style>
+
+            <Style x:Key="BubbleWBadge-ZgBubble"
+                   TargetType="{x:Type customControls:ZgBubble}">
+                <Setter Property="ShowBadge" Value="True" />
+                <Setter Property="BadgePosition" Value="TopRight" />
+                <Setter Property="BadgeSize" Value="36" />
+                <Setter Property="BlurRadius" Value="10" />
+                <Setter Property="HeightRequest" Value="100" />
+                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="BubbleBackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="BadgeBackgroundColor" Value="{x:Static fonts:CustomColors.Pink}" />
+            </Style>
+
+            <Style x:Key="BubbleText-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleText}, Path=FontSize}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="VerticalTextAlignment" Value="End" />
+                <Setter Property="FontAttributes" Value="Bold" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BubbleTextInsteadOfIcon-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleTextInsteadOfIcon}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleTextInsteadOfIcon}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleTextInsteadOfIcon}, Path=TextColor}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BubbleIcon-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=FontSize}" />
+                <!--<Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=TextColor}" />-->
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="TextColor" Value="White" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BubbleBadgeText-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleBadgeText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleBadgeText}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleBadgeText}, Path=TextColor}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+
+                <Setter Property="LineHeight">
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="iOS" Value="1.2" />
+                        <On Platform="Android" Value="1.0" />
+                    </OnPlatform>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BubbleBadgeIcon-Label"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleBadgeIcon}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleBadgeIcon}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleBadgeIcon}, Path=TextColor}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="ShadowBorderTop-ZgShadowSeparator"
+                   TargetType="{x:Type customControls:ZgShadowSeparator}">
+                <Setter Property="Thickness" Value="2" />
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="GradientStartColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+                <Setter Property="GradientStopColor" Value="Transparent" />
+            </Style>
+
+            <Style x:Key="ShadowBorderBottom-ZgShadowSeparator"
+                   TargetType="{x:Type customControls:ZgShadowSeparator}">
+                <Setter Property="Thickness" Value="2" />
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="GradientStartColor" Value="Transparent" />
+                <Setter Property="GradientStopColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+            </Style>
+
+            <Style x:Key="ButtonGroup-ZgButtonGroup"
+                   TargetType="{x:Type customControls:ZgButtonGroup}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontSize}" />
+                <Setter Property="ActiveBackgroundColor" Value="{x:Static fonts:CustomColors.Green}" />
+                <Setter Property="InactiveBackgroundColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+                <Setter Property="ActiveTextColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="InactiveTextColor" Value="{x:Static fonts:CustomColors.TextColorRegular}" />
+                <Setter Property="LabelPadding" Value="15" />
+                <Setter Property="CornerRadius" Value="8" />
+            </Style>
+
+            <Style x:Key="ImageView-ZgImageView"
+                   TargetType="{x:Type customControls:ZgImageView}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="BlurRadius" Value="10" />
+            </Style>
+
+            <Style x:Key="JaggedIcon-ZgJaggedIcon"
+                   TargetType="{x:Type customControls:ZgJaggedIcon}">
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=FontSize}" />
+                <Setter Property="TextColor" Value="{x:Static fonts:CustomColors.White}" />
+            </Style>
+
+            <Style x:Key="MessageRed-ZgMessageBox"
+                   TargetType="{x:Type customControls:ZgMessageBox}"
+                   BasedOn="{StaticResource ElementMargin}">
+                <Setter Property="Margin" Value="30,15,30,15" />
+                <Setter Property="GapWidth" Value="16" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="IconText" Value="&#xe02e;" />
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightRed}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedText}, Path=FontSize}" />
+                <Setter Property="LineHeight"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedText}, Path=LineHeight}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedText}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedIcon}, Path=FontSize}" />
+                <!--<Setter Property="IconLineHeight" Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedIcon}, Path=LineHeight}" />-->
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxRedIcon}, Path=TextColor}" />
+            </Style>
+
+            <Style x:Key="MessageGray-ZgMessageBox"
+                   TargetType="{x:Type customControls:ZgMessageBox}"
+                   BasedOn="{StaticResource MessageRed-ZgMessageBox}">
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayText}, Path=FontSize}" />
+                <Setter Property="LineHeight"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayText}, Path=LineHeight}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayText}, Path=TextColor}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayIcon}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.MessageBoxGrayIcon}, Path=TextColor}" />
+            </Style>
+
+            <Style x:Key="NavBarButton-ZgNavBarButton"
+                   TargetType="{x:Type customControls:ZgNavBarButton}">
+                <Setter Property="GapWidth" Value="8" />
+                <Setter Property="ButtonColor" Value="White" />
+                <Setter Property="ButtonMargin" Value="8,4,8,4" />
+                <Setter Property="FontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonText}, Path=FontFamily}" />
+                <Setter Property="FontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonText}, Path=FontSize}" />
+                <Setter Property="TextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonText}, Path=TextColor}" />
+                <Setter Property="LineHeight"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonText}, Path=LineHeight}" />
+                <Setter Property="IconFontFamily"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonIcon}, Path=FontSize}" />
+                <Setter Property="IconTextColor"
+                        Value="{Binding Source={x:Static fonts:Typography.NavBarButtonIcon}, Path=TextColor}" />
+            </Style>
+
+            <Style x:Key="InfoBox-Grid"
+                   TargetType="{x:Type Grid}">
+                <Setter Property="Padding" Value="10" />
+                <Setter Property="Margin" Value="30,15,30,15" />
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.LightGray}" />
+            </Style>
+
+            <Style x:Key="InfoBoxParagraph-ZgParagraph"
+                   TargetType="{x:Type customControls:ZgParagraph}"
+                   BasedOn="{StaticResource Paragraph-ZgParagraph}">
+                <Setter Property="Margin" Value="0" />
+            </Style>
+
+            <Style x:Key="HoldingView-ZgHoldingView"
+                   TargetType="{x:Type customControls:ZgHoldingView}">
+                <Setter Property="TitleFontFamily" Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=FontFamily}" />
+                <Setter Property="TitleFontSize" Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=FontSize}" />
+                <Setter Property="TitleLineHeight" Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=LineHeight}" />
+                <Setter Property="TitleTextColor" Value="{Binding Source={x:Static fonts:Typography.HeadlineL}, Path=TextColor}" />
+
+                <Setter Property="IconBackgroundColor" Value="{x:Static fonts:CustomColors.Black}" />
+                <Setter Property="IconFontFamily" Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=FontFamily}" />
+                <Setter Property="IconFontSize" Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=FontSize}" />
+                <Setter Property="IconLineHeight" Value="{Binding Source={x:Static fonts:Typography.BubbleIcon}, Path=LineHeight}" />
+                <Setter Property="IconTextColor" Value="{x:Static fonts:CustomColors.White}" />
+
+                <Setter Property="DescriptionFontFamily" Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=FontFamily}" />
+                <Setter Property="DescriptionFontSize" Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=FontSize}" />
+                <Setter Property="DescriptionLineHeight" Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=LineHeight}" />
+                <Setter Property="DescriptionTextColor" Value="{Binding Source={x:Static fonts:Typography.Paragraph}, Path=TextColor}" />
+
+                <Setter Property="ButtonFontFamily" Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontFamily}" />
+                <Setter Property="ButtonFontSize" Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=FontSize}" />
+                <Setter Property="ButtonLineHeight" Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=LineHeight}" />
+                <Setter Property="ButtonTextColor" Value="{Binding Source={x:Static fonts:Typography.ButtonText}, Path=TextColor}" />
+                <Setter Property="ButtonBackgroundColor" Value="{x:Static fonts:CustomColors.Pink}" />
+                <Setter Property="ButtonMargin" Value="24,18,24,18" />
+                <Setter Property="ButtonCornerRadius" Value="6" />
+                <Setter Property="ButtonBlurRadius" Value="3" />
+
+                <Setter Property="TapableLabelFontFamily" Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=FontFamily}" />
+                <Setter Property="TapableLabelFontSize" Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=FontSize}" />
+                <Setter Property="TapableLabelLineHeight" Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=LineHeight}" />
+                <Setter Property="TapableLabelTextColor" Value="{Binding Source={x:Static fonts:Typography.ParagraphMedium}, Path=TextColor}" />
+                <Setter Property="TapableLabelTextDecoration" Value="Underline" />
+            </Style>
+
+            <Style TargetType="{x:Type Frame}">
+                <Setter Property="HasShadow" Value="False" />
+            </Style>
+
+            <ControlTemplate x:Key="SqureRadioTemplate">
+                <border:SfBorder  CornerRadius="6"  HasShadow="True"  BackgroundColor="#FFF"  BorderWidth="0">
+
+                    <ContentPresenter>
+                        <ContentPresenter.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalOptions" Value="Center" />
+                                <Setter Property="VerticalOptions" Value="Center" />
+
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FF5869" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </border:SfBorder>
+            </ControlTemplate>
+            
+            <ControlTemplate x:Key="FrameRadioTemplate">
+                <border:SfBorder  CornerRadius="6" HeightRequest="120" WidthRequest="160" HasShadow="True"  BackgroundColor="#FFF"  BorderWidth="0">
+
+                    <ContentPresenter>
+                        <ContentPresenter.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalOptions" Value="Center" />
+                                <Setter Property="VerticalOptions" Value="Center" />
+
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FF5869" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </border:SfBorder>
+            </ControlTemplate>
+            <ControlTemplate x:Key="FramePurpleRadioTemplate">
+                <border:SfBorder Padding="5" CornerRadius="6" HeightRequest="120" WidthRequest="160" BorderColor="#E0E0E0"
+                 HasShadow="True"  BackgroundColor="#FFF" BorderWidth="0" BorderThickness="0">
+
+                    <ContentPresenter>
+                        <ContentPresenter.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalOptions" Value="Center" />
+                                <Setter Property="VerticalOptions" Value="Center" />
+
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#B996C3" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </border:SfBorder>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="FoodGroupRadioTemplate">
+                <border:SfBorder Padding="5" CornerRadius="5" HeightRequest="100" WidthRequest="100" BorderColor="#E0E0E0" HasShadow="False"
+                   BackgroundColor="#FFF">
+
+                    <ContentPresenter>
+                        <ContentPresenter.Resources>
+                            <Style TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#828282" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FFF" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </border:SfBorder>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="ToggleRadioTemplate">
+                <border:SfBorder Padding="5" CornerRadius="6" BorderColor="#828282" HasShadow="False" BorderWidth="0"
+                                  WidthRequest="120" HeightRequest="35"
+                   BackgroundColor="#828282">
+
+                    <ContentPresenter>
+                        <ContentPresenter.Resources>
+                            <Style TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                        <Setter Property="TextColor" Value="#E0E0E0" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="False">
+                                        <Setter Property="TextColor" Value="#FFF" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#FF5869" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#828282" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </border:SfBorder>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="ThemeRadioTemplate">
+                <border:SfBorder
+                    Padding="0"
+                    BorderWidth="0"
+                    BackgroundColor="#828282"
+                    HasShadow="False"
+                    HeightRequest="40"
+                    WidthRequest="120"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    CornerRadius="6">
+                    <!-- This enables us to put in dynamic content -->
+                    <Label Text="{TemplateBinding Content}" TextColor="#FFF" x:Name="labelText" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#FF5869" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="#828282" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </border:SfBorder>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="ContentPageBaseTemplate">
+                <Grid BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
+                      RowSpacing="0"
+                      ColumnSpacing="0"
+                      Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- TOP BORDER -->
+                    <Label Grid.Row="0"
+                           HeightRequest="1"
+                           BackgroundColor="{x:Static fonts:CustomColors.LineColor}"
+                           IsVisible="{Binding ShowTopBorder}" />
+
+                    <!-- CONTENT -->
+                    <ContentPresenter Grid.Row="1" Content="{Binding Content}" />
+
+                    <!-- BUSY INDICATOR -->
+                    <Grid Grid.Row="1"
+                          BackgroundColor="{x:Static fonts:CustomColors.GrayBackgroundColor}"
+                          IsVisible="{Binding ShowBusyIndicator}">
+                        <xForms:SfBusyIndicator IsBusy="{Binding ShowBusyIndicator}"
+                                                Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+                    </Grid>
+
+                    <!-- BOTTOM BORDER -->
+                    <Label Grid.Row="2" HeightRequest="0"
+                           BackgroundColor="{x:Static fonts:CustomColors.LineColor}"
+                           IsVisible="{Binding ShowBottomBorder}" />
+
+                    <!-- OVERLAY -->
+                    <customControls:ZgOverlayView Grid.Row="0"
+                                                  Grid.RowSpan="3"
+                                                  IsVisible="{Binding ShowOverlay}"
+                                                  CloseOverlayCommand="{Binding Path=CloseOverlayCommand}"
+                                                  Content="{Binding Overlay}" />
+                </Grid>
+            </ControlTemplate>
+
+            <Style TargetType="{x:Type ContentPage}"
+                   x:Key="PageBaseStyle">
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="ControlTemplate" Value="{StaticResource ContentPageBaseTemplate}" />
+            </Style>
+
+            <Style TargetType="{x:Type ContentView}"
+                   x:Key="ViewBaseStyle">
+                <Setter Property="BackgroundColor" Value="{x:Static fonts:CustomColors.White}" />
+                <Setter Property="ControlTemplate" Value="{StaticResource ContentPageBaseTemplate}" />
+            </Style>
+
+            <!--HorizontalTextAlignment="Start"
+                            VerticalTextAlignment="Center"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                            TextColor="#4F4F4F"-->
+
+            <Style x:Key="MealsSeconadryHeaderTextLabel" TargetType="{x:Type Label}">
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}" />
+                <Setter Property="TextColor" Value="#4F4F4F" />
+            </Style>
+
+            <Style x:Key="TileRadioButtonHeaderText" TargetType="{x:Type Label}">
+                <Setter Property="VerticalTextAlignment" Value="End" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                <Setter Property="TextColor" Value="#4F4F4F" />
+            </Style>
+
+            <Style x:Key="TileRadioButtonTextDescription" TargetType="{x:Type Label}">
+                <Setter Property="VerticalTextAlignment" Value="End" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanLight}" />
+                <Setter Property="TextColor" Value="#4F4F4F" />
+            </Style>
+
+            <Style x:Key="TileRadioButtonIcon" TargetType="{x:Type Label}">
+                <Setter Property="VerticalTextAlignment" Value="End" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="Margin" Value="10,5,0,0" />
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.FaLight300}" />
+                <Setter Property="TextColor" Value="#FF5869" />
+            </Style>
+
+            <Style x:Key="TileButtonIcon" TargetType="{x:Type Label}">
+                <Setter Property="VerticalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="Start" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.FaLight300}" />
+                <Setter Property="TextColor" Value="#FFF" />
+            </Style>
+
+            <Style x:Key="TileButtonHeaderText" TargetType="{x:Type Label}">
+                <Setter Property="VerticalTextAlignment" Value="End" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="FontSize" Value="13.5" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                <Setter Property="TextColor" Value="#FFF" />
+                <Setter Property="Margin" Value="10,0,10,10" />
+            </Style>
+
+            <Style x:Key="SaveButton" TargetType="{x:Type buttons:SfButton}">
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Margin" Value="15,10" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="TextColor" Value="#FFF" />
+                <Setter Property="BackgroundColor" Value="#319C8A" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+
+            <ControlTemplate x:Key="ProgressRadioTemplate">
+                <border:SfBorder Padding="0"  HeightRequest="50"  HasShadow="False"
+                                 BackgroundColor="Transparent" BorderThickness="0"   BorderWidth="0">
+                    <ContentPresenter>
+                        <ContentPresenter.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="HorizontalOptions" Value="Start" />
+                                <Setter Property="VerticalOptions" Value="Center" />
+                                <Setter Property="TextColor" Value="#BDBDBD" />
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                        <Setter Property="TextColor" Value="#FF5869" />
+                                        <Setter Property="FontSize" Value="16" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ContentPresenter.Resources>
+                    </ContentPresenter>
+                </border:SfBorder>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</unity:PrismApplication>

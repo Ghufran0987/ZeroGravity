@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IMealsSnacksPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:res="clr-namespace:ZeroGravity.Mobile.Resources;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:badge ="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.MealsSnacksPage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                         ShowGreyBackground="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:FoodAmountToIconStringConverter x:Key="FoodAmountToIconStringConverter" />
+            <converter:FoodAmountToBadgeBackgroundColorConverter x:Key="FoodAmountToBadgeBackgroundColorConverter" />
+            <converter:FoodAmountToBadgeTextColorConverter x:Key="FoodAmountToBadgeTextColorConverter" />
+            <converter:FoodAmountToFontFamilyConverter x:Key="FoodAmountToFontFamilyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView BackgroundColor="#E0E0E0">
+        <Grid RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <!--Top Margin-->
+                <RowDefinition Height="20" />
+                <!--Header-->
+                <RowDefinition Height="Auto" />
+                <!--Sub Header-->
+                <RowDefinition Height="Auto" />
+
+                <RowDefinition Height="168" />
+
+                <RowDefinition Height="Auto" />
+
+                <RowDefinition Height="10" />
+
+                <!--Fill Empty Space-->
+                <RowDefinition Height="*" />
+                <!--Bottom Margin-->
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+
+            <Image HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill" HeightRequest="250" WidthRequest="250"
+                   Source="{Binding MealsSnacksImageSource}"
+                   Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="0,-30" />
+
+            <Label Grid.Column="1" Grid.Row="1" Text="{x:Static resources:AppResources.MealsSnacks_Title}"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="36"
+                           Style="{StaticResource HeadlineXl-Label}" />
+
+            <Label Grid.Column="1" Grid.Row="2" Text="{x:Static resources:AppResources.MealsSnacks_Description}"
+                          HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource Byline-Label}" TextColor="#4F4F4F" />
+
+            <Grid  Grid.Row="4" Grid.Column="1" RowSpacing="2" ColumnSpacing="2" Margin="0" HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <badge:SfBadgeView HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="0" Grid.Column="0"  HeightRequest="110" WidthRequest="160">
+                    <badge:SfBadgeView.Content>
+                        <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              HeightRequest="100"
+                              WidthRequest="150"
+                              CornerRadius="6"
+                              HasShadow="False"
+                              Command="{Binding BreakfastCommand}"
+                              BackgroundColor="#FFF">
+                            <buttons:SfButton.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
+                                       Text="{x:Static res:IconUnicodes.Breakfast}"
+                                       Style="{StaticResource TileButtonIcon}"
+                                       FontSize="18"
+                                       Margin="10" TextColor="#FF5869"
+                                       HorizontalTextAlignment="Start"
+                                       HorizontalOptions="Start" />
+                                    <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MealsSnacks_Breakfast}"
+                                       Style="{StaticResource TileButtonHeaderText}"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,10"
+                                       HorizontalTextAlignment="Start" TextColor="#FF5869"
+                                       VerticalTextAlignment="End"
+                                       HorizontalOptions="StartAndExpand" />
+                                </Grid>
+                            </buttons:SfButton.Content>
+                        </buttons:SfButton>
+                    </badge:SfBadgeView.Content>
+                </badge:SfBadgeView>
+
+                <badge:SfBadgeView HorizontalOptions="End" Grid.Row="0" Grid.Column="1" VerticalOptions="Start"
+                                   HeightRequest="110" WidthRequest="160">
+                    <badge:SfBadgeView.Content>
+                        <buttons:SfButton
+                              HorizontalOptions="End"
+                              VerticalOptions="Start"
+                              HeightRequest="100"
+                              WidthRequest="150"
+                              CornerRadius="6"
+                              HasShadow="False"
+                              Command="{Binding LunchCommand}"
+                          BackgroundColor="#FFF">
+                            <buttons:SfButton.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
+                                      Text="{x:Static res:IconUnicodes.Lunch}"
+                                       Style="{StaticResource BubbleIcon-Label}"
+                                       FontSize="18"
+                                       Margin="10"
+                                       HorizontalTextAlignment="Start" TextColor="#FF5869"
+                                       HorizontalOptions="Start" />
+                                    <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MealsSnacks_Lunch}"
+                                          Style="{StaticResource TileButtonHeaderText}"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,10"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="End" TextColor="#FF5869"
+                                       HorizontalOptions="StartAndExpand" />
+                                </Grid>
+                            </buttons:SfButton.Content>
+                        </buttons:SfButton>
+                    </badge:SfBadgeView.Content>
+                </badge:SfBadgeView>
+
+                <badge:SfBadgeView HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="1" Grid.Column="0"
+                                   HeightRequest="110" WidthRequest="160">
+                    <badge:SfBadgeView.Content>
+                        <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              HeightRequest="100"
+                              WidthRequest="150"
+                              CornerRadius="6"
+                              HasShadow="False"
+                              Command="{Binding DinnerCommand}"
+                          BackgroundColor="#FFF">
+                            <buttons:SfButton.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
+                                      Text="{x:Static res:IconUnicodes.Dinner}"
+                                       Style="{StaticResource BubbleIcon-Label}"
+                                       FontSize="18"
+                                       Margin="10"
+                                       HorizontalTextAlignment="Start" TextColor="#FF5869"
+                                       HorizontalOptions="Start" />
+                                    <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MealsSnacks_Dinner}"
+                                        Style="{StaticResource TileButtonHeaderText}"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,10"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="End" TextColor="#FF5869"
+                                       HorizontalOptions="StartAndExpand" />
+                                </Grid>
+                            </buttons:SfButton.Content>
+                        </buttons:SfButton>
+                    </badge:SfBadgeView.Content>
+                </badge:SfBadgeView>
+
+                <badge:SfBadgeView HorizontalOptions="End" Grid.Row="1" Grid.Column="1" VerticalOptions="Start"
+                                   HeightRequest="110" WidthRequest="160">
+                    <badge:SfBadgeView.Content>
+                        <buttons:SfButton
+                              HorizontalOptions="End"
+                              VerticalOptions="Start"
+                              HeightRequest="100"
+                              WidthRequest="150"
+                              CornerRadius="6"
+                              HasShadow="False"
+                              Command="{Binding HealthySnackCommand}"
+                          BackgroundColor="#FFF">
+                            <buttons:SfButton.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
+                                      Text="{x:Static res:IconUnicodes.HealthySnack}"
+                                       Style="{StaticResource BubbleIcon-Label}"
+                                       FontSize="18"
+                                       Margin="10"
+                                       HorizontalTextAlignment="Start" TextColor="#FF5869"
+                                       HorizontalOptions="Start" />
+                                    <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MealsSnacks_HealthySnack}"
+                                        Style="{StaticResource TileButtonHeaderText}"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,10"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="End" TextColor="#FF5869"
+                                       HorizontalOptions="StartAndExpand" />
+                                </Grid>
+                            </buttons:SfButton.Content>
+                        </buttons:SfButton>
+                    </badge:SfBadgeView.Content>
+                </badge:SfBadgeView>
+
+                <badge:SfBadgeView HorizontalOptions="Start" VerticalOptions="Start" Grid.Row="2" Grid.Column="0"
+                                   HeightRequest="110" WidthRequest="160">
+                    <badge:SfBadgeView.Content>
+                        <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="Start"
+                              HeightRequest="100"
+                              WidthRequest="150"
+                              CornerRadius="6"
+                              HasShadow="False"
+                              Command="{Binding UnhealthySnackCommand}"
+                              BackgroundColor="#FFF">
+                            <buttons:SfButton.Content>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
+                                      Text="{x:Static res:IconUnicodes.UnhealthySnack}"
+                                       Style="{StaticResource BubbleIcon-Label}"
+                                       FontSize="18"
+                                       Margin="10"
+                                       HorizontalTextAlignment="Start" TextColor="#FF5869"
+                                       HorizontalOptions="Start" />
+                                    <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MealsSnacks_UnhealtySnack}"
+                                        Style="{StaticResource TileButtonHeaderText}"
+                                       FontAttributes="Bold"
+                                       Margin="10,0,10,10"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="End" TextColor="#FF5869"
+                                       HorizontalOptions="StartAndExpand" />
+                                </Grid>
+                            </buttons:SfButton.Content>
+                        </buttons:SfButton>
+                    </badge:SfBadgeView.Content>
+                </badge:SfBadgeView>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</base:ContentPageBase>

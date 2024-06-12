@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:ICoachingDetailPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                        xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms" xmlns:syncfusionListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.CoachingDetailPage"
+                      Title="{x:Static resources:AppResources.Coaching_Title}"
+                      BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <Grid>
+            <Image HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" Aspect="AspectFill"
+                   Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Background.png}"  Margin="0" />
+
+            <borders:SfBorder  Margin="20,40,20,20" BackgroundColor="White" CornerRadius="6" BorderThickness="0" BorderWidth="0">
+                <ScrollView>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="1" HeightRequest="40" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Logo.png}" />
+                        <Label Grid.Row="2"  Text="Coaching"
+                           HorizontalOptions="CenterAndExpand"
+                           FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynBold}"
+                           FontSize="40"
+                           TextColor="#319C8A" />
+
+                        <Grid Grid.Row="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                             
+                            </Grid.RowDefinitions>
+
+                            <StackLayout  Grid.Row="0">
+                                <!--<Label VerticalOptions="CenterAndExpand"
+                                            HorizontalTextAlignment="Center"
+                                            HorizontalOptions="StartAndExpand"
+                                            FontSize="18"
+                                            TextColor="#319C8A"
+                                   Text="The Miboko Team understand the journey to taking back control of your routine and habits won't always be easy. It takes hard work and determination to reach your goals."
+                                   Margin="10,0" />-->
+
+                                <Label Margin="20,0"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalTextAlignment="Center"
+                                   HorizontalOptions="StartAndExpand"
+                                   FontSize="18"
+                                   TextColor="#319C8A"
+                                   Text="The Miboko Team understand the journey to taking back control of your routine and habits won't always be easy. It takes hard work and determination to reach your goals.  &#10; &#10; That's why we are busy working with our behavioural experts to craft our coaching plans, to provide that extra nudge, and educational guidance. So watch this space.  &#10; &#10; As you're here, take a look as some of our educational materials  &#10; &#10;" />
+                            </StackLayout>
+
+                            <!--Email Options -->
+                            <!--<syncfusionListView:SfListView
+                            Grid.Row="1" Margin="40,5"
+                            SelectedItems="{Binding SelectedCoachingOptions, Mode=TwoWay}"
+                            SelectionMode="Multiple"
+                            SelectionGesture="Tap"
+                            AutoFitMode="DynamicHeight"
+                            IsScrollingEnabled="False"
+                            ItemsSource="{Binding CoachingOptions}">
+                                <syncfusionListView:SfListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <borders:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#BDBDBD">
+
+                                            <Label Text="{Binding}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </borders:SfBorder>
+                                    </DataTemplate>
+                                </syncfusionListView:SfListView.ItemTemplate>
+                                <syncfusionListView:SfListView.SelectedItemTemplate>
+                                    <DataTemplate>
+                                        <borders:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#FF5869">
+
+                                            <Label Text="{Binding}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                        </borders:SfBorder>
+                                    </DataTemplate>
+                                </syncfusionListView:SfListView.SelectedItemTemplate>
+                            </syncfusionListView:SfListView>-->
+
+                            <!--<buttons:SfButton Grid.Row="2" CornerRadius="30"
+                                              HorizontalOptions="Center"
+                                              Margin="10"
+                                              Command="{Binding SubmitInterestCommand}"
+                                              BackgroundColor="#319C8A"
+                                              TextColor="#FFF"
+                                              WidthRequest="140"
+                                              HeightRequest="40"
+                                              Text="Submit" />-->
+                            <!--END Email Options -->
+
+                            <StackLayout  Grid.Row="1">
+
+                                <buttons:SfButton   Margin="20,10" BackgroundColor="#b482af" BorderWidth="0"  CornerRadius="15" HasShadow="True"
+                                                    Command="{Binding BlogCommand}">
+                                    <buttons:SfButton.Content>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="60" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <Image HorizontalOptions="Start" Aspect="AspectFit" HeightRequest="60" WidthRequest="60"
+                                                Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.coaching_blog.png}"
+                                                Grid.Row="0" Margin="10,5" />
+
+                                            <Label Grid.Row="1"
+                                               Text="Latest Blogs" FontSize="28"
+                                               HorizontalOptions="Start" 
+                                               Margin="50,10" FontFamily="{x:Static fonts:CustomFontName.OpenSanMedium}"
+                                               VerticalTextAlignment="Start" TextColor="White"
+                                               Style="{StaticResource HeadlineS-Label}" />
+                                        </Grid>
+                                    </buttons:SfButton.Content>
+                                </buttons:SfButton>
+
+                                <buttons:SfButton   Margin="20,10" BackgroundColor="#ff5050" BorderWidth="0"  CornerRadius="15" HasShadow="True"
+                                                    Command="{Binding PoadCastCommand}">
+                                    <buttons:SfButton.Content>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="60" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <Image HorizontalOptions="Start" Aspect="AspectFit" HeightRequest="60" WidthRequest="60"
+                                                Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.coaching_podcast.png}"
+                                                Grid.Row="0" Margin="10,5" />
+
+                                            <Label Grid.Row="1"
+                                               Text="Latest Podcasts" FontSize="28"
+                                               HorizontalOptions="Start" 
+                                               Margin="50,10" FontFamily="{x:Static fonts:CustomFontName.OpenSanMedium}"
+                                               VerticalTextAlignment="Start" TextColor="White"
+                                               Style="{StaticResource HeadlineS-Label}" />
+                                        </Grid>
+                                    </buttons:SfButton.Content>
+                                </buttons:SfButton>
+
+                                <buttons:SfButton   Margin="20,10" BackgroundColor="#334d8d" BorderWidth="0"  CornerRadius="15" HasShadow="True"
+                                                    Command="{Binding CoursesCommand}">
+                                    <buttons:SfButton.Content>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="60" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+
+                                            <Image HorizontalOptions="Start" Aspect="AspectFit" HeightRequest="70" WidthRequest="80"
+                                                Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.coaching_educational.png}"
+                                                Grid.Row="0" Margin="10,5" />
+
+                                            <Label Grid.Row="1"
+                                               Text="Educational Courses" FontSize="28"
+                                               HorizontalOptions="Start" 
+                                               Margin="30,10" FontFamily="{x:Static fonts:CustomFontName.OpenSanMedium}"
+                                               VerticalTextAlignment="Start" TextColor="White"
+                                               Style="{StaticResource HeadlineS-Label}" />
+                                        </Grid>
+                                    </buttons:SfButton.Content>
+                                </buttons:SfButton>
+                            </StackLayout>
+
+                          
+                        </Grid>
+                    </Grid>
+                </ScrollView>
+            </borders:SfBorder>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IFeedbackPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:enums="clr-namespace:ZeroGravity.Mobile.Contract.Enums;assembly=ZeroGravity.Mobile"                         
+                       xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                       xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.FeedbackPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"                    
+                      Style="{StaticResource ViewBaseStyle}" BackgroundColor="#E7E8EA">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:FoodAmountToStringConverter x:Key="FoodAmountToStringConverter" />
+            <converter:FeedbackStateToColorConverter x:Key="FeedbackStateToColorConverter" />
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <ScrollView x:Name="RootScrollView" BackgroundColor="#E7E8EA">
+            <StackLayout
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="0,20,0,20"
+                Padding="0,0,0,20"
+                x:Name="RootLayout" BackgroundColor="#E7E8EA">
+
+                <Label
+                    Text="{x:Static resources:AppResources.Feedback_Title}"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource HeadlineXl-Label}" />
+
+                <Label
+                    Text="{x:Static resources:AppResources.Feedback_Subtitle}"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource Byline-Label}" />
+
+                <border:SfBorder Margin="30,30,30,0" BackgroundColor="#F2F2F2" CornerRadius="6" BorderWidth="0">
+                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" >
+                        <shimmer:SfShimmer.Content>
+                            <StackLayout Spacing="5" >
+
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <borders:SfBorder HeightRequest="70" WidthRequest="50"  BorderWidth="0" Grid.Column="0" Margin="5" Padding="5" BackgroundColor="#FFF" CornerRadius="6">
+                                        <Grid RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Label x:Name="BodyFatValueLabel" HorizontalTextAlignment="Center" Grid.Row="0"
+                                   Text="{Binding FeedbackSummaryProxy.PersonalDataProxy.BodyFat}"  FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}"
+                                    Margin="0" TextColor="#FF5869" FontAttributes="Bold" FontSize="30" />
+                                            <Label x:Name="BodyFatLabel" Grid.Row="1"
+                                   Text="{x:Static resources:AppResources.Feedback_Bodyfat}"
+                                   HorizontalTextAlignment="Center"  TextColor="#FF5869" />
+
+                                        </Grid>
+                                    </borders:SfBorder>
+
+                                    <borders:SfBorder HeightRequest="70" WidthRequest="50"  BorderWidth="0"  Grid.Column="1" Margin="5" Padding="5"  BackgroundColor="#FFF" CornerRadius="6">
+                                        <Grid RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Label x:Name="BodyMassIndexValueLabel" Style="{StaticResource HeadlineM-Label}" Grid.Row="0"
+                                      Margin="0" TextColor="#FF5869"  FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" FontSize="30"
+                                   Text="{Binding FeedbackSummaryProxy.PersonalDataProxy.BodyMassIndex}"
+                                   HorizontalTextAlignment="Center" />
+                                            <Label x:Name="BodyMassIndexLabel" Grid.Row="1"
+                                   Text="{x:Static resources:AppResources.Feedback_BodymassIndex}"
+                                   HorizontalTextAlignment="Center" TextColor="#FF5869"   />
+
+                                        </Grid>
+                                    </borders:SfBorder>
+
+
+                                </Grid>
+
+                                <Label Text="{x:Static resources:AppResources.Feedback_Description}"
+                                       VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                                       Margin="16,0" />
+
+                                   <Label Text="Start logging your inputs and create your future."
+                                          LineBreakMode="WordWrap"
+                                          VerticalTextAlignment="Center" HorizontalTextAlignment="Center" 
+                                          FontSize="18" TextColor="#FF5869"
+                                          Margin="10,10" IsVisible="{Binding ShowAdviceText, Converter={StaticResource InverseBoolConverter}}"/>
+
+                                <!--<customControls:ZgButton Text="Update your progress"
+                                         Style="{StaticResource Button-ZgButton}"
+                                         Margin="10,5,10,10" Command="{Binding OpenBodyMeasurementPageCommand}" />-->
+
+                                  
+
+                            </StackLayout>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+                </border:SfBorder >
+
+                <!--<Label Style="{StaticResource Separator-Label}" />-->
+
+
+                <StackLayout Spacing="30" Margin="0,20,0,20">
+                    <!--LiquidIntake-Feedback-->
+
+
+
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.ActualValue, Converter={converter:MetricLiquidToFluidOunceConverter}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.RecommendedValue, Converter={converter:MetricLiquidToFluidOunceConverter}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.Title}"
+                        ValueLabelUnit="{Binding LiquidUnitDisplay}"
+                        TargetImageSource="{Binding FeedbackSummaryProxy.WaterFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                        TitleIcon="&#xf75c;"
+                        ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+                         />
+
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.CalorieDrinkFeedbackDataProxy.ActualValue, Converter={converter:MetricLiquidToFluidOunceConverter}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.CalorieDrinkFeedbackDataProxy.RecommendedValue, Converter={converter:MetricLiquidToFluidOunceConverter}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.CalorieDrinkFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.CalorieDrinkFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Unhealthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.CalorieDrinkFeedbackDataProxy.Title}"
+                        ValueLabelUnit="{Binding LiquidUnitDisplay}"
+                        TargetImageSource="{Binding FeedbackSummaryProxy.CalorieDrinkFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf869;"/>
+
+                    <!--Activity-Feedback-->
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.ActualValue}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.RecommendedValue}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.Title}"
+                        ValueLabelUnit="h"
+                        TargetImageSource="{Binding FeedbackSummaryProxy.ActivityFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+                        TitleIcon="&#xf554;"/>
+
+                    <!--FoodIntake-Feedback-->
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.ActualValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.RecommendedValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.Title}"
+                        ValueLabelUnit=""
+                        TargetImageSource="{Binding FeedbackSummaryProxy.BreakfastFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf7f6;"/>
+
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.ActualValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.RecommendedValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.Title}"
+                        ValueLabelUnit=""
+                        TargetImageSource="{Binding FeedbackSummaryProxy.LunchFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf81f;"/>
+
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.ActualValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.RecommendedValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.Title}"
+                        ValueLabelUnit=""
+                        TargetImageSource="{Binding FeedbackSummaryProxy.DinnerFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf817;"/>
+
+                    <!--Snack-Feedback-->
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.ActualValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.RecommendedValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.Title}"
+                        ValueLabelUnit=""
+                        TargetImageSource="{Binding FeedbackSummaryProxy.HealthySnackFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf5d1;"/>
+
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.ActualValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.RecommendedValue, Converter={StaticResource FoodAmountToStringConverter}, ConverterParameter={x:Static resources:AppResources.Feedback_Title}}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Unhealthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.Title}"
+                        ValueLabelUnit=""
+                        TargetImageSource="{Binding FeedbackSummaryProxy.UnhealthySnackFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf564;"/>
+
+                    <customControls:ZgImageView
+                        ActualValueLabel="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.ActualValue}"
+                        TargetValueLabel="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.RecommendedValue}"
+                        RecommendationLabel="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.Recommendation}"
+                        FeedbackStateValue="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.FeedbackState}"
+                        FeedbackColor="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.FeedbackState, Converter={StaticResource FeedbackStateToColorConverter}, ConverterParameter={x:Static enums:FeedbackColorType.Healthy}}"
+                        TitleLabel="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.Title}"
+                        ValueLabelUnit=" min."
+                        TargetImageSource="{Binding FeedbackSummaryProxy.MeditationFeedbackDataProxy.Image}"
+                        Style="{StaticResource ImageView-ZgImageView}"
+                         ShowProgress="{Binding IsBusy}"
+                        ShowAdviceText="{Binding ShowAdviceText}"
+
+                        TitleIcon="&#xf808;"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+
+</base:ContentViewBase>

@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IUpdateBodyMeasurementsPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.UpdateBodyMeasurementsPage"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource ViewBaseStyle}">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+                <StackLayout Margin="0, 20, 0, 0">
+                    <Label Text="{x:Static resources:AppResources.Feedback_UpdateMeasurements_Title}"
+                           Style="{StaticResource HeadlineM-Label}"
+                           Margin="30,0,30,20" />
+
+                    <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                             TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalData_Weight}"
+                                             HeaderValueUnit="{Binding WeightSliderUnit}"
+                                             Value="{Binding PersonalDataProxy.Weight}"
+                                             Minimum="{Binding MinWeight}"
+                                             Maximum="{Binding MaxWeight}"
+                                             RangeMinimum="{Binding MinWeight}"
+                                             RangeMaximum="{Binding MaxWeight}"
+                                             HeaderValueConverter="{converter:MetricWeightToPoundsConverter}" />
+
+                    <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                             TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalData_Height}"
+                                             HeaderValueUnit="{Binding WidthSliderUnit}"
+                                             Value="{Binding PersonalDataProxy.Height}"
+                                             Minimum="{Binding MinHeight}"
+                                             Maximum="{Binding MaxHeight}"
+                                             RangeMinimum="{Binding MinHeight}"
+                                             RangeMaximum="{Binding MaxHeight}"
+                                             HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                    <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                             TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalData_WaistDiameter}"
+                                             HeaderValueUnit="{Binding WidthSliderUnit}"
+                                             Value="{Binding PersonalDataProxy.WaistDiameter}"
+                                             Minimum="{Binding MinWaistDiameter}"
+                                             Maximum="{Binding MaxWaistDiameter}"
+                                             RangeMinimum="{Binding MinWaistDiameter}"
+                                             RangeMaximum="{Binding MaxWaistDiameter}"
+                                             HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                    <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                             TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalData_HipDiameter}"
+                                             HeaderValueUnit="{Binding WidthSliderUnit}"
+                                             Value="{Binding PersonalDataProxy.HipDiameter}"
+                                             Minimum="{Binding MinHipDiameter}"
+                                             Maximum="{Binding MaxHipDiameter}"
+                                             RangeMinimum="{Binding MinHipDiameter}"
+                                             RangeMaximum="{Binding MaxHipDiameter}"
+                                             HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                    <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                             TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalData_NeckDiameter}"
+                                             HeaderValueUnit="{Binding WidthSliderUnit}"
+                                             Value="{Binding PersonalDataProxy.NeckDiameter}"
+                                             Minimum="{Binding MinNeckDiameter}"
+                                             Maximum="{Binding MaxNeckDiameter}"
+                                             RangeMinimum="{Binding MinNeckDiameter}"
+                                             RangeMaximum="{Binding MaxNeckDiameter}"
+                                             HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                    <Label Text="{x:Static resources:AppResources.BodyMeasurement_HowToMeasure}"
+                           Style="{StaticResource HeadlineM-Label}"
+                           Padding="0, 20, 0, 0" />
+
+                    <Label Style="{StaticResource Separator-Label}" />
+
+
+                    <Image Source="{Binding HowToMeasureImageSource}" />
+
+                    <!--ToDo: remove when real image is provided by JH-->
+                    <Label Text="Dummy image" HorizontalOptions="Center" />
+
+                    <Label Style="{StaticResource Separator-Label}" />
+
+                    <!-- IsFirstUseWizardView = true -->
+                    <customControls:ZgButton Text="{x:Static resources:AppResources.Button_Continue}"
+                                             IconUnicode="&#xf0a9;"
+                                             Command="{Binding Path=SaveBodyMeasurementsWizardDataCommand}"
+                                             Style="{StaticResource Button-ZgButton}"
+                                             IsVisible="{Binding IsFirstUseWizardView}"
+                                             Padding="0, 0, 0, 30" />
+
+                </StackLayout>
+
+            </ScrollView>
+
+            <!-- IsFirstUseWizardView = false -->
+            <customControls:ZgButton Grid.Row="1"
+                                     Text="{x:Static resources:AppResources.Button_Save}"
+                                     HorizontalTextAlignment="Center"
+                                     Command="{Binding Path=SavePersonalDataCommand}"
+                                     Style="{StaticResource FullWidthButton-ZgButton}"
+                                     IsVisible="{Binding IsFirstUseWizardView, Converter={StaticResource NegateBooleanConverter}}" />
+        </Grid>
+    </ContentView.Content>
+</base:ContentViewBase>

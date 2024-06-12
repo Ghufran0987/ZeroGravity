@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IMealsSnacksLunchPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.MealsSnacksLunchPage"
+                      Title="{Binding Path=Title}"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:resources1="clr-namespace:ZeroGravity.Mobile.Resources;assembly=ZeroGravity.Mobile"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:richtexteditor="clr-namespace:Syncfusion.XForms.RichTextEditor;assembly=Syncfusion.SfRichTextEditor.XForms"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                       xmlns:FFImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      ShowTopBorder="True"
+                         ShowGreyBackground="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:FoodAmountToStringConverter x:Key="FoodAmountToStringConverter" />
+            <converter:FoodAmountToIconStringConverter x:Key="FoodAmountToIconStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="#E0E0E0">
+            <StackLayout>
+                <Grid RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <!--Top Margin-->
+                        <RowDefinition Height="20" />
+                        <!--Header-->
+                        <RowDefinition Height="Auto" />
+                        <!--Sub Header-->
+                        <RowDefinition Height="Auto" />
+                        <!--Top Margin from Image-->
+                        <RowDefinition Height="168" />
+
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+
+                        <RowDefinition Height="Auto" />
+
+                        <!--Bottom Margin-->
+                        <RowDefinition Height="15" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+
+                    <Image HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill" HeightRequest="250" WidthRequest="250"
+                           Source="{Binding MealsSnacksImageSource}"
+                           Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="0,-30" />
+
+                    <Label Grid.Column="1" Grid.Row="1" Text="{x:Static resources:AppResources.MealsSnacksLunch_Title}"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="36"
+                           Style="{StaticResource HeadlineXl-Label}" />
+
+                    <Label Grid.Column="1" Grid.Row="2" Text="{x:Static resources:AppResources.MealsSnacksLunch_Subtitle}"
+                          HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource Byline-Label}" TextColor="#4F4F4F" />
+
+                    <shimmer:SfShimmer  Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping">
+                        <shimmer:SfShimmer.Content>
+                            <Grid  RowSpacing="4" ColumnSpacing="8" Margin="0" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition  Height="120" />
+                                    <RowDefinition  Height="120" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="0" Grid.Column="0"
+                                         Value="{Binding FoodAmountType.None}"  HeightRequest="110" WidthRequest="120" HorizontalOptions="Start" VerticalOptions="Start"
+                                         IsChecked="{Binding None}" GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf00d;" HorizontalOptions="Start"
+                                       TextColor="#FF5869" Margin="10"
+                                       FontSize="24" />
+                                            <Label Text="Skipped Lunch" Margin="10,0,10,10" TextColor="#FF5869" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="0" Grid.Column="1"
+                                         Value="{Binding FoodAmountType.VeryLight}"  HeightRequest="110" WidthRequest="120" HorizontalOptions="Start" VerticalOptions="Start"
+                                         IsChecked="{Binding VeryLight}" GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf06c;" HorizontalOptions="Start"
+                                       TextColor="#FF5869"  Margin="10"
+                                       FontSize="24" />
+                                            <Label Text="Very Light" Margin="10,0,10,10" TextColor="#FF5869" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="0" Grid.Column="2"
+                                         Value="{Binding FoodAmountType.Light}"  HeightRequest="110" WidthRequest="120" HorizontalOptions="Start" VerticalOptions="Start"
+                                         IsChecked="{Binding Light}" GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf4d8;" Margin="10" HorizontalOptions="Start" TextColor="#FF5869" FontSize="24" />
+                                            <Label Text="Light" Margin="10,0,10,10" TextColor="#FF5869"
+                                              HorizontalOptions="Start"     HorizontalTextAlignment="Start" VerticalOptions="EndAndExpand" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="1" Grid.Column="0"
+                                         Value="{Binding FoodAmountType.Medium}" HeightRequest="110" WidthRequest="120" HorizontalOptions="Start" VerticalOptions="Start"
+                                         IsChecked="{Binding Medium}" GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf24e;" Margin="10" HorizontalOptions="Start" TextColor="#FF5869" FontSize="24" />
+                                            <Label Text="Medium" Margin="10,0,10,10" TextColor="#FF5869" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="1" Grid.Column="1"
+                                         Value="{Binding FoodAmountType.Heavy}" HeightRequest="110" WidthRequest="120" HorizontalOptions="Start" VerticalOptions="Start"
+                                         IsChecked="{Binding Heavy}" GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf44b;" Margin="10" HorizontalOptions="Start" TextColor="#FF5869" FontSize="24" />
+                                            <Label Text="Heavy" Margin="10,0,10,10" TextColor="#FF5869" VerticalOptions="EndAndExpand"                                            HorizontalOptions="Start" HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="1" Grid.Column="2"
+                                         Value="{Binding FoodAmountType.VeryHeavy}" HeightRequest="110" WidthRequest="120" HorizontalOptions="Start" VerticalOptions="Start"
+                                         IsChecked="{Binding VeryHeavy}"  GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf5cd;" Margin="10" HorizontalOptions="Start" TextColor="#FF5869" FontSize="24" />
+                                            <Label Text="Very Heavy" Margin="10,0,10,10" TextColor="#FF5869" VerticalOptions="EndAndExpand" HorizontalTextAlignment="Start" HorizontalOptions="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </Grid>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+
+                    <shimmer:SfShimmer  Grid.Row="6" Grid.Column="1" HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping">
+                        <shimmer:SfShimmer.Content>
+                            <Grid  RowSpacing="4" ColumnSpacing="8" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <borders:SfBorder HeightRequest="110" WidthRequest="170"  BorderWidth="0" Grid.Row="0" Grid.Column="0" BackgroundColor="#FFF" CornerRadius="6">
+                                    <StackLayout Orientation="Vertical" Margin="10">
+                                        <Label Text="{x:Static resources:AppResources.MealsSnacks_Name}"
+                                                       TextColor="#FF5869"></Label>
+
+                                        <richtexteditor:SfRichTextEditor VerticalOptions="FillAndExpand" IsEnabled="{Binding Meal.IsActive,Mode=TwoWay}"
+                                                                         Text="{Binding Meal.Name}" PlaceHolder="For example, type in Oatmeal" ShowToolbar="False"
+                                                                 HeightRequest="50" DefaultFont="{x:Static fonts:CustomFontName.OpenSanLight}" PlaceHolderFontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" Margin="0" />
+                                    </StackLayout>
+                                </borders:SfBorder>
+
+                                <borders:SfBorder HeightRequest="110" WidthRequest="170"  BorderWidth="0" Grid.Row="0" Grid.Column="2"  BackgroundColor="#FFF" CornerRadius="6">
+                                    <StackLayout Orientation="Vertical" Margin="10">
+
+                                        <Label Text="{x:Static resources:AppResources.MealsSnacks_TimePicker_Time}" TextColor="#FF5869"></Label>
+                                        <customControls:ZgTimePicker Style="{StaticResource InputTime-ZgTimePicker}" Margin="0,-20" IsEnabled="{Binding Meal.IsActive,Mode=TwoWay}"
+                                                         Time="{Binding Meal.Time}" FontSize="32" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand"
+                                                         FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}"
+                                                         Format="{Binding Converter={converter:TimeDisplayTypeConverter}}" TextColor="#FF5869" />
+                                    </StackLayout>
+                                </borders:SfBorder>
+                            </Grid>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+
+                    <!--Food Group-->
+                    <borders:SfBorder Grid.Row="8" Grid.Column="1" CornerRadius="6" BackgroundColor="#F2F2F2" BorderWidth="0">
+                        <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping">
+                            <shimmer:SfShimmer.Content>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="10" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <!--Top Margin-->
+                                        <RowDefinition Height="5" />
+                                        <!--Header-->
+                                        <RowDefinition Height="40" />
+                                        <!--Top Margin-->
+                                        <RowDefinition Height="10" />
+                                        <!--Date selection Header-->
+                                        <RowDefinition Height="Auto" />
+                                        <!--bottom Margin-->
+                                        <RowDefinition Height="5" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label  Grid.Column="1" Grid.Row="1"
+                                    Text="{x:Static resources:AppResources.MealsSnacks_Ingredients}"
+                                    Style="{StaticResource MealsSeconadryHeaderTextLabel}" />
+
+                                    <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" RowSpacing="8" ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <buttons:SfButton Grid.Row="0" Grid.Column="0" BackgroundColor="White" TextColor="#FF5869"
+                                               IsChecked="{Binding Meal.HasIngredientGrains,Mode=TwoWay}" IsCheckable="True" CornerRadius="6">
+                                            <buttons:SfButton.Content>
+                                                <borders:SfBorder CornerRadius="6" BackgroundColor="{TemplateBinding BackgroundColor}" BorderWidth="0">
+                                                    <Grid RowSpacing="0" Margin="6">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Grid.Row="0"
+                                                   Text="&#xf72d;"
+                                                   Style="{StaticResource TileRadioButtonIcon}" />
+                                                        <StackLayout Grid.Row="1" Margin="10" Orientation="Vertical" VerticalOptions="EndAndExpand">
+                                                            <Label Grid.Row="2"
+                                                   Margin="0"  Style="{StaticResource TileRadioButtonHeaderText}"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Grains}" />
+                                                            <Label Grid.Row="3"
+                                                   Margin="0,-8,0,10"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Grains_Description}" />
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </borders:SfBorder>
+                                            </buttons:SfButton.Content>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="checkedStates">
+                                                    <VisualState x:Name="Checked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+
+                                                    <VisualState x:Name="Unchecked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="#828282" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </buttons:SfButton>
+
+                                        <buttons:SfButton  Grid.Row="0" Grid.Column="1" BackgroundColor="White" TextColor="#FF5869"
+                                               IsChecked="{Binding Meal.HasIngredientVegetables,Mode=TwoWay}" IsCheckable="True" CornerRadius="6">
+                                            <buttons:SfButton.Content>
+                                                <borders:SfBorder CornerRadius="6" BackgroundColor="{TemplateBinding BackgroundColor}" BorderWidth="0">
+                                                    <Grid RowSpacing="0" Margin="6">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label  Grid.Row="0"
+                                                    Style="{StaticResource TileRadioButtonIcon}"
+                                                    Text="&#xf787;" />
+                                                        <Label  Grid.Row="1"
+                                                    Margin="10"
+                                                    Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Vegetables}"                                     Style="{StaticResource TileRadioButtonHeaderText}" />
+                                                    </Grid>
+                                                </borders:SfBorder>
+                                            </buttons:SfButton.Content>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="checkedStates">
+                                                    <VisualState x:Name="Checked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+
+                                                    <VisualState x:Name="Unchecked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="#828282" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </buttons:SfButton>
+
+                                        <buttons:SfButton  Grid.Row="1" Grid.Column="0" BackgroundColor="White" TextColor="#FF5869"
+                                               IsChecked="{Binding Meal.HasIngredientFruits,Mode=TwoWay}" IsCheckable="True" CornerRadius="6">
+                                            <buttons:SfButton.Content>
+                                                <borders:SfBorder CornerRadius="6" BackgroundColor="{TemplateBinding BackgroundColor}" BorderWidth="0">
+                                                    <Grid RowSpacing="0" Margin="6">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Grid.Row="0"
+                                                   Style="{StaticResource TileRadioButtonIcon}"
+                                                   Text="&#xf6b1;" />
+                                                        <Label Grid.Row="1"
+                                                   Margin="10"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Fruits}"                                         Style="{StaticResource TileRadioButtonHeaderText}" />
+                                                    </Grid>
+                                                </borders:SfBorder>
+                                            </buttons:SfButton.Content>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="checkedStates">
+                                                    <VisualState x:Name="Checked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+
+                                                    <VisualState x:Name="Unchecked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="#828282" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </buttons:SfButton>
+
+                                        <buttons:SfButton  Grid.Row="1" Grid.Column="1" BackgroundColor="White" TextColor="#FF5869"
+                                               IsChecked="{Binding Meal.HasIngredientDairy,Mode=TwoWay}" IsCheckable="True" CornerRadius="6">
+                                            <buttons:SfButton.Content>
+                                                <borders:SfBorder CornerRadius="6" BackgroundColor="{TemplateBinding BackgroundColor}" BorderWidth="0">
+                                                    <Grid RowSpacing="0" Margin="6">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                            <RowDefinition Height="auto"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Grid.Row="0"
+                                                   Style="{StaticResource TileRadioButtonIcon}"
+                                                   Text="&#xf7f0;" />
+                                                        <Label Grid.Row="2"
+                                                   Margin="10,0"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Dairy}"
+                                                   Style="{StaticResource TileRadioButtonHeaderText}" />
+                                                        <Label Grid.Row="3"
+                                                   Margin="10,-4,10,5"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Dairy_Description}" />
+                                                    </Grid>
+                                                </borders:SfBorder>
+                                            </buttons:SfButton.Content>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="checkedStates">
+                                                    <VisualState x:Name="Checked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+
+                                                    <VisualState x:Name="Unchecked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="#828282" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </buttons:SfButton>
+
+                                        <buttons:SfButton Grid.Row="2" Grid.Column="0" BackgroundColor="White" TextColor="#FF5869"
+                                               IsChecked="{Binding Meal.HasIngredientProtein,Mode=TwoWay}" IsCheckable="True" CornerRadius="6">
+                                            <buttons:SfButton.Content>
+                                                <borders:SfBorder CornerRadius="6" BackgroundColor="{TemplateBinding BackgroundColor}" BorderWidth="0">
+                                                    <Grid RowSpacing="0" Margin="6">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"></RowDefinition>
+                                                            <RowDefinition Height="*"></RowDefinition>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Grid.Row="0"
+                                                   Style="{StaticResource TileRadioButtonIcon}"
+                                                   Text="&#xf824;" />
+
+                                                        <StackLayout Grid.Row="1" Margin="10" Orientation="Vertical" VerticalOptions="EndAndExpand">
+                                                            <Label Grid.Row="2"
+                                                   Margin="0"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Protein}"
+                                                   Style="{StaticResource TileRadioButtonHeaderText}" />
+                                                            <Label Grid.Row="3"
+                                                   Margin="0,-8,0,10"
+                                                   Text="{x:Static resources:AppResources.MealsSnacks_Ingredients_Protein_Description}" />
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </borders:SfBorder>
+                                            </buttons:SfButton.Content>
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="checkedStates">
+                                                    <VisualState x:Name="Checked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="White" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+
+                                                    <VisualState x:Name="Unchecked">
+                                                        <VisualState.Setters>
+                                                            <Setter Property="BackgroundColor" Value="#828282" />
+                                                        </VisualState.Setters>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                        </buttons:SfButton>
+                                    </Grid>
+                                </Grid>
+                            </shimmer:SfShimmer.Content>
+                        </shimmer:SfShimmer>
+                    </borders:SfBorder>
+                </Grid>
+
+                <!--Save-->
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_Save}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding SaveCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    <base:ContentPageBase.Overlay>
+        <shimmer:SfShimmer   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsActive="{Binding IsLoadingImageBusy}">
+            <shimmer:SfShimmer.CustomView>
+                <Grid Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <shimmer:ShimmerView Grid.Row="0" />
+                </Grid>
+            </shimmer:SfShimmer.CustomView>
+            <shimmer:SfShimmer.Content>
+                <FFImage:CachedImage Source="{Binding Path=ProductImage}" Aspect="AspectFit"
+                                         CacheType="All" CacheDuration="1"
+                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+            </shimmer:SfShimmer.Content>
+        </shimmer:SfShimmer>
+    </base:ContentPageBase.Overlay>
+</base:ContentPageBase>

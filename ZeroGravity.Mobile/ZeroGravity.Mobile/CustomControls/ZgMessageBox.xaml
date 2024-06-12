@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+             xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgMessageBox"
+             x:Name="This">
+    <ContentView.Content>
+        <Grid ColumnSpacing="{Binding Source={x:Reference This}, Path=GapWidth}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Text="{Binding Source={x:Reference This}, Path=IconText}"
+                   TextColor="{Binding Source={x:Reference This}, Path=IconTextColor}"
+                   FontFamily="{Binding Source={x:Reference This}, Path=IconFontFamily}"
+                   FontSize="{Binding Source={x:Reference This}, Path=IconFontSize}"
+                   VerticalTextAlignment="Center"/>
+            <customControls:ZgParagraph Grid.Column="1"
+                                        Text="{Binding Source={x:Reference This}, Path=Text}"
+                                        FontFamily="{Binding Source={x:Reference This}, Path=FontFamily}"
+                                        FontSize="{Binding Source={x:Reference This}, Path=FontSize}"
+                                        FontAttribute="{Binding Source={x:Reference This}, Path=FontAttribute}"
+                                        LineHeight="{Binding Source={x:Reference This}, Path=LineHeight}"
+                                        TextColor="{Binding Source={x:Reference This}, Path=TextColor}"
+                                        TextDecoration="{Binding Source={x:Reference This}, Path=TextDecoration}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

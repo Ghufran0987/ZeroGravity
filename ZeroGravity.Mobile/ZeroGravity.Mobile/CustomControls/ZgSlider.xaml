@@ -1,0 +1,99 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:gauge="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+             xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+             xmlns:views="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgSlider"
+             x:Name="Root">
+    <ContentView.Resources>
+        <converter:NegateBooleanConverter x:Key="NegateBoolConverter" />
+        <customControls:ZgSliderCornerRadiusTypeConverter x:Key="CornerRadiusTypeConverter"/>
+    </ContentView.Resources>
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <Frame BackgroundColor="#F2F2F2" HeightRequest="50" Margin="0" CornerRadius="10">
+                <StackLayout>
+                    <!-- HEADER -->
+                    <Grid ColumnSpacing="0" 
+                      IsVisible="{Binding Source={x:Reference Root}, Path=ShowHeader}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                           FontSize="{Binding Source={x:Reference Root}, Path=HeaderValueFontSize}"
+                           Text="{Binding Source={x:Reference Root}, Path=HeaderText}"
+                           TextColor="{Binding Source={x:Reference Root}, Path=HeaderValueTextColor}"
+                           FontFamily="{Binding Source={x:Reference Root}, Path=HeaderValueFontFamily}" 
+                           LineHeight="{Binding Source={x:Reference Root}, Path=HeaderLineHeight}"/>
+
+                        <Label Grid.Column="2"
+                           IsVisible="{Binding Source={x:Reference Root}, Path=ShowHeaderValue}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span x:Name="HeaderValueSpan"
+                                      FontSize="{Binding Source={x:Reference Root}, Path=HeaderValueFontSize}"
+                                      FontFamily="{Binding Source={x:Reference Root}, Path=HeaderValueFontFamily}"
+                                      TextColor="{Binding Source={x:Reference Root}, Path=HeaderValueTextColor}"
+                                      LineHeight="{Binding Source={x:Reference Root}, Path=HeaderLineHeight}"/>
+                                    <Span Text=" "
+                                      FontSize="{Binding Source={x:Reference Root}, Path=HeaderValueFontSize}"
+                                      FontFamily="{Binding Source={x:Reference Root}, Path=HeaderValueFontFamily}"
+                                      TextColor="{Binding Source={x:Reference Root}, Path=HeaderValueTextColor}" />
+                                    <Span Text="{Binding Source={x:Reference Root}, Path=HeaderValueUnit}"
+                                      FontSize="{Binding Source={x:Reference Root}, Path=HeaderValueFontSize}"
+                                      FontFamily="{Binding Source={x:Reference Root}, Path=HeaderValueFontFamily}"
+                                      TextColor="{Binding Source={x:Reference Root}, Path=HeaderValueTextColor}"
+                                      LineHeight="{Binding Source={x:Reference Root}, Path=HeaderLineHeight}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Column="2"
+                           IsVisible="{Binding Source={x:Reference Root}, Path=ShowHeaderValue, Converter={StaticResource NegateBoolConverter}}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Source={x:Reference Root}, Path=HeaderValueUnit}"
+                                      FontSize="{Binding Source={x:Reference Root}, Path=HeaderValueFontSize}"
+                                      FontFamily="{Binding Source={x:Reference Root}, Path=HeaderValueFontFamily}"
+                                      TextColor="{Binding Source={x:Reference Root}, Path=HeaderValueTextColor}"
+                                      LineHeight="{Binding Source={x:Reference Root}, Path=HeaderLineHeight}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+
+                    <views:RangeSlider x:Name="Slider"
+                                   VerticalOptions="Center"
+                                   TrackColor="{Binding Source={x:Reference Root}, Path=TrackColor}"
+                                   TrackHighlightColor="{Binding Source={x:Reference Root}, Path=TrackSelectionColor}"
+                                   UpperThumbColor="{Binding Source={x:Reference Root}, Path=ThumbColor}"
+                                   LowerThumbColor="Transparent"
+                                   UpperThumbBorderColor="{Binding Source={x:Reference Root}, Path=ThumbBorderColor}"
+                                   UpperThumbSize="{Binding Source={x:Reference Root}, Path=ThumbSize}"
+                                   LowerThumbSize="0"                                       
+                                   MinimumValue="{Binding Source={x:Reference Root}, Path=Minimum}"
+                                   MaximumValue="{Binding Source={x:Reference Root}, Path=Maximum}"
+                                   StepValue="{Binding Source={x:Reference Root}, Path=StepFrequency}"
+                                   UpperValue="{Binding Source={x:Reference Root}, Path=Value}"
+                                   LowerValue="{Binding Source={x:Reference Root}, Path=Minimum}"
+                                   TrackSize="{Binding Source={x:Reference Root}, Path=TrackThickness}"
+                                   ValueLabelStringFormat=""
+                                   ValueLabelSpacing="0">
+                        <views:RangeSlider.ValueLabelStyle>
+                            <Style TargetType="Label">
+                                <Setter Property="FontSize" Value="0"/>
+                                <Setter Property="LineHeight" Value="0"/>
+                                <Setter Property="HeightRequest" Value="0"/>
+                                <Setter Property="IsVisible" Value="False"/>
+                            </Style>
+                        </views:RangeSlider.ValueLabelStyle>
+                    </views:RangeSlider>
+                </StackLayout>
+            </Frame>
+
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>

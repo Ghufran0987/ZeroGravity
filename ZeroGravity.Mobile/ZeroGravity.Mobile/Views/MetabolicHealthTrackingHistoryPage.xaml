@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentPageBase x:TypeArguments="page:IMetabolicHealthTrackingHistoryPage" 
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      xmlns:xForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.MetabolicHealthTrackingHistoryPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowGreyBackground="True"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="LabelSugerBeatHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.PlayfairDisplaynRegular}" />
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="TextColor"   Value="#319C8A" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="LabelSugerBeatSubHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TextColor"   Value="#4F4F4F" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView  BackgroundColor="{x:Static fonts:CustomColors.GrayBackgroundColor}">
+            <border:SfBorder CornerRadius="10" BorderThickness="0" BorderWidth="0" Margin="20,10">
+                <Grid  BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+
+                    <Label Text="{Binding UserName}" Grid.Row="1"  Margin="5,0" FontSize="28"  Style="{StaticResource LabelSugerBeatHeader}" HorizontalOptions="Center" />
+                    <Label Text="My metabolic health tracking history" Grid.Row="2" Style="{StaticResource LabelSugerBeatSubHeader}" HorizontalOptions="Center" />
+
+                    <border:SfBorder Grid.Row="4"  CornerRadius="6" BackgroundColor="#E0E0E0" BorderWidth="0" IsVisible="false">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+                            <shimmer:SfShimmer Grid.Column="1" HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" WidthRequest="40" >
+                                <shimmer:SfShimmer.Content>
+                                    <buttons:SfButton  
+                                              WidthRequest="40"
+                                              VerticalOptions="Center"
+                                              FontFamily="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=FontFamily}"
+                                              Text="&#xf053;"
+                                              FontSize="26"
+                                              BackgroundColor="#E0E0E0"
+                                              Command="{Binding PreviousHistoryDateCommand}"
+                                              TextColor="#FF5869" />
+                                </shimmer:SfShimmer.Content>
+                            </shimmer:SfShimmer>
+
+                            <customControls:ZgDatePicker Grid.Column="3"
+                                Style="{StaticResource InputDate-ZgDatePicker}"
+                                BackgroundColor="#E0E0E0"
+                                FontAttributes="Bold"
+                                FontSize="17"
+                                FontFamily="{x:Static fonts:CustomFontName.FaBrands400}"
+                                TextColor="#FF5869"
+                                Format="MMM dd,yyyy"
+                                HorizontalOptions="CenterAndExpand"
+                                MinimumWidthRequest="350"
+                                VerticalOptions="FillAndExpand" 
+                                Date="{Binding CurrentHistoryDateTime}" IsEnabled="False" />
+                            <shimmer:SfShimmer Grid.Column="5" HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" WidthRequest="40">
+                                <shimmer:SfShimmer.Content>
+                                    <buttons:SfButton  
+                                              WidthRequest="40"
+                                              VerticalOptions="Center"
+                                              FontFamily="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=FontFamily}"
+                                              Text="&#xf054;"
+                                              FontSize="26"
+                                              BackgroundColor="#E0E0E0"
+                                              Command="{Binding NextHistoryDateCommand}"
+                                              TextColor="#FF5869" />
+                                </shimmer:SfShimmer.Content>
+                            </shimmer:SfShimmer>
+                        </Grid>
+                    </border:SfBorder>
+
+                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" Grid.Row="6">
+                        <shimmer:SfShimmer.Content>
+                            <Grid>
+                                <xForms:SfListView  ItemsSource="{Binding TodaysEatingSessions,Mode=TwoWay }"
+                                        SelectionMode="Single"
+                                        Margin="0,0,0,0"
+                                        HorizontalOptions="Fill"
+                                        ItemSpacing="0,8"                                      
+                                        ItemSize="50"
+                                        IsScrollingEnabled="False"
+                                        SelectedItem="{Binding SelectedEatingSession, Mode=TwoWay}"
+                                                SelectionChanged="SfListView_SelectionChanged"
+                                        SelectionBackgroundColor="WhiteSmoke" >
+                                    <xForms:SfListView.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid BackgroundColor="#E0E0E0" HeightRequest="45">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1.3*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="0"
+                                                        Margin="5" Text="Date" FontAttributes="Bold"
+                                                        FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="1"
+                                                        Margin="5" Text="Start" FontAttributes="Bold"
+                                                        FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="2"
+                                                        Margin="5" Text="End" FontAttributes="Bold"
+                                                        FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="3"  Margin="5" Text="Score" FontAttributes="Bold"
+                                                FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </xForms:SfListView.HeaderTemplate>
+                                    <xForms:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell >
+                                                <Grid  HeightRequest="80">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="1.3*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Label  LineBreakMode="NoWrap"  Grid.Column="0"
+                                                            Margin="5" Text="{Binding StartTime, StringFormat='{}{0:MMM dd,yyyy}'}" FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" />
+                                                    <Label  LineBreakMode="NoWrap"  Grid.Column="1"
+                                                            Margin="5" Text="{Binding StartTime, StringFormat='{}{0:h\\:mm tt}'}" FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" />
+
+                                                    <Label  LineBreakMode="NoWrap"  Grid.Column="2"
+                                                            Margin="5" Text="{Binding EndTime, StringFormat='{}{0:h\\:mm tt}'}" FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" />
+
+                                                    <Label  LineBreakMode="NoWrap" Grid.Column="3"
+                                                            Margin="5"  FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" >
+                                                        <Label.Triggers>
+                                                            <DataTrigger TargetType="Label"   Binding="{Binding IsCompleted}" Value="True">
+                                                                <Setter Property="Text" Value="{Binding MetabolicScore}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Label"   Binding="{Binding IsCompleted}" Value="False">
+                                                                <Setter Property="Text" Value="" />
+                                                            </DataTrigger>
+                                                        </Label.Triggers>
+                                                    </Label>
+                                                </Grid>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </xForms:SfListView.ItemTemplate>
+                                </xForms:SfListView>
+                                <Label Text="No data available"  FontAttributes="Bold" Margin="0,60,0,0"
+                                       FontSize="20" TextColor="#FF5869" HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       IsVisible="{Binding IsNoDataActive}"/>
+                            </Grid>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+
+                </Grid>
+            </border:SfBorder>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IMainPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:badge ="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.MainPage"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      NavigationPage.HasNavigationBar="False"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      ShowTopBorder="False"
+                      ShowBottomBorder="False"
+                      Style="{StaticResource ViewBaseStyle}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:WellbeingRatingIconStringConverter x:Key="WellbeingRatingIconStringConverter" />
+            <converter:TrackedHistoryTypeToIconConverter x:Key="TrackedHistoryTypeToIconConverter" />
+            <converter:NumberToStringConverter x:Key="NumberToStringConverter" />
+            <converter:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ScrollView BackgroundColor="#E7E8EA">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+                <!--Top Margin-->
+                <RowDefinition Height="60" />
+                <!--Header-->
+                <RowDefinition Height="20" />
+                <!--Sub Header-->
+                <RowDefinition Height="40" />
+                <RowDefinition Height="Auto" />
+                <!--Tails-->
+                <RowDefinition Height="10" />
+                <!--Tracked Today Top Margin-->
+                <RowDefinition Height="Auto" />
+                <!--Tracked Today-->
+                <RowDefinition Height="Auto" />
+                <!--Fill Empty Space-->
+                <RowDefinition Height="5" />
+                <!--Bottom Margin-->
+            </Grid.RowDefinitions>
+
+            <Label  Grid.Row="1" Grid.Column="1"
+                    Text="{Binding DateTimeString}"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource HeadlineXl-Label}" />
+
+            <Label  Grid.Row="2" Grid.Column="1"
+                    Text="{x:Static resources:AppResources.MyDay_Description}"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource Byline-Label}" />
+
+            <!--Tail Buttons-->
+            <Grid  Grid.Row="4" Grid.Column="1" RowSpacing="3" ColumnSpacing="3" Margin="0" HorizontalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="110" />
+                    <RowDefinition Height="110" />
+                    <RowDefinition Height="110" />
+                    <RowDefinition Height="110" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="0" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding MealsSnacksCommand}"
+                              BackgroundColor="#FF5869">
+
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf2e7;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_MealSnacks}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20"
+                                      MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"
+                                      IsVisible="{Binding MealItemSum, Converter={StaticResource ZeroToVisibilityConverter}}">
+                        <Label Text="{Binding MealItemSum, Converter={StaticResource NumberToStringConverter}}"
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="1" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding WaterIntakeCommand}"
+                              BackgroundColor="#FF5869">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf75c;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_WaterIntake}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20"
+                                      VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"
+                                      IsVisible="{Binding MyDayBadgeInformationProxy.LiquidIntakeBadgeInformationProxy.WaterIntakeNumber, Converter={StaticResource ZeroToVisibilityConverter}}">
+                        <Label Text="{Binding MyDayBadgeInformationProxy.LiquidIntakeBadgeInformationProxy.WaterIntakeNumber}"
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="0" Grid.Column="2" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding CalorieDrinksAlcoholCommand}"
+                              BackgroundColor="#FF5869">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf869;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_Calories}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20"
+                                      VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"
+                                      IsVisible="{Binding MyDayBadgeInformationProxy.LiquidIntakeBadgeInformationProxy.CalorieDrinksAlcoholNumber, Converter={StaticResource ZeroToVisibilityConverter}}">
+                        <Label Text="{Binding MyDayBadgeInformationProxy.LiquidIntakeBadgeInformationProxy.CalorieDrinksAlcoholNumber}"
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+                <!--Row 2-->
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="1" Grid.Column="0"  VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding GetActivitiesCommand}"
+                              BackgroundColor="#319C8A">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                               Text="&#xf554;"
+                                               Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                               Text="{x:Static resources:AppResources.MyDay_Activities}"
+                                               Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20"
+                                      VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"
+                                      IsVisible="{Binding ActivityItemSum, Converter={StaticResource ZeroToVisibilityConverter}}">
+                        <Label Text="{Binding ActivityItemSum}"
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="1" Grid.Column="1" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                          HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding ToEnduranceTrackingCommand}"
+                              BackgroundColor="#319C8A">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf496;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="Weight"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20"
+                                      IsVisible="false"
+                                      VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="1" Grid.Column="2" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding GoToFastingCommand}"
+                              BackgroundColor="#319C8A">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf2f2;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_Fasting}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2" IsVisible="false">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+                <!--Row 3-->
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="0" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding WellbeingDataCommand}"
+                              BackgroundColor="#B996C3">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                               Text="&#xf5bb;"
+                                               Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                               Text="{x:Static resources:AppResources.MyDay_Wellbeing}"
+                                               Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"
+                                       IsVisible="{Binding MyDayBadgeInformationProxy.WellbeingBadgeInformation, Converter={StaticResource ZeroToVisibilityConverter}}">
+                        <Label Text="{Binding MyDayBadgeInformationProxy.WellbeingBadgeInformation, Converter={StaticResource WellbeingRatingIconStringConverter}}"
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="5,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Font Awesome 5 Pro" />
+                                    <On Platform="Android" Value="fa-light-300" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                    </borders:SfBorder>
+                </Grid>
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="1" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding ToMeditationAreaCommand}"
+                              BackgroundColor="#B996C3">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf808;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_MeditationArea}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20"
+                                      VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"
+                                      IsVisible="false">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+                <!--Command="{Binding ToFeedbackCommand}"-->
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="2" Grid.Column="2" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                             Command="{Binding ToFeedbackCommand}"
+                              BackgroundColor="#B996C3">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf4c4;"
+                                       Style="{StaticResource TileButtonIcon}" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_Coaching}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"  IsVisible="false">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+                <!--Row 4-->
+
+                <!--<Grid HorizontalOptions="FillAndExpand"  Grid.Row="3" Grid.Column="0" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding ToHeartBeatCommand}"
+                              BackgroundColor="#006298">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                               Text="&#xf5f8;"
+                                               Style="{StaticResource TileButtonIcon}"
+                                               FontSize="18"
+                                               Margin="10"
+                                               HorizontalTextAlignment="Start"
+                                               HorizontalOptions="Start" />
+                                <Label Grid.Row="1"
+                                               Text="{x:Static resources:AppResources.MyDay_HeartBeat}"
+                                               Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"  IsVisible="false">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>-->
+
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="2" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="220">
+                    <buttons:SfButton
+                              HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="210"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding GoToMetabolicHealthCommand}"
+                              BackgroundColor="#006298">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf1b3;"
+                                       Style="{StaticResource TileButtonIcon}"
+                                       FontSize="18"
+                                       Margin="10"
+                                       HorizontalTextAlignment="Start"
+                                       HorizontalOptions="Start" />
+                                <Label Grid.Row="1"
+                                       Text="Health Tracking"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                                <!--{x:Static resources:AppResources.MyDay_MetabolicHealth}-->
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"  IsVisible="false">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+                <Grid HorizontalOptions="FillAndExpand"  Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="1" VerticalOptions="FillAndExpand" HeightRequest="110" WidthRequest="110">
+                    <buttons:SfButton
+                           HorizontalOptions="Start"
+                              VerticalOptions="End"
+                              HeightRequest="100"
+                              WidthRequest="100"
+                              CornerRadius="6"
+                              HasShadow="True"
+                              Command="{Binding ToStreamingCommand}"
+                              BackgroundColor="#006298">
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0"
+                                       Text="&#xf8dd;"
+                                       Style="{StaticResource TileButtonIcon}"
+                                       FontSize="18"
+                                       Margin="10"
+                                       HorizontalTextAlignment="Start"
+                                       HorizontalOptions="Start" />
+                                <Label Grid.Row="1"
+                                       Text="{x:Static resources:AppResources.MyDay_Streaming}"
+                                       Style="{StaticResource TileButtonHeaderText}" />
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
+                    <borders:SfBorder Margin="0,5,5,0" BorderWidth="0" CornerRadius="50" HeightRequest="20" MinimumWidthRequest="20" VerticalOptions="Start" HorizontalOptions="End"  BackgroundColor="#3AA2F2"  IsVisible="false">
+                        <Label Text=""
+                               MinimumWidthRequest="20"
+                               FontSize="10" Margin="7,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                               TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" ></Label>
+                    </borders:SfBorder>
+                </Grid>
+            </Grid>
+
+            <!--Tracked Today-->
+            <borders:SfBorder Grid.Row="6" Grid.Column="1" CornerRadius="6" BackgroundColor="#F2F2F2" BorderWidth="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <!--Top Margin-->
+                        <RowDefinition Height="5" />
+                        <!--Header-->
+                        <RowDefinition Height="40" />
+                        <!--Top Margin-->
+                        <RowDefinition Height="10" />
+                        <!--Date selection Header-->
+                        <RowDefinition Height="55" />
+                        <!--Top Margin-->
+                        <RowDefinition Height="10" />
+                        <!--List-->
+                        <RowDefinition Height="Auto" />
+                        <!--bottom Margin-->
+                        <RowDefinition Height="5" />
+                    </Grid.RowDefinitions>
+
+                    <Label  Grid.Column="1" Grid.Row="1"
+                            Text="{x:Static resources:AppResources.MyDay_TrackedToday}"
+                            HorizontalTextAlignment="Start"
+                            VerticalTextAlignment="Center"
+                            FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            TextColor="#FF5869" />
+
+                    <borders:SfBorder Grid.Column="1" Grid.Row="3" CornerRadius="6" BackgroundColor="#E0E0E0" BorderWidth="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="5" />
+                            </Grid.ColumnDefinitions>
+
+                            <buttons:SfButton Grid.Column="1"
+                                              WidthRequest="40"
+                                              VerticalOptions="Center"
+                                              FontFamily="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=FontFamily}"
+                                              Text="&#xf053;"
+                                              FontSize="26"
+                                              BackgroundColor="#E0E0E0"
+                                              Command="{Binding PreviousHistoryDateCommand}"
+                                              TextColor="#FF5869" />
+
+                            <customControls:ZgDatePicker Grid.Column="3"
+                                Style="{StaticResource InputDate-ZgDatePicker}"
+                                BackgroundColor="#E0E0E0"
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                FontFamily="{x:Static fonts:CustomFontName.FaBrands400}"
+                                TextColor="#FF5869"
+                                Format="MMM dd, yyyy"
+                                HorizontalOptions="Center"
+                                VerticalOptions="FillAndExpand"
+                                Date="{Binding CurrentHistoryDateTime}" />
+
+                            <buttons:SfButton Grid.Column="5"
+                                              WidthRequest="40"
+                                              VerticalOptions="Center"
+                                              FontFamily="{Binding Source={x:Static fonts:Typography.BylineIcon}, Path=FontFamily}"
+                                              Text="&#xf054;"
+                                              FontSize="26"
+                                              BackgroundColor="#E0E0E0"
+                                              Command="{Binding NextHistoryDateCommand}"
+                                              TextColor="#FF5869" />
+                        </Grid>
+                    </borders:SfBorder>
+
+                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" Grid.Column="1" Grid.Row="5">
+                        <shimmer:SfShimmer.Content>
+                            <xForms:SfListView  ItemsSource="{Binding TrackedHistoryProxies,Mode=TwoWay }"
+                                        SelectionMode="None"
+                                        Margin="0,-10,0,0"
+                                        HorizontalOptions="Fill"
+                                        ItemSpacing="0,8"
+                                        TapCommand="{Binding OnItemTappedCommand}"
+                                        ItemSize="60"
+                                        IsScrollingEnabled="False"
+                                        AutoFitMode="Height">
+                                <xForms:SfListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <customControls:ZgButton Text="{Binding Description}"
+                                                             Margin="0"
+                                                             IconTextColor="#FF5869"
+                                                             IconUnicode="{Binding HistoryItemType, Converter={StaticResource TrackedHistoryTypeToIconConverter}}"
+                                                             Style="{StaticResource WhiteListItemButton-ZgButton}"
+                                                             HorizontalTextAlignment="Start"
+                                                             TextColor="#FF5869" />
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </xForms:SfListView.ItemTemplate>
+                            </xForms:SfListView>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+                </Grid>
+            </borders:SfBorder>
+        </Grid>
+    </ScrollView>
+</base:ContentViewBase>

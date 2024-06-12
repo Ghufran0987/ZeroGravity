@@ -1,0 +1,45 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgBubble"
+             x:Name="Root"
+             HeightRequest="{Binding Source={x:Reference Root}, Path=Width}">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <AbsoluteLayout>
+                <pancakeView:PancakeView AbsoluteLayout.LayoutFlags="All"
+                                         AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                                         CornerRadius="{Binding Source={x:Reference Root}, Path=BubbleCornerRadius}"
+                                         x:Name="Bubble">
+                    <pancakeView:PancakeView.Shadow>
+                        <pancakeView:DropShadow BlurRadius="{Binding Source={x:Reference Root}, Path=BlurRadius}" />
+                    </pancakeView:PancakeView.Shadow>
+                    <buttons:SfButton x:Name="Button"
+                                      Command="{Binding Source={x:Reference Root}, Path=Command}"
+                                      BackgroundColor="{Binding Source={x:Reference Root}, Path=BubbleBackgroundColor}"
+                                      CornerRadius="10">
+                        <ContentPresenter Content="{Binding Source={x:Reference Root}, Path=Content}"
+                                          VerticalOptions="CenterAndExpand"
+                                          HorizontalOptions="CenterAndExpand" Margin="10" />
+                    </buttons:SfButton>
+                </pancakeView:PancakeView>
+                <pancakeView:PancakeView AbsoluteLayout.LayoutFlags="PositionProportional"
+                                         AbsoluteLayout.LayoutBounds="0.5, 0.5, 60, 60"
+                                         CornerRadius="{Binding Source={x:Reference Root}, Path=BadgeCornerRadius}"
+                                         BackgroundColor="{Binding Source={x:Reference Root}, Path=BadgeBackgroundColor}"
+                                         x:Name="Badge"
+                                         IsVisible="{Binding Source={x:Reference Root}, Path=ShowBadge}">
+                    <pancakeView:PancakeView.Border>
+                        <pancakeView:Border Color="{Binding Source={x:Reference Root}, Path=BadgeBorderColor}"
+                                            Thickness="{Binding Source={x:Reference Root}, Path=BadgeBorderThickness}"/>
+                    </pancakeView:PancakeView.Border>
+
+                    <ContentPresenter Content="{Binding Source={x:Reference Root}, Path=BadgeContent}"
+                                      VerticalOptions="CenterAndExpand"
+                                      HorizontalOptions="CenterAndExpand" />
+                </pancakeView:PancakeView>
+            </AbsoluteLayout>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>

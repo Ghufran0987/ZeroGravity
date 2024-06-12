@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+             xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"             
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgImageView"
+            xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+               xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms" xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter"
+             x:Name="Root">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content >
+
+        <pancakeView:PancakeView BackgroundColor="{x:Static fonts:CustomColors.White}"
+                                 Padding="20" CornerRadius="5">
+            <pancakeView:PancakeView.Shadow>
+                <pancakeView:DropShadow BlurRadius="{Binding Source={x:Reference Root}, Path=BlurRadius}" />
+            </pancakeView:PancakeView.Shadow>
+
+       
+                <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding Source={x:Reference Root}, Path=ShowProgress}" Type="Shopping" HeightRequest="160" >
+                    <shimmer:SfShimmer.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="0" Grid.Column="0">
+                                <Label Text="{Binding Source={x:Reference Root}, Path=TitleIcon}"  Style="{StaticResource CardIcon-Label}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Source={x:Reference Root}, Path=TitleLabel}" Style="{StaticResource Byline-PinkLabel}" Padding="0" Margin="0" FontAttributes="Bold"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="1" Grid.Column="0" VerticalOptions="EndAndExpand" IsVisible="{Binding ShowAdviceText, Mode=TwoWay}">
+                                <Label Text="{Binding Source={x:Reference Root}, Path=RecommendationLabel}" Padding="0" Margin="0" FontAttributes="Bold"                       
+                        Style="{StaticResource Byline-PinkLabel}" TextColor="{Binding Source={x:Reference Root}, Path=FeedbackColor}" />
+
+                            </StackLayout>
+
+                            <borders:SfBorder HeightRequest="60" WidthRequest="40"  BorderWidth="0"  Grid.Row="0" Grid.Column="1" Padding="5" BackgroundColor="#F2F2F2" CornerRadius="6">
+                                <StackLayout Orientation="Vertical" VerticalOptions="Start">
+
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                        <Label HorizontalTextAlignment="Center" 
+                                   Text="{Binding Source={x:Reference Root}, Path=TargetValueLabel}"
+                                   FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" FontSize="26" Margin="0" TextColor="#319C8A" />
+                                        <Label Text="{Binding Source={x:Reference Root}, Path=ValueLabelUnit}"
+                                  FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" FontSize="26" Margin="0" TextColor="#319C8A" />
+                                    </StackLayout>
+
+                                    <Label Style="{StaticResource Byline-Label}" 
+                               Text="{x:Static resources:AppResources.Feedback_Recommended}" Margin="0,-2"
+                             
+                               HorizontalTextAlignment="Center" TextColor="#828282" />
+
+                                </StackLayout>
+                            </borders:SfBorder>
+
+                            <borders:SfBorder HeightRequest="60" WidthRequest="40"  BorderWidth="0"  Grid.Row="1" Grid.Column="1" Padding="5" BackgroundColor="{Binding Source={x:Reference Root}, Path=FeedbackColor}" CornerRadius="6">
+                                <StackLayout Orientation="Vertical" VerticalOptions="Start">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                                        <Label FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" FontSize="26"
+                                   Text="{Binding Source={x:Reference Root}, Path=ActualValueLabel}"                                   
+                                   HorizontalTextAlignment="Center" Margin="0" TextColor="#FFF" />
+                                        <Label Text="{Binding Source={x:Reference Root}, Path=ValueLabelUnit}"                                   
+                                   FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" FontSize="26" Margin="0"  TextColor="#FFF"/>
+                                    </StackLayout>
+
+                                    <Label Style="{StaticResource Byline-Label}"
+                               Text="{x:Static resources:AppResources.Feedback_ActualAverage}"
+                               HorizontalTextAlignment="Center" Margin="0,-2"
+                               TextColor="#FFF"
+                               />
+                                </StackLayout>
+                            </borders:SfBorder>
+
+                        </Grid>
+                    </shimmer:SfShimmer.Content>
+                </shimmer:SfShimmer>
+
+
+        </pancakeView:PancakeView>
+    </ContentView.Content>
+</ContentView>

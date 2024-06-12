@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IResultPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.ResultPage"
+                      BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <StackLayout Padding="0,30,0,30"
+                     Spacing="20">
+            <customControls:ZgJaggedIcon Text="{Binding IconUnicode}"
+                                         Style="{StaticResource JaggedIcon-ZgJaggedIcon}" />
+
+            <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                        Text="{Binding Message}" />
+        </StackLayout>
+    </ContentPage.Content>
+</base:ContentPageBase>

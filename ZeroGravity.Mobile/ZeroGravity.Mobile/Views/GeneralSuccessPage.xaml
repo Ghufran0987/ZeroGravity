@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IGeneralSuccessPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.GeneralSuccessPage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="False"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <StackLayout Padding="0,30,0,30">
+
+        <StackLayout Spacing="10"
+                     VerticalOptions="CenterAndExpand">
+            <customControls:ZgJaggedIcon Text="{Binding IconUnicode}"
+                                         Style="{StaticResource JaggedIcon-ZgJaggedIcon}" />
+
+            <Label Text="{Binding Text}"
+                   Style="{StaticResource HeadlineL-Label}"
+                   HorizontalTextAlignment="Center" />
+            <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                        Text="{Binding SubText}"
+                                        HorizontalTextAlignment="Center"
+                                        HorizontalOptions="Center" />
+        </StackLayout>
+
+    </StackLayout>
+</base:ContentPageBase>

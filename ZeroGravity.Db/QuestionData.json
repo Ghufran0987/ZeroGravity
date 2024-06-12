@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "type": 1,
+    "questionText": "Do you want to...",
+    "answers": [
+      {
+        "id": 1,
+        "answerText": "Lose weight"
+      },
+      {
+        "id": 2,
+        "answerText": "Stay the same weight"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "type": 1,
+    "questionText": "Is there a reason you want to hit this weight goal?",
+    "answers": [
+      {
+        "id": 3,
+        "answerText": "Vacation"
+      },
+      {
+        "id": 4,
+        "answerText": "General health"
+      },
+      {
+        "id": 5,
+        "answerText": "Look better"
+      },
+      {
+        "id": 6,
+        "answerText": "Feel better"
+      },
+      {
+        "id": 7,
+        "answerText": "Wedding / special event"
+      },
+      {
+        "id": 8,
+        "answerText": "Other"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "type": 3,
+    "questionText": "What have you tried to improve your health in the past?",
+    "answers": [
+      {
+        "id": 9,
+        "answerText": "Diet plans"
+      },
+      {
+        "id": 10,
+        "answerText": "Meal replacement plans"
+      },
+      {
+        "id": 11,
+        "answerText": "A health management app"
+      },
+      {
+        "id": 12,
+        "answerText": "Fasting"
+      },
+      {
+        "id": 13,
+        "answerText": "Other"
+      },
+      {
+        "id": 14,
+        "answerText": "None of the above"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "type": 1,
+    "questionText": "And how would you say these have helped in the past",
+    "answers": [
+      {
+        "id": 15,
+        "answerText": "They helped a lot"
+      },
+      {
+        "id": 16,
+        "answerText": "They helped a little"
+      },
+      {
+        "id": 17,
+        "answerText": "They didn't help"
+      },
+      {
+        "id": 18,
+        "answerText": "They gave me temporary results"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "type": 1,
+    "questionText": "What do you feel is stopping you from improving your health?",
+    "answers": [
+      {
+        "id": 19,
+        "answerText": "I just need the motiviation to get started"
+      },
+      {
+        "id": 20,
+        "answerText": "I don't have the knowledge I need to get started"
+      },
+      {
+        "id": 21,
+        "answerText": "I don't have enough time"
+      },
+      {
+        "id": 22,
+        "answerText": "My lifestyle is too unpredicatable"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "type": 1,
+    "questionText": "Has your health affected your social life?",
+    "answers": [
+      {
+        "id": 23,
+        "answerText": "Yes - negatively"
+      },
+      {
+        "id": 24,
+        "answerText": "Yes - positively"
+      },
+      {
+        "id": 25,
+        "answerText": "Sometimes negatively"
+      },
+      {
+        "id": 26,
+        "answerText": "Sometimes positively"
+      },
+      {
+        "id": 27,
+        "answerText": "No"
+      }
+    ]
+  }
+]

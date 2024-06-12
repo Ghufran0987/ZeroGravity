@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgNavBarButton"
+             x:Name="This">
+  <ContentView.ControlTemplate>
+      <ControlTemplate>
+          <buttons:SfButton Command="{Binding Source={x:Reference This}, Path=Command}"
+                            CommandParameter="{Binding Source={x:Reference This}, Path=CommandParameter}"
+                            BackgroundColor="{Binding Source={x:Reference This}, Path=ButtonColor}">
+              <Grid ColumnSpacing="{Binding Source={x:Reference This}, Path=GapWidth}"
+                    Margin="{Binding Source={x:Reference This}, Path=ButtonMargin}">
+                  <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+
+                  <Label Grid.Column="0" 
+                         VerticalTextAlignment="Center"
+                         Text="{Binding Source={x:Reference This}, Path=Text}"
+                         TextColor="{Binding Source={x:Reference This}, Path=TextColor}"
+                         FontFamily="{Binding Source={x:Reference This}, Path=FontFamily}"
+                         FontSize="{Binding Source={x:Reference This}, Path=FontSize}"
+                         LineHeight="{Binding Source={x:Reference This}, Path=LineHeight}"/>
+                  <Label Grid.Column="1" 
+                         VerticalTextAlignment="Center"
+                         Text="{Binding Source={x:Reference This}, Path=IconText}"
+                         TextColor="{Binding Source={x:Reference This}, Path=IconTextColor}"
+                         FontFamily="{Binding Source={x:Reference This}, Path=IconFontFamily}"
+                         FontSize="{Binding Source={x:Reference This}, Path=IconFontSize}"/>
+              </Grid>
+          </buttons:SfButton>
+        </ControlTemplate>
+  </ContentView.ControlTemplate>
+</ContentView>

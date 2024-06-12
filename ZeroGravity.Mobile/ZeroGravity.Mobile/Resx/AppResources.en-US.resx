@@ -1,0 +1,1797 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Button_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Busy" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="DietPreferences_LactoVegetarian_Description" xml:space="preserve">
+    <value>Vegeterian but with lactose-free dairy products only.</value>
+  </data>
+  <data name="DietPreferences_LactoVegetarian_Title" xml:space="preserve">
+    <value>Lacto-Vegetarian</value>
+  </data>
+  <data name="DietPreferences_OvoVegetarian_Description" xml:space="preserve">
+    <value>Only Eggs and plant-based.</value>
+  </data>
+  <data name="DietPreferences_OvoVegetarian_Title" xml:space="preserve">
+    <value>Ovo-Vegetarian</value>
+  </data>
+  <data name="DietPreferences_Pescetarian_Description" xml:space="preserve">
+    <value>Mainly Vegetarian, but I do eat fish, eggs and dairy.</value>
+  </data>
+  <data name="DietPreferences_Pescetarian_Title" xml:space="preserve">
+    <value>Pescetarian</value>
+  </data>
+  <data name="DietPreferences_Schedule" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="DietPreferences_Schedule_Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="DietPreferences_Schedule_Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="DietPreferences_Schedule_Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="DietPreferences_Standart_Description" xml:space="preserve">
+    <value>I'll eat anything</value>
+  </data>
+  <data name="DietPreferences_Standart_Title" xml:space="preserve">
+    <value>Regular</value>
+  </data>
+  <data name="DietPreferences_Title" xml:space="preserve">
+    <value>Dietary Preferences</value>
+  </data>
+  <data name="DietPreferences_Vegan_Description" xml:space="preserve">
+    <value>Plant based only</value>
+  </data>
+  <data name="DietPreferences_Vegan_Title" xml:space="preserve">
+    <value>Vegan</value>
+  </data>
+  <data name="DietPreferences_Vegetarian_Description" xml:space="preserve">
+    <value>Only eggs, diary &amp; plant-based.</value>
+  </data>
+  <data name="DietPreferences_Vegetarian_Title" xml:space="preserve">
+    <value>Vegetarian</value>
+  </data>
+  <data name="LoginBusy" xml:space="preserve">
+    <value>Logging in...</value>
+  </data>
+  <data name="Login_Error" xml:space="preserve">
+    <value>Login failed.</value>
+  </data>
+  <data name="Login_Title" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MedicalPreconditions_Arthritis" xml:space="preserve">
+    <value>Arthritis</value>
+  </data>
+  <data name="MedicalPreconditions_Arthritis_Description" xml:space="preserve">
+    <value>Arthritis description</value>
+  </data>
+  <data name="MedicalPreconditions_CardiacCondition" xml:space="preserve">
+    <value>Cardiac condition</value>
+  </data>
+  <data name="MedicalPreconditions_CardiacCondition_Description" xml:space="preserve">
+    <value>Cardiac condition description</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Description" xml:space="preserve">
+    <value>Diabetes description</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Prediabetic" xml:space="preserve">
+    <value>Pre-diabetic</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Title" xml:space="preserve">
+    <value>Diabetes</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Type1" xml:space="preserve">
+    <value>Type 1</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Type2Dietcontrol" xml:space="preserve">
+    <value>Type 2 on diet control</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Type2Insulin" xml:space="preserve">
+    <value>Type 2 on insulin</value>
+  </data>
+  <data name="MedicalPreconditions_Diabetes_Type2Oralmedication" xml:space="preserve">
+    <value>Type 2 on oral medication</value>
+  </data>
+  <data name="MedicalPreconditions_Hypertension" xml:space="preserve">
+    <value>Hypertension</value>
+  </data>
+  <data name="MedicalPreconditions_Hypertension_Description" xml:space="preserve">
+    <value>Hypertension description</value>
+  </data>
+  <data name="MedicalPreconditions_Title" xml:space="preserve">
+    <value>Medical pre-conditions</value>
+  </data>
+  <data name="PersonalData_Bmi" xml:space="preserve">
+    <value>BMI</value>
+  </data>
+  <data name="PersonalData_BodyFat" xml:space="preserve">
+    <value>Body Fat (%)</value>
+  </data>
+  <data name="PersonalData_County" xml:space="preserve">
+    <value>COUNTRY</value>
+  </data>
+  <data name="PersonalData_FirstName" xml:space="preserve">
+    <value>FIRST NAME</value>
+  </data>
+  <data name="PersonalData_Height" xml:space="preserve">
+    <value>Height (cm)</value>
+  </data>
+  <data name="PersonalData_LastName" xml:space="preserve">
+    <value>LAST NAME</value>
+  </data>
+  <data name="PersonalData_Salutation" xml:space="preserve">
+    <value>SALUTATION</value>
+  </data>
+  <data name="PersonalData_Title" xml:space="preserve">
+    <value>Personal Data</value>
+  </data>
+  <data name="PersonalData_UpperArmDiameter" xml:space="preserve">
+    <value>UpperArm Diameter</value>
+  </data>
+  <data name="PersonalData_WaistDiameter" xml:space="preserve">
+    <value>Waist (cm)</value>
+  </data>
+  <data name="PersonalData_Weight" xml:space="preserve">
+    <value>Weight (kg)</value>
+  </data>
+  <data name="PersonalData_YearOfBirth" xml:space="preserve">
+    <value>YEAR OF BIRTH</value>
+  </data>
+  <data name="Register_Error" xml:space="preserve">
+    <value>Register failed.</value>
+  </data>
+  <data name="Register_Title" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="TimePicker_Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="TimePicker_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="Welcome_Greeting" xml:space="preserve">
+    <value>Welcome to Miboko</value>
+  </data>
+  <data name="SessionTimedOut_Title" xml:space="preserve">
+    <value>Session timed out</value>
+  </data>
+  <data name="SessionTimedOut_Msg" xml:space="preserve">
+    <value>The current session has expired due to inactivity. You will be forwarded to login.</value>
+  </data>
+  <data name="Common_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AlreadyRegisteredUser" xml:space="preserve">
+    <value>Already a user?</value>
+  </data>
+  <data name="ContinueApple" xml:space="preserve">
+    <value>Sign-In with Apple</value>
+  </data>
+  <data name="ContinueGoogle" xml:space="preserve">
+    <value>Sign-In with Google</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailJoin" xml:space="preserve">
+    <value>Join with email</value>
+  </data>
+  <data name="EmailValidationErrorHint" xml:space="preserve">
+    <value>Please enter a valid email address.</value>
+  </data>
+  <data name="Email_Capitals" xml:space="preserve">
+    <value>EMAIL ADDRESS</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Get started</value>
+  </data>
+  <data name="Login_Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Password_Capitals" xml:space="preserve">
+    <value>PASSWORD</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>By signing in you agree to our</value>
+  </data>
+  <data name="RegisterBusy" xml:space="preserve">
+    <value>Registering...</value>
+  </data>
+  <data name="Register_Submit" xml:space="preserve">
+    <value>I Want To Join Miboko</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="PasswordReset_Error" xml:space="preserve">
+    <value>Resetting password failed</value>
+  </data>
+  <data name="Profile_Title" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Button_Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="PickPhotoUnsupported_Message" xml:space="preserve">
+    <value>Your device does not allow picking photos.</value>
+  </data>
+  <data name="Unsuported_Title" xml:space="preserve">
+    <value>Functionality unsupported</value>
+  </data>
+  <data name="FirstUseWizard_Greeting_Description" xml:space="preserve">
+    <value>In order to get you started, we need a bit of information about you, your lifestyle and medical conditions. No worries, we keep your data save and will never share anything without your explicit consent.</value>
+  </data>
+  <data name="FirstUseWizard_Greeting_Title" xml:space="preserve">
+    <value>Howdy, welcome to Miboko.</value>
+  </data>
+  <data name="Button_Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Button_Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="MemberSince" xml:space="preserve">
+    <value>Member since</value>
+  </data>
+  <data name="FoodAmount_Heavy" xml:space="preserve">
+    <value>Heavy</value>
+  </data>
+  <data name="FoodAmount_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="FoodAmount_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="FoodAmount_Medium1" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="FoodAmount_VeryLight" xml:space="preserve">
+    <value>Very light</value>
+  </data>
+  <data name="PersonalGoal_Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="PersonalGoal_Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="PersonalGoal_Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="PersonalGoal_PerDay" xml:space="preserve">
+    <value>{0}/day</value>
+  </data>
+  <data name="PersonalGoal_Title" xml:space="preserve">
+    <value>Your Goals</value>
+  </data>
+  <data name="PersonalGoal_WaterConsumption" xml:space="preserve">
+    <value>Water consumption</value>
+  </data>
+  <data name="Activities_DayToDay" xml:space="preserve">
+    <value>Day-to-day</value>
+  </data>
+  <data name="Activities_Exercise" xml:space="preserve">
+    <value>Exercise</value>
+  </data>
+  <data name="Activities_Subtitle" xml:space="preserve">
+    <value>How long you were active?</value>
+  </data>
+  <data name="Activities_SyncActivities" xml:space="preserve">
+    <value>Sync activities</value>
+  </data>
+  <data name="Activities_Title" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="DayToDay_Date" xml:space="preserve">
+    <value>DATE</value>
+  </data>
+  <data name="DayToDay_Duration" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="DayToDay_Subtitle" xml:space="preserve">
+    <value>How long were you out walking?</value>
+  </data>
+  <data name="DayToDay_Title" xml:space="preserve">
+    <value>Day-to-day</value>
+  </data>
+  <data name="Exercise_ActivityType" xml:space="preserve">
+    <value>TYPE OF ACTIVITY</value>
+  </data>
+  <data name="Exercise_Date" xml:space="preserve">
+    <value>DATE&amp;TIME</value>
+  </data>
+  <data name="Exercise_Duration" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
+  <data name="Exercise_Subtitle" xml:space="preserve">
+    <value>How long were you doing sports?</value>
+  </data>
+  <data name="Exercise_Title" xml:space="preserve">
+    <value>Exercise</value>
+  </data>
+  <data name="DayToDay_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="DatePicker_Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DatePicker_Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="DatePicker_Years" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="ExerciseItems_Hike" xml:space="preserve">
+    <value>Hike</value>
+  </data>
+  <data name="ExerciseItems_Ride" xml:space="preserve">
+    <value>Biking</value>
+  </data>
+  <data name="ExerciseItems_Run" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="ExerciseItems_Swim" xml:space="preserve">
+    <value>Swim</value>
+  </data>
+  <data name="ExerciseItems_Workout" xml:space="preserve">
+    <value>Workout</value>
+  </data>
+  <data name="ExerciseItems_Yoga" xml:space="preserve">
+    <value>Yoga</value>
+  </data>
+  <data name="ComboBox_Watermark" xml:space="preserve">
+    <value>Please select an option</value>
+  </data>
+  <data name="Notifications_Title" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Account_Delete" xml:space="preserve">
+    <value>DELETE YOUR ACCOUNT</value>
+  </data>
+  <data name="Email_Change" xml:space="preserve">
+    <value>Change your email address</value>
+  </data>
+  <data name="Password_Change" xml:space="preserve">
+    <value>Change your password</value>
+  </data>
+  <data name="Email_Address" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="Account_Delete_Warning_Label" xml:space="preserve">
+    <value>Please note</value>
+  </data>
+  <data name="Enter_Password_Continue_Label" xml:space="preserve">
+    <value>Enter password to continue</value>
+  </data>
+  <data name="Account_Delete_Forever" xml:space="preserve">
+    <value>Delete account forever</value>
+  </data>
+  <data name="Account_Delete_Warning_Text" xml:space="preserve">
+    <value>Your account will be permanently erased and your data cannot be recovered.</value>
+  </data>
+  <data name="Common_Request_Error" xml:space="preserve">
+    <value>An error occurred while processing your request.</value>
+  </data>
+  <data name="Password_Invalid" xml:space="preserve">
+    <value>The password you provided is incorrect.</value>
+  </data>
+  <data name="Password_Invalid_Title" xml:space="preserve">
+    <value>Invalid password</value>
+  </data>
+  <data name="Account_Deleted_Title" xml:space="preserve">
+    <value>Account deleted</value>
+  </data>
+  <data name="FastingData_EndsAtSameDay" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="FastingData_Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="FastingData_StartsAt" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="FastingData_Subtitle" xml:space="preserve">
+    <value>Set a Fasting Timer to help improve your metabolic health</value>
+  </data>
+  <data name="FastingData_Title" xml:space="preserve">
+    <value>Fasting</value>
+  </data>
+  <data name="FastingSetting_Friday" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="FastingSetting_Monday" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="FastingSetting_RepeatTitle" xml:space="preserve">
+    <value>Repeat on every...</value>
+  </data>
+  <data name="FastingSetting_Saturday" xml:space="preserve">
+    <value>Saturday</value>
+  </data>
+  <data name="FastingSetting_SkipBreakfast" xml:space="preserve">
+    <value>Skip breakfast</value>
+  </data>
+  <data name="FastingSetting_SkipDinner" xml:space="preserve">
+    <value>Skip dinner</value>
+  </data>
+  <data name="FastingSetting_SkipLunch" xml:space="preserve">
+    <value>Skip lunch</value>
+  </data>
+  <data name="FastingSetting_Subtitle" xml:space="preserve">
+    <value>Please select what you are skipping</value>
+  </data>
+  <data name="FastingSetting_Sunday" xml:space="preserve">
+    <value>Sunday</value>
+  </data>
+  <data name="FastingSetting_Thursday" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="FastingSetting_Title" xml:space="preserve">
+    <value>Fasting</value>
+  </data>
+  <data name="FastingSetting_Tuesday" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="FastingSetting_Wednesday" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="Common_SaveSuccessful" xml:space="preserve">
+    <value>Data was successfully saved.</value>
+  </data>
+  <data name="Email_Change_Title" xml:space="preserve">
+    <value>Change your email address</value>
+  </data>
+  <data name="Email_New_Input_Capitals" xml:space="preserve">
+    <value>YOUR EMAIL ADDRESS</value>
+  </data>
+  <data name="Email_New_Label" xml:space="preserve">
+    <value>Enter new email</value>
+  </data>
+  <data name="MealsSnacksBreakfast_Subtitle" xml:space="preserve">
+    <value>How you are feeling now?</value>
+  </data>
+  <data name="MealsSnacksBreakfast_Title" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="MealsSnacks_Name" xml:space="preserve">
+    <value>WHAT DID YOU EAT?</value>
+  </data>
+  <data name="TimePicker_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="MealsSnacks_TimePicker_Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="MealsSnacks_TimePicker_Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="MealsSnacks_TimePicker_Time" xml:space="preserve">
+    <value>TIME</value>
+  </data>
+  <data name="MealsSnacksDinner_Subtitle" xml:space="preserve">
+    <value>How you are feeling now?</value>
+  </data>
+  <data name="MealsSnacksDinner_Title" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="MealsSnacksHealthySnack_Subtitle" xml:space="preserve">
+    <value>How you are feeling now?</value>
+  </data>
+  <data name="MealsSnacksHealthySnack_Title" xml:space="preserve">
+    <value>Healthy Snacks</value>
+  </data>
+  <data name="MealsSnacksUnhealthySnack_Subtitle" xml:space="preserve">
+    <value>How you are feeling now?</value>
+  </data>
+  <data name="MealsSnacksUnhealthySnack_Title" xml:space="preserve">
+    <value>Unhealthy Snacks</value>
+  </data>
+  <data name="MealsSnacksLunch_Subtitle" xml:space="preserve">
+    <value>How you are feeling now?</value>
+  </data>
+  <data name="MealsSnacksLunch_Title" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="Password_Current_Capitals" xml:space="preserve">
+    <value>CURRENT PASSWORD</value>
+  </data>
+  <data name="Password_New_Capitals" xml:space="preserve">
+    <value>NEW PASSWORD</value>
+  </data>
+  <data name="Password_New_Label" xml:space="preserve">
+    <value>Enter new password</value>
+  </data>
+  <data name="Password_New_Repeat_Capitals" xml:space="preserve">
+    <value>REPEAT NEW PASSWORD</value>
+  </data>
+  <data name="Password_Current_Required_Message" xml:space="preserve">
+    <value>Current password cannot be blank.</value>
+  </data>
+  <data name="Password_Current_Required_Title" xml:space="preserve">
+    <value>Current password required</value>
+  </data>
+  <data name="Password_New_Match_Error_Message" xml:space="preserve">
+    <value>Please enter identical passwords.</value>
+  </data>
+  <data name="Password_New_Match_Error_Title" xml:space="preserve">
+    <value>Password not matching</value>
+  </data>
+  <data name="TabPage_Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="TabPage_Analysis" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="TabPage_Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="TabPage_MyDay" xml:space="preserve">
+    <value>My Day</value>
+  </data>
+  <data name="TabPage_Stream" xml:space="preserve">
+    <value>Stream</value>
+  </data>
+  <data name="AccountOverview_AccountSecurity" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="AccountOverview_DietPreferences" xml:space="preserve">
+    <value>Diet</value>
+  </data>
+  <data name="AccountOverview_Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="AccountOverview_MedicalPreconditions" xml:space="preserve">
+    <value>Medical</value>
+  </data>
+  <data name="AccountOverview_PersonalData" xml:space="preserve">
+    <value>Personal</value>
+  </data>
+  <data name="AccountOverview_PersonalGoals" xml:space="preserve">
+    <value>Goals</value>
+  </data>
+  <data name="MyDay_Description" xml:space="preserve">
+    <value>Goals and Activities</value>
+  </data>
+  <data name="MyDay_Activities" xml:space="preserve">
+    <value>Ativities</value>
+  </data>
+  <data name="MyDay_Fasting" xml:space="preserve">
+    <value>Fasting</value>
+  </data>
+  <data name="MyDay_MealSnacks" xml:space="preserve">
+    <value>Meals &amp; Snacks</value>
+  </data>
+  <data name="MyDay_TrackedToday" xml:space="preserve">
+    <value>Tracked Today</value>
+  </data>
+  <data name="MyDay_WaterIntake" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="MyDay_Wellbeing" xml:space="preserve">
+    <value>Wellbeing</value>
+  </data>
+  <data name="MealsSnacks_Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="MealsSnacks_Description" xml:space="preserve">
+    <value>Choose a category</value>
+  </data>
+  <data name="MealsSnacks_Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="MealsSnacks_HealthySnack" xml:space="preserve">
+    <value>Healthy snack</value>
+  </data>
+  <data name="MealsSnacks_Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="MealsSnacks_Title" xml:space="preserve">
+    <value>Meals &amp; Snacks</value>
+  </data>
+  <data name="MealsSnacks_UnhealtySnack" xml:space="preserve">
+    <value>Unhealthy snack</value>
+  </data>
+  <data name="CalorieDrinksAlcohol_Name" xml:space="preserve">
+    <value>WHAT DID YOU DRINK?</value>
+  </data>
+  <data name="CalorieDrinksAlcohol_Subtitle" xml:space="preserve">
+    <value>How much did you drink?</value>
+  </data>
+  <data name="CalorieDrinksAlcohol_Time" xml:space="preserve">
+    <value>TIME</value>
+  </data>
+  <data name="CalorieDrinksAlcohol_Title" xml:space="preserve">
+    <value>Calorie drinks</value>
+  </data>
+  <data name="LiquidIntake_Cups" xml:space="preserve">
+    <value>{0} cup(s)</value>
+  </data>
+  <data name="WaterIntake_Subtitle" xml:space="preserve">
+    <value>How much water have you had?</value>
+  </data>
+  <data name="WaterIntake_Time" xml:space="preserve">
+    <value>At what time?</value>
+  </data>
+  <data name="WaterIntake_Title" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="LiquidIntake_Amount" xml:space="preserve">
+    <value>(~{0}{1})</value>
+  </data>
+  <data name="Common_Connectivity_Message_NoInternet" xml:space="preserve">
+    <value>No internet access available. Please ensure to be connected to the internet.</value>
+  </data>
+  <data name="Common_Connectivity_Title" xml:space="preserve">
+    <value>Internet connection</value>
+  </data>
+  <data name="Password_New_Required_Message" xml:space="preserve">
+    <value>New password cannot be blank.</value>
+  </data>
+  <data name="Password_New_Required_Title" xml:space="preserve">
+    <value>New password required</value>
+  </data>
+  <data name="Password_Length_Message" xml:space="preserve">
+    <value>For your own security, please choose a password with a minimum length of {0} characters.</value>
+  </data>
+  <data name="Password_Length_Title" xml:space="preserve">
+    <value>Password too short</value>
+  </data>
+  <data name="TermsAndPrivacy_1_Label" xml:space="preserve">
+    <value>I agree to the</value>
+  </data>
+  <data name="TermsAndPrivacy_2_Label" xml:space="preserve">
+    <value>terms</value>
+  </data>
+  <data name="TermsAndPrivacy_3_Label" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="TermsAndPrivacy_4_Label" xml:space="preserve">
+    <value>policy</value>
+  </data>
+  <data name="Newsletter_Label" xml:space="preserve">
+    <value>You may send me a newsletter</value>
+  </data>
+  <data name="PasswordForgot_Submit" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="StepCount_Description" xml:space="preserve">
+    <value>How many steps did you walk today?</value>
+  </data>
+  <data name="StepCount_Steps" xml:space="preserve">
+    <value>Steps</value>
+  </data>
+  <data name="StepCount_Title" xml:space="preserve">
+    <value>StepCount</value>
+  </data>
+  <data name="Activities_StepCount" xml:space="preserve">
+    <value>StepCount</value>
+  </data>
+  <data name="StepCount_NotAvailable" xml:space="preserve">
+    <value>This feature is not supported by your device.</value>
+  </data>
+  <data name="WellbeingData_Subtitle" xml:space="preserve">
+    <value>How are you feeling today?</value>
+  </data>
+  <data name="WellbeingData_Title" xml:space="preserve">
+    <value>Wellbeing</value>
+  </data>
+  <data name="WellbeingType_Bad" xml:space="preserve">
+    <value>Bad</value>
+  </data>
+  <data name="WellbeingType_Fantastic" xml:space="preserve">
+    <value>Fantastic</value>
+  </data>
+  <data name="WellbeingType_Great" xml:space="preserve">
+    <value>Great</value>
+  </data>
+  <data name="WellbeingType_NotSoGreat" xml:space="preserve">
+    <value>Not that great</value>
+  </data>
+  <data name="WellbeingType_VeryBad" xml:space="preserve">
+    <value>Very Bad</value>
+  </data>
+  <data name="IntegrationDetail_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="IntegrationDetail_Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="IntegrationDetail_Fitbit_Description" xml:space="preserve">
+    <value>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna.</value>
+  </data>
+  <data name="IntegrationDetail_Fitbit_Title" xml:space="preserve">
+    <value>Fitbit</value>
+  </data>
+  <data name="IntegrationDetail_Link_Device" xml:space="preserve">
+    <value>Link device</value>
+  </data>
+  <data name="IntegrationDetail_Link_Service" xml:space="preserve">
+    <value>Link service</value>
+  </data>
+  <data name="IntegrationDetail_Service" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="IntegrationDetail_Sugarbeat_Description" xml:space="preserve">
+    <value>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna.</value>
+  </data>
+  <data name="IntegrationDetail_Sugarbeat_Title" xml:space="preserve">
+    <value>Nemaura Miboko</value>
+  </data>
+  <data name="IntegrationDetail_Unlink_Device" xml:space="preserve">
+    <value>Unlink device</value>
+  </data>
+  <data name="IntegrationDetail_Unlink_Service" xml:space="preserve">
+    <value>Unlink service</value>
+  </data>
+  <data name="ActivitySyncOverview_Subtitle" xml:space="preserve">
+    <value>Sync data from devices and services you use</value>
+  </data>
+  <data name="ActivitySyncOverview_Title" xml:space="preserve">
+    <value>Sync activities</value>
+  </data>
+  <data name="Salutation_Female" xml:space="preserve">
+    <value>Mrs</value>
+  </data>
+  <data name="Salutation_Male" xml:space="preserve">
+    <value>Mr</value>
+  </data>
+  <data name="Country_England" xml:space="preserve">
+    <value>United Kingdom</value>
+  </data>
+  <data name="Country_France" xml:space="preserve">
+    <value>France</value>
+  </data>
+  <data name="Country_Germany" xml:space="preserve">
+    <value>Germany</value>
+  </data>
+  <data name="ActivitySyncDetail_FoundActivities" xml:space="preserve">
+    <value>{0} Activities found</value>
+  </data>
+  <data name="Exercise_Name" xml:space="preserve">
+    <value>NAME</value>
+  </data>
+  <data name="PersonalData_HipDiameter" xml:space="preserve">
+    <value>Hip (cm)</value>
+  </data>
+  <data name="PersonalData_NeckDiameter" xml:space="preserve">
+    <value>Neck (cm)</value>
+  </data>
+  <data name="PersonalGoal_Activites" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="PersonalGoal_BodyFat" xml:space="preserve">
+    <value>Body fat (%)</value>
+  </data>
+  <data name="PersonalGoal_BodyMassIndex" xml:space="preserve">
+    <value>Body-Mass-Index</value>
+  </data>
+  <data name="PersonalGoal_Description" xml:space="preserve">
+    <value>Base on the information you have provided, these are the daily goals we recommend.</value>
+  </data>
+  <data name="PersonalGoal_HealthySnacks" xml:space="preserve">
+    <value>Healthy snacks</value>
+  </data>
+  <data name="PersonalGoal_HoursPerWeek" xml:space="preserve">
+    <value>{0}h / week</value>
+  </data>
+  <data name="PersonalGoal_CalorieDrinks" xml:space="preserve">
+    <value>Calorie drinks</value>
+  </data>
+  <data name="PersonalGoal_Summary" xml:space="preserve">
+    <value>Based on your data, the following Body fat and Body-Mass-Index (BMI) values were calculated:</value>
+  </data>
+  <data name="PersonalGoal_UnhealthySnacks" xml:space="preserve">
+    <value>Unhealthy snacks</value>
+  </data>
+  <data name="PersonalGoal_FinishSetup" xml:space="preserve">
+    <value>Finish Setup</value>
+  </data>
+  <data name="WizardStep_Page1Title" xml:space="preserve">
+    <value>Step 1 of 5</value>
+  </data>
+  <data name="WizardStep_Page2Title" xml:space="preserve">
+    <value>Step 2 of 5</value>
+  </data>
+  <data name="WizardStep_Page3Title" xml:space="preserve">
+    <value>Step 3 of 5</value>
+  </data>
+  <data name="WizardStep_Page4Title" xml:space="preserve">
+    <value>Step 4 of 5</value>
+  </data>
+  <data name="WizardStep_Page5Title" xml:space="preserve">
+    <value>Step 5 of 5</value>
+  </data>
+  <data name="WizardStep_StartJourney" xml:space="preserve">
+    <value>Start your journey</value>
+  </data>
+  <data name="WizardImageSelection_Select" xml:space="preserve">
+    <value>Click to select image</value>
+  </data>
+  <data name="WizardImageSelection_Title" xml:space="preserve">
+    <value>Profile picture</value>
+  </data>
+  <data name="Feedback_ActualAverage" xml:space="preserve">
+    <value>in the last 7 days</value>
+  </data>
+  <data name="Feedback_Bodyfat" xml:space="preserve">
+    <value>Body fat (%)</value>
+  </data>
+  <data name="Feedback_BodymassIndex" xml:space="preserve">
+    <value>Body-Mass-Index</value>
+  </data>
+  <data name="Feedback_Coachings" xml:space="preserve">
+    <value>Recommended coachings</value>
+  </data>
+  <data name="Feedback_Description" xml:space="preserve">
+    <value>Based on your data, the body fat and Body-Mass-Index (BMI) have been calculated. Click on the items to learn more about how we measure this and what is supposed to be normal.</value>
+  </data>
+  <data name="Feedback_MentalTrainingDescription" xml:space="preserve">
+    <value>Mental training description</value>
+  </data>
+  <data name="Feedback_MentalTrainingTitle" xml:space="preserve">
+    <value>Mental training</value>
+  </data>
+  <data name="Feedback_NutritionDescription" xml:space="preserve">
+    <value>Nutrition consulting description</value>
+  </data>
+  <data name="Feedback_NutritionTitle" xml:space="preserve">
+    <value>Nutrition consulting</value>
+  </data>
+  <data name="Feedback_PersonalTrainingDescription" xml:space="preserve">
+    <value>Personal training description</value>
+  </data>
+  <data name="Feedback_PersonalTrainingTitle" xml:space="preserve">
+    <value>Personal training</value>
+  </data>
+  <data name="Feedback_Recommended" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="Feedback_Subtitle" xml:space="preserve">
+    <value>Recommendations based on your data</value>
+  </data>
+  <data name="Feedback_Title" xml:space="preserve">
+    <value>Journal</value>
+  </data>
+  <data name="Feedback_UpdateMeasures" xml:space="preserve">
+    <value>Update body measures</value>
+  </data>
+  <data name="Feedback_WaterTitle" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="Feedback_ActivityTitle" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="AnalysisPage_LoadData_ErrorMessage" xml:space="preserve">
+    <value>Data could not be loaded</value>
+  </data>
+  <data name="AnalysisPage_SubTitle" xml:space="preserve">
+    <value>Daily analysis</value>
+  </data>
+  <data name="Button_ContinueSkip" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="HistoryPlaceholder_Item1" xml:space="preserve">
+    <value>Exercise for 01:30</value>
+  </data>
+  <data name="HistoryPlaceholder_Item2" xml:space="preserve">
+    <value>Breakfast at 09:20</value>
+  </data>
+  <data name="HistoryPlaceholder_Item3" xml:space="preserve">
+    <value>500ml at 09:20</value>
+  </data>
+  <data name="HistoryPlaceholder_Item4" xml:space="preserve">
+    <value>Lunch at 13:15</value>
+  </data>
+  <data name="HistoryPlaceholder_Item5" xml:space="preserve">
+    <value>250ml at 13:15</value>
+  </data>
+  <data name="Activity_Intensity_Low" xml:space="preserve">
+    <value>low</value>
+  </data>
+  <data name="Activity_Intensity_Moderate" xml:space="preserve">
+    <value>moderate</value>
+  </data>
+  <data name="Activity_Intensity_Vigorous" xml:space="preserve">
+    <value>vigorous</value>
+  </data>
+  <data name="Activities_Intensity" xml:space="preserve">
+    <value>How Intense was your activity?</value>
+  </data>
+  <data name="Activities_SummaryText" xml:space="preserve">
+    <value>Total activity for today</value>
+  </data>
+  <data name="Activities_Time" xml:space="preserve">
+    <value>At What time?</value>
+  </data>
+  <data name="Activities_TypeOfActivity" xml:space="preserve">
+    <value>What did you do?</value>
+  </data>
+  <data name="Feedback_BreakfastTitle" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="Feedback_DinnerTitle" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="Feedback_HealthySnackTitle" xml:space="preserve">
+    <value>Healthy Snack</value>
+  </data>
+  <data name="Feedback_LunchTitle" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="Feedback_UnhealthySnackTitle" xml:space="preserve">
+    <value>Unhealthy Snack</value>
+  </data>
+  <data name="FoodAmount_NotAvailable" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountIdeal" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountLess" xml:space="preserve">
+    <value>Your intake is almost enough</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountMuch" xml:space="preserve">
+    <value>Your intake is a bit too much</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountNoValue" xml:space="preserve">
+    <value>No snacks eaten</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountWayLess" xml:space="preserve">
+    <value>Your intake is way too little</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountWayMuch" xml:space="preserve">
+    <value>Your intake is way too much</value>
+  </data>
+  <data name="Feedback_MealAmountIdeal" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_MealAmountLess" xml:space="preserve">
+    <value>Your intake is almost enough</value>
+  </data>
+  <data name="Feedback_MealAmountMuch" xml:space="preserve">
+    <value>Your intake is a bit too much</value>
+  </data>
+  <data name="Feedback_MealAmountNoValue" xml:space="preserve">
+    <value>No intake found</value>
+  </data>
+  <data name="Feedback_MealAmountWayLess" xml:space="preserve">
+    <value>Your intake is way too little</value>
+  </data>
+  <data name="Feedback_MealAmountWayMuch" xml:space="preserve">
+    <value>Your intake is way too much</value>
+  </data>
+  <data name="Feedback_WaterAmountIdeal" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_WaterAmountLess" xml:space="preserve">
+    <value>Drink a little bit more water</value>
+  </data>
+  <data name="Feedback_WaterAmountMuch" xml:space="preserve">
+    <value>You are drinking a bit too much</value>
+  </data>
+  <data name="Feedback_WaterAmountNoValue" xml:space="preserve">
+    <value>No water intake</value>
+  </data>
+  <data name="Feedback_WaterAmountWayLess" xml:space="preserve">
+    <value>Drink alot more water</value>
+  </data>
+  <data name="Feedback_WaterAmountWayMuch" xml:space="preserve">
+    <value>You are drinking way too much</value>
+  </data>
+  <data name="SignInWithEmail" xml:space="preserve">
+    <value>Sign in with email</value>
+  </data>
+  <data name="WaterIntake_SummaryText" xml:space="preserve">
+    <value>Total for today</value>
+  </data>
+  <data name="TrackedHistory_Activity" xml:space="preserve">
+    <value>Exercise</value>
+  </data>
+  <data name="TrackedHistory_Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="TrackedHistory_Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="TrackedHistory_HealthySnack" xml:space="preserve">
+    <value>Healthy Snack</value>
+  </data>
+  <data name="TrackedHistory_Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="TrackedHistory_UnhealthySnack" xml:space="preserve">
+    <value>Unhealthy Snack</value>
+  </data>
+  <data name="TrackedHistory_TextAt" xml:space="preserve">
+    <value>{0} at {1}</value>
+  </data>
+  <data name="TrackedHistory_TextFor" xml:space="preserve">
+    <value>{0} for {1}</value>
+  </data>
+  <data name="TrackedHistory_ActivityTexFor" xml:space="preserve">
+    <value>{0}mins Exercise at {1}</value>
+  </data>
+  <data name="Feedback_MealAmountMedLess" xml:space="preserve">
+    <value>Your intake is too little</value>
+  </data>
+  <data name="Feedback_MealAmountMedMuch" xml:space="preserve">
+    <value>Your intake is too much</value>
+  </data>
+  <data name="MealsSnacks_Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Dairy" xml:space="preserve">
+    <value>Dairy</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Dairy_Description" xml:space="preserve">
+    <value>Milk, yoghurt, cheese and alternatives</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Fruits" xml:space="preserve">
+    <value>Fruits</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Grains" xml:space="preserve">
+    <value>Grains</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Grains_Description" xml:space="preserve">
+    <value>Bread, cereals, rice, pasta and other grains</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Protein" xml:space="preserve">
+    <value>Protein</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Protein_Description" xml:space="preserve">
+    <value>Lean meat, fish, poultry, eggs and nuts</value>
+  </data>
+  <data name="MealsSnacks_Ingredients_Vegetables" xml:space="preserve">
+    <value>Vegetables</value>
+  </data>
+  <data name="Button_Retry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="SugarBeatConnect_About_Message" xml:space="preserve">
+    <value>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Maecenas faucibus mollis interdum. Maecenas sed diam eget risus varius blandit sit amet non magna.</value>
+  </data>
+  <data name="SugarBeatConnect_About_Title" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="SugarBeatConnect_DeviceDetails_Title" xml:space="preserve">
+    <value>Please enter device details</value>
+  </data>
+  <data name="SugarBeatConnect_MacAddress" xml:space="preserve">
+    <value>MAC ADDRESS</value>
+  </data>
+  <data name="SugarBeatConnect_Password" xml:space="preserve">
+    <value>PASSWORD</value>
+  </data>
+  <data name="SugarBeatConnect_Title" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="MetabolicHealth_Subtitle" xml:space="preserve">
+    <value>Set glucose level</value>
+  </data>
+  <data name="MetabolicHealth_Title" xml:space="preserve">
+    <value>MetabolicHealth</value>
+  </data>
+  <data name="Glucose_Value" xml:space="preserve">
+    <value>mmol/L</value>
+  </data>
+  <data name="Button_Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="Common_Error_Unknown" xml:space="preserve">
+    <value>An unknown error occured. Don't worry, we will check what went wrong.</value>
+  </data>
+  <data name="Button_Sync" xml:space="preserve">
+    <value>Sync</value>
+  </data>
+  <data name="Activities_SelectService" xml:space="preserve">
+    <value>Select service</value>
+  </data>
+  <data name="Activities_Stepcounter" xml:space="preserve">
+    <value>Step Counter</value>
+  </data>
+  <data name="ActivitySyncDetail_Intensity" xml:space="preserve">
+    <value>Intensity</value>
+  </data>
+  <data name="MyDay_Calories" xml:space="preserve">
+    <value>Calorie Drinks</value>
+  </data>
+  <data name="MetabolicHealth_ComingSoon" xml:space="preserve">
+    <value>There's nothing here yet. Check back in a future update to use the metabolic health feature.</value>
+  </data>
+  <data name="Notifications_ComingSoon" xml:space="preserve">
+    <value>There's nothing here yet. Check back in a future update to use the notifications feature.</value>
+  </data>
+  <data name="AnalysisPage_Items_Activity" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="AnalysisPage_Items_Breakfast" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="AnalysisPage_Items_Dinner" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="AnalysisPage_Items_HealthySnack" xml:space="preserve">
+    <value>Healthy Snacks</value>
+  </data>
+  <data name="AnalysisPage_Items_Lunch" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="AnalysisPage_Items_CalorieDrink" xml:space="preserve">
+    <value>Calorie Drinks</value>
+  </data>
+  <data name="AnalysisPage_Items_UnhealthySnack" xml:space="preserve">
+    <value>Unhealthy Snacks</value>
+  </data>
+  <data name="AnalysisPage_Items_Water" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="FastingData_EndsAtNextDay" xml:space="preserve">
+    <value>Ends Tomorrow</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountMedMuch" xml:space="preserve">
+    <value>Your intake is too much</value>
+  </data>
+  <data name="Feedback_WaterAmountMedLess" xml:space="preserve">
+    <value>Please drink more</value>
+  </data>
+  <data name="Feedback_WaterAmountMedMuch" xml:space="preserve">
+    <value>Please drink less</value>
+  </data>
+  <data name="AnalysisPage_Summary_Info_Description" xml:space="preserve">
+    <value>Compare your recommended goals with your actual data based on your activity so far today.</value>
+  </data>
+  <data name="TermsAndPrivacyPageTitle" xml:space="preserve">
+    <value>Terms &amp; Privacy</value>
+  </data>
+  <data name="TermsAndPrivacy_PrivacyTabTitle" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="TermsAndPrivacy_TermsTabTitle" xml:space="preserve">
+    <value>Terms of use</value>
+  </data>
+  <data name="TermsAndPrivacy_Paragraph_1" xml:space="preserve">
+    <value>In order to get you started, we need a bit of information about you, your lifestyle and medical conditions. No worries, we keep your data save and will never share anything without your explicit consent.</value>
+  </data>
+  <data name="MealsSnacks_Breakfast_Already_Created" xml:space="preserve">
+    <value>The breakfast was already created.</value>
+  </data>
+  <data name="MealsSnacks_Dinner_Already_Created" xml:space="preserve">
+    <value>The dinner was already created.</value>
+  </data>
+  <data name="MealsSnacks_Lunch_Already_Created" xml:space="preserve">
+    <value>The lunch was already created.</value>
+  </data>
+  <data name="Feedback_HealthySnackAmountMedLess" xml:space="preserve">
+    <value>Your intake is too low</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountLess" xml:space="preserve">
+    <value>Your intake looks good</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountMatch" xml:space="preserve">
+    <value>Your intake looks okay</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountMedLess" xml:space="preserve">
+    <value>Your intake looks very good</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountMedMuch" xml:space="preserve">
+    <value>Your intake is too high</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountMuch" xml:space="preserve">
+    <value>Your intake is a bit too much</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountNoValue" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountWayLess" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_UnhealthySnackAmountWayMuch" xml:space="preserve">
+    <value>Your intake is way too much</value>
+  </data>
+  <data name="Feedback_UpdateMeasurements_Title" xml:space="preserve">
+    <value>Body measurements</value>
+  </data>
+  <data name="EnduranceTracking_ComingSoon" xml:space="preserve">
+    <value>There's nothing here yet. Check back in a future update to use the endurance tracking feature.</value>
+  </data>
+  <data name="EnduranceTracking_Title" xml:space="preserve">
+    <value>Endurance</value>
+  </data>
+  <data name="MyDay_EnduranceTracking" xml:space="preserve">
+    <value>Endurance</value>
+  </data>
+  <data name="Feedback_MeditationAmountBad" xml:space="preserve">
+    <value>Please meditate longer</value>
+  </data>
+  <data name="Feedback_MeditationAmountGood" xml:space="preserve">
+    <value>Your meditation looks good</value>
+  </data>
+  <data name="Feedback_MeditationAmountIdeal" xml:space="preserve">
+    <value>Your meditation looks perfect</value>
+  </data>
+  <data name="Feedback_MeditationTitle" xml:space="preserve">
+    <value>Meditation</value>
+  </data>
+  <data name="MealsAndSnacks_FastingActive" xml:space="preserve">
+    <value>Please note:your fasting session is still active</value>
+  </data>
+  <data name="CalorieDrinksAlcohol_FastingActive" xml:space="preserve">
+    <value>You are supposed to be fasting today</value>
+  </data>
+  <data name="GetStartedPage_JoinMiboko" xml:space="preserve">
+    <value>Don't have an account?</value>
+  </data>
+  <data name="GetStartedPage_NoAccount_Label" xml:space="preserve">
+    <value>No account yet?</value>
+  </data>
+  <data name="JoinWithApple" xml:space="preserve">
+    <value>Join with Apple</value>
+  </data>
+  <data name="JoinWithEmail" xml:space="preserve">
+    <value>Join with email</value>
+  </data>
+  <data name="JoinWithGoogle" xml:space="preserve">
+    <value>Join with Google</value>
+  </data>
+  <data name="Register_Description_1" xml:space="preserve">
+    <value>Complete your details and immediately receive your personalised daily targets for great health.</value>
+  </data>
+  <data name="Register_Description_2" xml:space="preserve">
+    <value>Completely free of charge.</value>
+  </data>
+  <data name="Register_Description_3" xml:space="preserve">
+    <value>Graduate on to our specialised programs when you are ready, focused on metabolic health, for better long term health.</value>
+  </data>
+  <data name="Register_Holistic_Title" xml:space="preserve">
+    <value>Holistic health for life test</value>
+  </data>
+  <data name="Common_ThankYou" xml:space="preserve">
+    <value>Thank you</value>
+  </data>
+  <data name="RegisterSuccessPage_Success_Description" xml:space="preserve">
+    <value>Please check your mail for further instructions.</value>
+  </data>
+  <data name="RegisterSuccessPage_Success_Description1" xml:space="preserve">
+    <value>We look forward to welcoming you to </value>
+  </data>
+  <data name="RegisterSuccessPage_Success_Description2" xml:space="preserve">
+    <value> Miboko </value>
+  </data>
+  <data name="BodyMeasurement_HowToMeasure" xml:space="preserve">
+    <value>How to measure</value>
+  </data>
+  <data name="WizardFinishSetupPage_StartTracking" xml:space="preserve">
+    <value>START TRACKING</value>
+  </data>
+  <data name="DateTimeType_12HourDay" xml:space="preserve">
+    <value>12h clock (am/pm)</value>
+  </data>
+  <data name="DateTimetype_24HourDay" xml:space="preserve">
+    <value>24h clock</value>
+  </data>
+  <data name="UnitType_Imperial" xml:space="preserve">
+    <value>Imperial</value>
+  </data>
+  <data name="UnitType_Metric" xml:space="preserve">
+    <value>Metric</value>
+  </data>
+  <data name="PersonalData_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="PersonalData_Units" xml:space="preserve">
+    <value>Units</value>
+  </data>
+  <data name="Units_Centimeter" xml:space="preserve">
+    <value>cm</value>
+  </data>
+  <data name="Units_Gallon" xml:space="preserve">
+    <value>gal</value>
+  </data>
+  <data name="Units_Inch" xml:space="preserve">
+    <value>in</value>
+  </data>
+  <data name="Units_Kilogram" xml:space="preserve">
+    <value>kg</value>
+  </data>
+  <data name="Units_Liter" xml:space="preserve">
+    <value>l</value>
+  </data>
+  <data name="Units_Milliliter" xml:space="preserve">
+    <value>ml</value>
+  </data>
+  <data name="Units_Ounce" xml:space="preserve">
+    <value>oz</value>
+  </data>
+  <data name="Units_Pound" xml:space="preserve">
+    <value>lbs</value>
+  </data>
+  <data name="PickVideoUnsupported_Message" xml:space="preserve">
+    <value>Your device does not allow picking videos.</value>
+  </data>
+  <data name="VideoUploadPageTitle" xml:space="preserve">
+    <value>Media upload</value>
+  </data>
+  <data name="TakeVideoUnsupported_Message" xml:space="preserve">
+    <value>Your device does not allow taking videos.</value>
+  </data>
+  <data name="VideoUpload_PickedVideoTooLarge" xml:space="preserve">
+    <value>The video you selected ({0} MB) exceeds the max. file size of {1} MB.</value>
+  </data>
+  <data name="VideoUpload_RecordedVideoTooLarge" xml:space="preserve">
+    <value>The video you recorded ({0} MB) exceeds the max. file size of {1} MB.</value>
+  </data>
+  <data name="VideoUpload_NothingToUpload" xml:space="preserve">
+    <value>There is nothing to upload. You can either pick a video from your device or record a new one.</value>
+  </data>
+  <data name="Streaming_AddVideo" xml:space="preserve">
+    <value>Add media</value>
+  </data>
+  <data name="VideoUpload_RecordVideo" xml:space="preserve">
+    <value>Record a video</value>
+  </data>
+  <data name="VideoUpload_SelectVideo" xml:space="preserve">
+    <value>Click to select file to upload. Supported filetypes include videos, photos, pdfs</value>
+  </data>
+  <data name="VideoUpload_VideoDescription_Capitals" xml:space="preserve">
+    <value>DESCRIPTION (OPTIONAL)</value>
+  </data>
+  <data name="VideoUpload_VideoTitle_Capitals" xml:space="preserve">
+    <value>VIDEO TITLE</value>
+  </data>
+  <data name="Language_English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language_French" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="Language_German" xml:space="preserve">
+    <value>German</value>
+  </data>
+  <data name="Language_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Button_StartUpload" xml:space="preserve">
+    <value>Start upload</value>
+  </data>
+  <data name="Language_Capitals" xml:space="preserve">
+    <value>LANGUAGE</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="VideoUpload_VideoTitleMissing_Message" xml:space="preserve">
+    <value>Please enter a title for the video.</value>
+  </data>
+  <data name="VideoUpload_Uploading" xml:space="preserve">
+    <value>Uploading: </value>
+  </data>
+  <data name="VideoUpload_SelectSource_Message" xml:space="preserve">
+    <value>Select the video source.</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="VideoUpload_CameraSource" xml:space="preserve">
+    <value>Record with camera</value>
+  </data>
+  <data name="VideoUpload_DeviceStorageSource" xml:space="preserve">
+    <value>From device storage</value>
+  </data>
+  <data name="Button_CancelUpload" xml:space="preserve">
+    <value>Cancel upload</value>
+  </data>
+  <data name="Button_GoToStream" xml:space="preserve">
+    <value>Go to "stream"</value>
+  </data>
+  <data name="PersonalData_Preferences" xml:space="preserve">
+    <value>Preferences</value>
+  </data>
+  <data name="SugarBeatConnect_Link_Error_Message" xml:space="preserve">
+    <value>Linking to Miboko failed. Please try again.</value>
+  </data>
+  <data name="SugarBeatConnect_Link_Error_Title" xml:space="preserve">
+    <value>Failed to link Miboko.</value>
+  </data>
+  <data name="SugarBeatConnect_Unlink_Error_Message" xml:space="preserve">
+    <value>Unlinking from Miboko failed. Please try again.</value>
+  </data>
+  <data name="SugarBeatConnect_Unlink_Error_Title" xml:space="preserve">
+    <value>Failed to unlink Miboko.</value>
+  </data>
+  <data name="Bluetooth_Off_Message" xml:space="preserve">
+    <value>Please turn bluetooth on.</value>
+  </data>
+  <data name="Bluetooth_Off_Title" xml:space="preserve">
+    <value>Bluetooth not available</value>
+  </data>
+  <data name="Permission_Location_Required_Message" xml:space="preserve">
+    <value>In order to proceed, permisison for location is required.</value>
+  </data>
+  <data name="Permission_Location_Required_Title" xml:space="preserve">
+    <value>Location permission required</value>
+  </data>
+  <data name="SugarBeatConnect_Pairing_Unsuccessful_Message" xml:space="preserve">
+    <value>No Miboko device could be discovered. Please try again.</value>
+  </data>
+  <data name="SugarBeatConnect_Pairing_Unsuccessful_Title" xml:space="preserve">
+    <value>No Miboko device found.</value>
+  </data>
+  <data name="Common_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="SugarBeatConnect_Pairing_Successful" xml:space="preserve">
+    <value>Connected with Miboko</value>
+  </data>
+  <data name="SugarBeatConnect_Invalid_Mac_Address_Format_Message" xml:space="preserve">
+    <value>Please ensure the MAC address consists 6 pairs of 2 characters each pair.</value>
+  </data>
+  <data name="SugarBeatConnect_Invalid_Mac_Address_Format_Title" xml:space="preserve">
+    <value>Invalid MAC address</value>
+  </data>
+  <data name="SugarBeatConnect_Invalid_Password_Format_Message" xml:space="preserve">
+    <value>Please ensure the password to have exactly 4 characters.</value>
+  </data>
+  <data name="SugarBeatConnect_Invalid_Password_Format_Title" xml:space="preserve">
+    <value>Invalid password</value>
+  </data>
+  <data name="HoldingPage_CloseButton" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="HoldingPage_DoNotShowAgain" xml:space="preserve">
+    <value>Do now show message again</value>
+  </data>
+  <data name="MealsSnacks_Breakfast_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="MealsSnacks_Dinner_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="MealsSnacks_HealthySnack_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="MealsSnacks_Lunch_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="MealsSnacks_UnhealthySnack_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="WaterIntake_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="WellbeingData_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="Activities_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="EnduranceTracking_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="FastingData_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="MetabolicHealth_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="MeditationArea_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="CalorieDrinksAlcohol_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="Streaming_HoldingPage_Description" xml:space="preserve">
+    <value>Under construction</value>
+  </data>
+  <data name="HeartBeat_ComingSoon" xml:space="preserve">
+    <value>There's nothing here yet. Check back in a future update to use the Heart Beat feature.</value>
+  </data>
+  <data name="HeartBeat_HoldingPage_Description" xml:space="preserve">
+    <value>Under Construction</value>
+  </data>
+  <data name="HeartBeat_Title" xml:space="preserve">
+    <value>Heart Beat</value>
+  </data>
+  <data name="MyDay_HeartBeat" xml:space="preserve">
+    <value>Heart Beat</value>
+  </data>
+  <data name="PersonalData_Guidance_Text" xml:space="preserve">
+    <value>Miboko has been designed to become your companion for life. Every day we are looking at ways to improve our services on the app as well as provide you with premium services that you can choose at a time you feel suits you so you’re never under pressure. We’re with you all the way. Help us by keeping your personal details up to date</value>
+  </data>
+  <data name="PersonalData_Guidance_Title" xml:space="preserve">
+    <value>Guidance</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAlcoholTitle" xml:space="preserve">
+    <value>Calorie drinks</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountLess" xml:space="preserve">
+    <value>Your intake looks good</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountMatch" xml:space="preserve">
+    <value>Your intake looks okay</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountMedLess" xml:space="preserve">
+    <value>Your intake looks very good</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountMedMuch" xml:space="preserve">
+    <value>Your intake is too much</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountMuch" xml:space="preserve">
+    <value>Your intake is a bit too much</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountNoValue" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountWayLess" xml:space="preserve">
+    <value>Your intake looks perfect</value>
+  </data>
+  <data name="Feedback_CalorieDrinkAmountWayMuch" xml:space="preserve">
+    <value>Your intake is way too much</value>
+  </data>
+  <data name="MyDay_MetabolicHealth" xml:space="preserve">
+    <value>Metabolic Health</value>
+  </data>
+  <data name="TabPage_Journal" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="TabPage_Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="TabPage_Track" xml:space="preserve">
+    <value>Track</value>
+  </data>
+  <data name="Country_US" xml:space="preserve">
+    <value>United States</value>
+  </data>
+  <data name="PersonalData_Ethnicity" xml:space="preserve">
+    <value>ETHNICITY</value>
+  </data>
+  <data name="Salutation_Dr" xml:space="preserve">
+    <value>Dr</value>
+  </data>
+  <data name="Salutation_Miss" xml:space="preserve">
+    <value>Miss</value>
+  </data>
+  <data name="Salutation_Ms" xml:space="preserve">
+    <value>Ms</value>
+  </data>
+  <data name="MyDay_Tracked30Day" xml:space="preserve">
+    <value>Last 30 Days</value>
+  </data>
+  <data name="MyDay_Tracked7Day" xml:space="preserve">
+    <value>Last 7 Days</value>
+  </data>
+  <data name="ProgressPage_SubTitle" xml:space="preserve">
+    <value>Analysis of your intake and activities</value>
+  </data>
+  <data name="ProgressPage_Title" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="FastingData_pro10_Tiltle" xml:space="preserve">
+    <value>Slowdown aging</value>
+  </data>
+  <data name="FastingData_pro11_Tiltle" xml:space="preserve">
+    <value>Boost immune system</value>
+  </data>
+  <data name="FastingData_pro12_Tiltle" xml:space="preserve">
+    <value>Reduce inflammation</value>
+  </data>
+  <data name="FastingData_pro13_Tiltle" xml:space="preserve">
+    <value>Increase focus</value>
+  </data>
+  <data name="FastingData_pro1_SubTiltle1" xml:space="preserve">
+    <value>Stop eating by 8pm and don’t eat again until 12 noon the next day, and you’ll have completed most of a 16 hour fast whilst sleeping.</value>
+  </data>
+  <data name="FastingData_pro1_SubTiltle2" xml:space="preserve">
+    <value>noon the next day, and you’ll have completed most</value>
+  </data>
+  <data name="FastingData_pro1_SubTiltle3" xml:space="preserve">
+    <value>of a 16 hour fast whilst sleeping.</value>
+  </data>
+  <data name="FastingData_pro1_Tiltle" xml:space="preserve">
+    <value>It’s easy</value>
+  </data>
+  <data name="FastingData_pro2_SubTiltle1" xml:space="preserve">
+    <value>Your blood sugar starts rising soon after eating or drinking</value>
+  </data>
+  <data name="FastingData_pro2_SubTiltle2" xml:space="preserve">
+    <value>or drinking</value>
+  </data>
+  <data name="FastingData_pro2_Tiltle" xml:space="preserve">
+    <value>Blood Sugar Level Rises</value>
+  </data>
+  <data name="FastingData_pro3_SubTiltle1" xml:space="preserve">
+    <value>After around 3 hours of taking any food or sugary drinks your blood sugar level starts to fall</value>
+  </data>
+  <data name="FastingData_pro3_SubTiltle2" xml:space="preserve">
+    <value>drinks your blood sugar level starts to fall</value>
+  </data>
+  <data name="FastingData_pro3_Tiltle" xml:space="preserve">
+    <value>Blood Sugar Level Drops</value>
+  </data>
+  <data name="FastingData_pro4_SubTiltle1" xml:space="preserve">
+    <value>Stop eating by 8pm and don’t eat again until 12 your blood sugar level starts to settle and stabilise</value>
+  </data>
+  <data name="FastingData_pro4_SubTiltle2" xml:space="preserve">
+    <value>your blood sugar level starts to settle and stabilise</value>
+  </data>
+  <data name="FastingData_pro4_Tiltle" xml:space="preserve">
+    <value>Blood Sugar Level Settles</value>
+  </data>
+  <data name="FastingData_pro5_SubTiltle1" xml:space="preserve">
+    <value>You will start burning fat 12 hours from when you last had any food or sugary drinks</value>
+  </data>
+  <data name="FastingData_pro5_SubTiltle2" xml:space="preserve">
+    <value>last had any food or sugary drinks</value>
+  </data>
+  <data name="FastingData_pro5_Tiltle" xml:space="preserve">
+    <value>Fat Burning</value>
+  </data>
+  <data name="FastingData_pro6_SubTiltle1" xml:space="preserve">
+    <value>Around 16 hours after you last food or sugary drink intake, your body starts using fat as its main fuel - you've reached Ketosis.</value>
+  </data>
+  <data name="FastingData_pro6_SubTiltle2" xml:space="preserve">
+    <value>intake, your body starts using fat as its main fuel -</value>
+  </data>
+  <data name="FastingData_pro6_SubTiltle3" xml:space="preserve">
+    <value>you've reached Ketosis.</value>
+  </data>
+  <data name="FastingData_pro6_Tiltle" xml:space="preserve">
+    <value>Ketosis</value>
+  </data>
+  <data name="FastingData_pro7_Tiltle" xml:space="preserve">
+    <value>Weight loss</value>
+  </data>
+  <data name="FastingData_pro7_Tiltle1" xml:space="preserve">
+    <value>When done 2-3 days a week, fasting can lead to a whole host of health benefits including...</value>
+  </data>
+  <data name="FastingData_pro7_Tiltle2" xml:space="preserve">
+    <value>fasting can lead to a whole host</value>
+  </data>
+  <data name="FastingData_pro7_Tiltle3" xml:space="preserve">
+    <value>of health benefits including...</value>
+  </data>
+  <data name="FastingData_pro8_Tiltle" xml:space="preserve">
+    <value>Heal digestion problems</value>
+  </data>
+  <data name="FastingData_pro9_Tiltle" xml:space="preserve">
+    <value>Increase insulin sensitivity</value>
+  </data>
+  <data name="Coaching_Failure" xml:space="preserve">
+    <value>There was an error while sending your request. Please try again later.</value>
+  </data>
+  <data name="Coaching_Success" xml:space="preserve">
+    <value>Great choices, we will be in touch soon.</value>
+  </data>
+</root>

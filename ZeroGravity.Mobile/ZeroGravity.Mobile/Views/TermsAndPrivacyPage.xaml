@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:ITermsAndPrivacyPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"                      
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:views="clr-namespace:ZeroGravity.Mobile.Views;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.TermsAndPrivacyPage"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="progress_label" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#FFF" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="HeadlineM-Label-Terms"  TargetType="{x:Type Label}" BasedOn="{StaticResource HeadlineM-Label}">
+                <Setter Property="TextColor" Value="#FF5869" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="0,30,0,30">
+                <StackLayout Spacing="10" VerticalOptions="CenterAndExpand">
+                    <!--<customControls:ZgJaggedIcon Text="&#xf813;"
+                                             Style="{StaticResource JaggedIcon-ZgJaggedIcon}" />-->
+                    <Image Source="{Binding LogoImageSource}"/>
+
+                    <Label Text="Privacy &amp; Terms"
+                       Style="{StaticResource HeadlineXl-Label}"
+                       HorizontalTextAlignment="Center" />
+
+                    <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                            Text="Please ensure you read and agree with our privacy policy and terms and conditions before you proceed"
+                                            HorizontalOptions="Center" />
+                </StackLayout>
+
+                <Frame Margin="15" BackgroundColor="#F2F2F2" CornerRadius="5">
+                    <StackLayout  Padding="0">
+
+                        <Label Text="Welcome to the Nemaura Medical's privacy notice."
+                               Style="{StaticResource HeadlineM-Label-Terms}"/>
+
+                        <customControls:ZgParagraph Text="This privacy notice provides information on how Nemaura Medical collects and processes your personal data when you visit our website or Mobile App. It is important that you read this privacy notice together with our full website or Mobile App privacy policy, which contains more detailed information about our data processing and can be accessed here."
+                                        Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                        <Label Text="1. Important information and who we are"
+                               Style="{StaticResource HeadlineM-Label-Terms}"/>
+
+                        <customControls:ZgParagraph Text="Nemaura Medical is made up of different legal entities, including Nemaura Medical, Inc., Dermal Diagnostics Limited and Trial Clinic Limited. When we mention Nemaura Medical, we are referring to the relevant company in the Nemaura Medical group responsible for processing your data which will be clear to you when you use our website or Mobile App. Nemaura Medical, Inc. is the controller responsible for the website or Mobile App."
+                                        Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0"/>
+
+                        <customControls:ZgParagraph Text="We have appointed a data privacy manager. If you have any questions about this privacy notice or our data protection practices please contact the data privacy manager, whose contact details are set out below."
+                                        Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                        <Label Text="CONTACT DETAILS" Style="{StaticResource HeadlineM-Label-Terms}" Margin="5,0"/>
+
+                        <Label Text="Our relevant contact details in the UK are:" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Full name of legal entity:" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Nemaura Medical, Inc." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Name or title of data privacy manager:" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Data Privacy Manager" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0"/>
+                        <Label Text="Email address:" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="dataprivacymgr@nemaura.com" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                        <Label Text="Postal address:" 
+                               Style="{StaticResource HeadlineM-Label-Terms}" Margin="5,0"/>
+                        <Label Text="Advanced Innovation Technology Centre," 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Loughborough University Science and Enterprise Park," 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="5 Oakwood Drive," 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Loughborough,"
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="Leicestershire,"
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="LE11 3QF,"
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="UK" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                        <Label Text="Telephone number:" 
+                               Style="{StaticResource HeadlineM-Label-Terms}" Margin="5,0"/>
+                        <Label Text="01509 222912" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        
+                        <Label Text="2. The data we collect about you" Style="{StaticResource HeadlineM-Label-Terms}"/>
+                        <Label Text="We may collect, use, store and transfer different kinds of personal data about you, including one or more of the following:" 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; App Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}"  Margin="5,0" />
+                        <Label Text="&#x2022; Identity Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Contact Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Financial Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Transaction Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Technical Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Profile Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Usage Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Marketing and Communications Data." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="We explain these categories of data in our full website and Mobile App privacy policy, which can be accessed here." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="We use different methods to collect data about you, which are explained in our full website and Mobile App privacy policy which can be accessed here." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0"  />
+
+                        <Label Text="3. How we use your personal data" Style="{StaticResource HeadlineM-Label-Terms}"/>
+                        <Label Text="&#x2022; to register you as a new customer." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; Ito process and deliver your order." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; to manage your relationship with us. " 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; to enable you to receive updates and other information which may be of interest to you." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; to improve our website or Mobile App, products/services, marketing or customer relationships. " 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        <Label Text="&#x2022; to recommend products or services which may be of interest to you." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                       
+                        <Label Text="4. How we share your personal data" Style="{StaticResource HeadlineM-Label-Terms}"/>
+                        <Label Text="We may share your personal data within the Nemaura Medical group for the above purposes. More detail can be found in our full website and Mobile App privacy policy, which can be accessed here." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+                        
+                        <Label Text="5. International transfers" Style="{StaticResource HeadlineM-Label-Terms}"/>
+                        <Label Text="We may transfer, store and process your personal data outside the European Economic Area for the above purposes. More detail can be found in our full website and Mobile App privacy policy, which can be accessed here." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                        <Label Text="6. Your legal rights" Style="{StaticResource HeadlineM-Label-Terms}"/>
+                        <Label Text="Under certain circumstances, you have rights under data protection laws in relation to your personal data including the right to receive a copy of the personal data we hold about you and the right to make a complaint at any time to the Information Commissioner's Office, the UK supervisory authority for data protection issues (www.ico.org.uk)." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                        <Label Text="7. Further details" Style="{StaticResource HeadlineM-Label-Terms}"/>
+                        <Label Text="If you are looking for more information on how we process your personal data, including on data security, data retention and lawful processing bases, please access our full website and Mobile App privacy policy here." 
+                               Style="{StaticResource Paragraph-ZgParagraph}" Margin="5,0" />
+
+                    </StackLayout>
+                </Frame>
+                <StackLayout>
+                    <customControls:ZgRadioButton Style="{StaticResource CheckBox-ZgRadioButton}"
+                                                      IsChecked="{Binding AcceptTermsAndPrivacy}" 
+                                                      ShowDescription="False"
+                                                      Margin="30, 0, 0, 0">
+                        <customControls:ZgRadioButton.LabelContent>
+
+                            <Label Style="{StaticResource HeadlineS-Label}"
+                                               FontSize="14"
+                                               VerticalTextAlignment="Center"
+                                               Margin="0, 0, 30, 0">
+
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_1_Label}" />
+                                        <Span Text=" "/>
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_2_Label}"  TextColor="#006298" FontAttributes="Bold">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding TermsCommand}"></TapGestureRecognizer>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" "/>
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_3_Label}"/>
+                                        <Span Text=" "/>
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_4_Label}"  TextColor="#006298" FontAttributes="Bold">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding PrivacyCommand}"></TapGestureRecognizer>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                    </FormattedString>
+                                </Label.FormattedText>
+
+                            </Label>
+
+                        </customControls:ZgRadioButton.LabelContent>
+
+                    </customControls:ZgRadioButton>
+
+                    <!--NewsletterSend-->
+                    <customControls:ZgRadioButton Style="{StaticResource CheckBox-ZgRadioButton}"
+                                                      IsChecked="{Binding NewsletterSend}" 
+                                                      ShowDescription="False"
+                                                      Margin="30, 0, 0, 30">
+
+                        <customControls:ZgRadioButton.LabelContent>
+
+                            <Label Style="{StaticResource HeadlineS-Label}"
+                                               FontSize="14"
+                                               VerticalTextAlignment="Center"
+                                               Margin="0, 0, 30, 0">
+
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResources.Newsletter_Label1}" />
+                                        <Span Text=" "/>
+                                        <Span Text="{x:Static resources:AppResources.Newsletter_Label2}"  TextColor="#FF5869" FontAttributes="Bold"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                        </customControls:ZgRadioButton.LabelContent>
+
+                    </customControls:ZgRadioButton>
+
+
+                    <!--<customControls:ZgRadioButton 
+                                                              Style="{StaticResource CheckBoxWithDescription-ZgRadioButton}"
+                                                              LabelText="{x:Static resources:AppResources.Newsletter_Label}"
+                                                              IsChecked="{Binding NewsletterSend}"
+                                                              ShowDescription="false"
+                                                              LabelFontSize="14" LabelTextColor="#FF5869"/>-->
+
+                    <!--register button-->
+                    <customControls:ZgButton Text="PROCEED" Command="{Binding Path=RegisterCommand}"
+                           FontAttributes="Bold" Style="{StaticResource Button-ZgButtonPink}" Margin="20,10"
+                                                         />
+                </StackLayout>
+
+                <!--<Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+
+
+                    <tabView:SfTabView VerticalOptions="FillAndExpand" VisibleHeaderCount="2" x:Name="TabView"
+                                   OverflowMode="Scroll" EnableSwiping="False"
+                                   Style="{StaticResource SubTabView-SfTabView}">
+                        <tabView:SfTabView.Items>
+                            <tabView:SfTabItem Title="{x:Static resources:AppResources.TermsAndPrivacy_TermsTabTitle}"
+                                           IconFont="&#xf56c;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}">
+
+                                <tabView:SfTabItem.Content>
+                            
+                                </tabView:SfTabItem.Content>
+                            </tabView:SfTabItem>
+                            <tabView:SfTabItem Title="{x:Static resources:AppResources.TermsAndPrivacy_PrivacyTabTitle}"
+                                           IconFont="&#xf8fb;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}">
+                                <tabView:SfTabItem.Content>
+                                    <views:PrivacyPage />
+                                </tabView:SfTabItem.Content>
+                            </tabView:SfTabItem>
+                        </tabView:SfTabView.Items>
+                    </tabView:SfTabView>
+
+
+
+                </Grid>-->
+
+            </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</base:ContentPageBase>

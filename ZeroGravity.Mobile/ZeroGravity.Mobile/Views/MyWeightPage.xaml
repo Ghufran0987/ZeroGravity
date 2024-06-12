@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentPageBase x:TypeArguments="page:IMyWeightPage" xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+             xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:xListForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+             xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+             xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:mvvm="http://prismlibrary.com"
+             xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter"
+             xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+             xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             x:Class="ZeroGravity.Mobile.Views.MyWeightPage"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
+             ShowTopBorder="True"
+             Style="{StaticResource PageBaseStyle}"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:MetricWeightToPoundsConverter x:Key="MetricWeightToPoundsConverter" />
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid BackgroundColor="#E7E8EA">
+            <ScrollView Grid.Row="0">
+                <Grid RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <!--Top Margin-->
+                        <RowDefinition Height="10" />
+                        <!--Header-->
+                        <RowDefinition Height="Auto" />
+                        <!--Sub Header-->
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="30" />
+                        <!--Top Margin from Image-->
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="1" Grid.Column="1"   Text="My Weight"
+                           HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                           FontSize="50" Margin="0"
+                           Style="{StaticResource HeadlineXl-Label}" />
+                    <Label Grid.Row="2" Grid.Column="1"    Text="{Binding WeightSubHeader}"
+                          HorizontalOptions="FillAndExpand" TextColor="#828282" HorizontalTextAlignment="Center"
+                               FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                           Style="{StaticResource Byline-Label}" FontSize="18" Margin="0" LineBreakMode="WordWrap" />
+
+                    <borders:SfBorder Grid.Row="4" Grid.Column="1" Grid.RowSpan="2"
+                                          BackgroundColor="White" CornerRadius="6" BorderWidth="0" />
+
+
+
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="250" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <shimmer:SfShimmer Grid.Row="0" Grid.RowSpan="2"
+                                       HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping" >
+                            <shimmer:SfShimmer.Content>
+                                <Image  VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  Aspect="AspectFill"
+                           Source="{Binding WeightImageSource,Mode=TwoWay}" />
+                            </shimmer:SfShimmer.Content>
+                        </shimmer:SfShimmer>
+                        <shimmer:SfShimmer Grid.Row="1" Margin="0,-20,0,0"
+                                       HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping" >
+                            <shimmer:SfShimmer.Content>
+                                <Grid>
+                                    <buttons:SfButton Text="Update your weight"
+                                                        CornerRadius="20"
+                                                        HorizontalOptions="Center"
+                                                        
+                                                        BackgroundColor="#319C8A"
+                                                        TextColor="#FFF"
+                                                        WidthRequest="160"
+                                                        HeightRequest="40"
+                                                        IsVisible="{Binding IsAddNewGoalActive, Converter={StaticResource NegateBooleanConverter}}"
+                                                        Command="{Binding AddWeightCommand}" />
+                                    <buttons:SfButton Text="Set New Goal"
+                                                        CornerRadius="20"
+                                                        HorizontalOptions="Center"
+                                                        BackgroundColor="#319C8A"
+                                                        TextColor="#FFF"
+                                                        WidthRequest="160"
+                                                        HeightRequest="40"
+                                                        IsVisible="{Binding IsAddNewGoalActive}"
+                                                        Command="{Binding OpenAddNewGoalCommand}" />
+                                </Grid>
+                            </shimmer:SfShimmer.Content>
+                        </shimmer:SfShimmer>
+                       
+                        <shimmer:SfShimmer Grid.Row="2"
+                                       HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping" >
+                            <shimmer:SfShimmer.Content>
+                                <Grid  Margin="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="0" />
+                                    </Grid.ColumnDefinitions>
+                                    <borders:SfBorder HeightRequest="130" WidthRequest="170"   Grid.Row="0" Grid.Column="1"
+                                                  BackgroundColor="#FF5869"  BorderWidth="0" CornerRadius="12" HasShadow="True">
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Text="Current Weight" TextColor="#FFF" VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0,0,0"  FontSize="16" FontAttributes="Bold" />
+                                            <Label Grid.Row="1" Text="{Binding MyWeightItemDetails.CurrentWeight,StringFormat='{0:F2}',Converter={StaticResource MetricWeightToPoundsConverter}}"  TextColor="#FFF" VerticalOptions="End" HorizontalOptions="CenterAndExpand"   FontSize="40" FontAttributes="Bold" />
+                                            <Label Grid.Row="2" Text="{Binding MyWeightItemDetails.DisplayUnit}" TextColor="#FFF" VerticalOptions="Center" HorizontalOptions="Center"   FontSize="16" FontAttributes="Bold" />
+                                        </Grid>
+                                    </borders:SfBorder>
+                                    <borders:SfBorder HeightRequest="130" WidthRequest="170"   Grid.Row="0" Grid.Column="3"
+                                                  BackgroundColor="#319C8A"  BorderWidth="0" CornerRadius="12" HasShadow="True">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="2*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="0" Text="Target Weight" TextColor="#FFF" VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0,0,0"   FontSize="16" FontAttributes="Bold" />
+                                            <Label Grid.Row="1" Text="{Binding MyWeightItemDetails.TargetWeight,StringFormat='{0:F2}' ,Converter={StaticResource MetricWeightToPoundsConverter}}"  TextColor="#FFF" VerticalOptions="End" HorizontalOptions="CenterAndExpand"   FontSize="40" FontAttributes="Bold" />
+                                            <Label Grid.Row="2" Text="{Binding MyWeightItemDetails.DisplayUnit}" TextColor="#FFF" VerticalOptions="Center" HorizontalOptions="Center"   FontSize="16" FontAttributes="Bold" />
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </Grid>
+                            </shimmer:SfShimmer.Content>
+                        </shimmer:SfShimmer>
+                        <shimmer:SfShimmer Grid.Row="3" HorizontalOptions="StartAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping" >
+                            <shimmer:SfShimmer.Content>
+                                <Grid >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <xListForms:SfListView x:Name="listViewMileStone"  Grid.Row="0"
+                                                           IsScrollingEnabled="False"
+                                                           ItemsSource="{Binding WeightMilestoneProxies,Mode=TwoWay}"
+                                                           SelectionMode="None" Orientation="Vertical" 
+                                                           VerticalOptions="StartAndExpand"
+                                                           HorizontalOptions="Start" 
+                                                           AutoFitMode="DynamicHeight" Margin="10,0" >
+                                        <xListForms:SfListView.DataSource>
+                                            <data:DataSource>
+                                                <data:DataSource.SortDescriptors>
+                                                    <data:SortDescriptor PropertyName="MileStoneNo" Direction="Ascending"/>
+                                                </data:DataSource.SortDescriptors>
+                                            </data:DataSource>
+                                        </xListForms:SfListView.DataSource>
+                                        <xListForms:SfListView.LayoutManager>
+                                            <xListForms:LinearLayout  />
+                                        </xListForms:SfListView.LayoutManager>
+                                        <xListForms:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid >
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <borders:SfBorder Grid.Column="0" 
+                                                                      CornerRadius="0" 
+                                                                      Margin="{Binding SideBorderThickness}"
+                                                                      HorizontalOptions="Center"
+                                                                      WidthRequest="10"  >
+                                                        <borders:SfBorder.Triggers>
+                                                            <DataTrigger TargetType="borders:SfBorder" Binding="{Binding Path=IsMileStoneCompletedVisible}" Value="True">
+                                                                <Setter Property="BackgroundColor" Value="Green"/>
+                                                                <Setter Property="BorderColor" Value="Green"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="borders:SfBorder" Binding="{Binding Path=IsMileStoneCompletedVisible}" Value="false">
+                                                                <Setter Property="BackgroundColor" Value="#E0E0E0"/>
+                                                                <Setter Property="BorderColor" Value="#E0E0E0"/>
+                                                            </DataTrigger>
+                                                        </borders:SfBorder.Triggers>
+                                                    </borders:SfBorder>
+
+                                                    <Image VerticalOptions="FillAndExpand" 
+                                                           HorizontalOptions="FillAndExpand"  Aspect="AspectFit" 
+                                                        Source="" >
+                                                        <Image.Triggers>
+                                                            <DataTrigger TargetType="Image" Binding="{Binding Path=IsMileStoneCompletedVisible}" Value="True">
+                                                                <Setter Property="Source" Value="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.MileStoneAchive.png}"/>
+                                                                <Setter Property="Margin" Value="0,20,0,0" />
+                                                            </DataTrigger>
+                                                            <DataTrigger TargetType="Image" Binding="{Binding Path=IsMileStoneCompletedVisible}" Value="false">
+                                                                <Setter Property="Source" Value="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.MileStoneCircle.png}"/>
+                                                                <Setter Property="Margin" Value="5,20,5,5" />
+                                                            </DataTrigger>
+                                                        </Image.Triggers>
+                                                    </Image>
+
+                                                    <Grid Grid.Column="1"  HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" 
+                                                          IsVisible="{Binding Path=IsMileStoneCompletedVisible,Mode=TwoWay}"
+                                                          Margin="0,10" >
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="10" />
+                                                            <RowDefinition Height="35" />
+                                                            <RowDefinition Height="25" />
+                                                            <RowDefinition Height="{Binding MileStoneHeight}" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <borders:SfBorder Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="3"
+                                                            BackgroundColor="{Binding Path=MilestoneBackground}" BorderColor="Transparent" CornerRadius="6" />
+                                                        <Image Grid.Column="1" Grid.ColumnSpan="2"  
+                                                               Grid.RowSpan="4" 
+                                                               VerticalOptions="FillAndExpand"  
+                                                               HorizontalOptions="FillAndExpand"  Aspect="AspectFit"
+                                                                Source="{Binding MileStoneImageSource,Mode=TwoWay}" />
+                                                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" TextColor="#FFF" Margin="8,0"
+                                                               VerticalOptions="Center"
+                                                               FontSize="30" FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}"
+                                                               Text="{Binding Path=MileStone}"  />
+                                                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextColor="#FFF" Margin="8,0"
+                                                               VerticalOptions="StartAndExpand"
+                                                               FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                               Text="{Binding Path=MilestoneCongMesg}" />
+                                                        <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" TextColor="#FFF" Margin="8,0" 
+                                                               VerticalOptions="StartAndExpand"
+                                                               FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                               Text="{Binding Path=MilestoneWeightMesg}" />
+
+                                                    </Grid>
+                                                    <Grid Grid.Column="1" IsVisible="{Binding Path=IsMileStoneInCompletedVisible,Mode=TwoWay}" 
+                                                          VerticalOptions="CenterAndExpand" Margin="0,10" >
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="5" />
+                                                            <RowDefinition Height="35" />
+                                                            <RowDefinition Height="35" />
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <borders:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                            BackgroundColor="#F2F2F2" BorderWidth="2" BorderColor="#E0E0E0" CornerRadius="6" />
+                                                        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#BDBDBD" Margin="8,0"
+                                                               VerticalOptions="Center"
+                                                               FontSize="30" FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}"
+                                                               Text="{Binding Path=MileStone }"  />
+                                                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextColor="#BDBDBD" Margin="8,0"
+                                                               VerticalOptions="StartAndExpand"
+                                                               FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                               Text="{Binding Path=MilestoneWeightMesg}" />
+                                                    </Grid>
+                                                </Grid>
+
+
+                                            </DataTemplate>
+                                        </xListForms:SfListView.ItemTemplate>
+                                    </xListForms:SfListView>
+
+                                    <Label Grid.Row="1"   Margin="10,0"
+                                       Text="Your Tracked Weight Last 30 Days"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalTextAlignment="Center"
+                                       FontSize="18"
+                                       FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                       FontAttributes="Bold"
+                                       TextColor="#FF5869" />
+
+                                    <borders:SfBorder Grid.Row="1"  Margin="10,0"  BorderThickness="0,0,0,1"  BorderColor="Gray" />
+
+                                    <xListForms:SfListView x:Name="listView" Grid.Row="2" 
+                                               ItemsSource="{Binding WeightsItemSource,Mode=TwoWay}"
+                                               SelectionMode="None" Orientation="Vertical"
+                                               ItemSize="60" Margin="10,0" IsScrollingEnabled="False"
+                                               HorizontalOptions="Center" VerticalOptions="Center">
+                                        <xListForms:SfListView.LayoutManager>
+                                            <xListForms:LinearLayout />
+                                        </xListForms:SfListView.LayoutManager>
+                                        <xListForms:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid HeightRequest="40">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Column="0" Text="{Binding GetCreated}" VerticalOptions="Center" ></Label>
+                                                    <Label Grid.Column="1" Text="{Binding Value,StringFormat='{0:F2}', Converter={StaticResource MetricWeightToPoundsConverter}}" VerticalOptions="Center" HorizontalOptions="EndAndExpand" ></Label>
+                                                    <Label Grid.Column="2" Text="{Binding GetUnit}" VerticalOptions="Center" ></Label>
+                                                    <borders:SfBorder Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0,0,0,1"  BorderColor="Gray" />
+
+
+                                                </Grid>
+                                            </DataTemplate>
+                                        </xListForms:SfListView.ItemTemplate>
+                                    </xListForms:SfListView>
+                                </Grid>
+                            </shimmer:SfShimmer.Content>
+                        </shimmer:SfShimmer>
+                    </Grid>
+
+                </Grid>
+            </ScrollView>
+            <Grid x:Name="addWeight" IsVisible="{Binding IsWeightSave}">
+                <borders:SfBorder BackgroundColor="White" HeightRequest="280" CornerRadius="12"
+                                          ShadowColor="Black" HasShadow="True"
+                                          WidthRequest="320" BorderWidth="0"
+                                          HorizontalOptions="Center" VerticalOptions="Center">
+                    <shimmer:SfShimmer  HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" >
+                        <shimmer:SfShimmer.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <buttons:SfButton Command="{Binding CloseCommand}" BackgroundColor="Transparent" TextColor="#FF5869" FontSize="18" FontAttributes="Bold"
+                                          VerticalOptions="Center" HorizontalOptions="End" CornerRadius="12" WidthRequest="40" HeightRequest="40"
+                                          Text="X" />
+                                <Label Grid.Row="1" Text="Update"
+                                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                                        FontSize="50" Margin="0"
+                                        Style="{StaticResource HeadlineXl-Label}" />
+                                <Label Grid.Row="2"   Text="Please enter your current weight"
+                          HorizontalOptions="FillAndExpand" TextColor="#828282"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                           Style="{StaticResource Byline-Label}" FontSize="18" Margin="0" LineBreakMode="WordWrap" />
+
+                                <StackLayout Grid.Row="3" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                                    <Entry FontSize="40" WidthRequest="120"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center"
+                               VerticalOptions="FillAndExpand"
+                               Text="{Binding Weight.Value}"                                   
+                               TextColor="#006298"
+                               Keyboard="Numeric" />
+                                    <Label  FontSize="40"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Text="{Binding Weight.GetUnit}"
+                               TextColor="#006298" />
+                                </StackLayout>
+
+                                <buttons:SfButton  Grid.Row="4"
+                                    Text="Save"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding SaveWeightCommand}" />
+                            </Grid>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+                </borders:SfBorder>
+            </Grid>
+            <Grid x:Name="weightReminder" IsVisible="{Binding IsWeightReminder}">
+                <borders:SfBorder BackgroundColor="White" HeightRequest="340" CornerRadius="12"
+                                          ShadowColor="Black" HasShadow="True"
+                                          WidthRequest="340" BorderWidth="0"
+                                          HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="160" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="1" Text="Opps..."
+                                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                                        FontSize="45" Margin="0"
+                                        Style="{StaticResource HeadlineXl-Label}" />
+                        <Label Grid.Row="2"   Text="Seems like you've not updated your weight in a while."
+                          HorizontalOptions="FillAndExpand" TextColor="#828282"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                           Style="{StaticResource Byline-Label}" FontSize="18" Margin="0" LineBreakMode="WordWrap" />
+
+                        <Image Grid.Row="3" Grid.RowSpan="2" VerticalOptions="FillAndExpand"  HorizontalOptions="FillAndExpand"  Aspect="AspectFill"
+                           Source="{Binding WeightReminderImageSource}" />
+
+                        <buttons:SfButton  Grid.Row="4"
+                                    Text="Thanks for reminding me!"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="200"
+                                  HeightRequest="40"
+                                  Command="{Binding ReminderWeightCommand}" />
+                    </Grid>
+                </borders:SfBorder>
+            </Grid>
+            <Grid x:Name="AchiveWeight" IsVisible="{Binding IsWeightAchive}">
+                <borders:SfBorder BackgroundColor="White" HeightRequest="400" CornerRadius="12"
+                                          ShadowColor="Black" HasShadow="True"
+                                          WidthRequest="340" BorderWidth="0"
+                                          HorizontalOptions="Center" VerticalOptions="Center">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="180" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="1" Text="You're doing great!"
+                                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                                        FontSize="44" Margin="0"
+                                        TextColor="#FF5869"
+                                        Style="{StaticResource HeadlineXl-Label}" />
+                        <Label Grid.Row="2"
+                               HorizontalOptions="FillAndExpand" TextColor="#828282"
+                               Text="{Binding Path=AchiveMessage}"
+                               HorizontalTextAlignment="Center"
+                               FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                           Style="{StaticResource Byline-Label}" FontSize="18" Margin="0" LineBreakMode="WordWrap" />
+
+                        <Image Grid.Row="3" Grid.RowSpan="2" VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand"
+                               Aspect="AspectFit"
+                               Margin="-7"
+                                Source="{Binding WeightAchiveImageSource}" />
+
+                        <buttons:SfButton  Grid.Row="4"
+                                    Text="Thanks!"
+                                  CornerRadius="30"
+                                   Margin="0,-10,0,0"
+                                  HorizontalOptions="Center"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding AchiveWeightCommand}" />
+                    </Grid>
+                </borders:SfBorder>
+            </Grid>
+            <Grid x:Name="SetNewGoal"  IsVisible="{Binding IsWeightAddActive}" >
+                <Grid BackgroundColor="White" Opacity=".3" />
+                <borders:SfBorder BackgroundColor="White" HeightRequest="380" CornerRadius="12"
+                                          ShadowColor="Black" HasShadow="True"
+                                          WidthRequest="350" BorderWidth=".5" BorderColor="LightGray"
+                                          HorizontalOptions="Center" VerticalOptions="Center">
+                    <shimmer:SfShimmer  HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" >
+                        <shimmer:SfShimmer.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <buttons:SfButton Command="{Binding CloseCommand}" BackgroundColor="Transparent" TextColor="#FF5869" FontSize="18" FontAttributes="Bold"
+                                          VerticalOptions="Start" HorizontalOptions="End" CornerRadius="12" WidthRequest="40" HeightRequest="40"
+                                          Text="X" />
+                                <Label Grid.Row="0" Text="Set New Goal"
+                                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                                        FontSize="45" Margin="0"
+                                        Style="{StaticResource HeadlineXl-Label}" />
+                                <Label Grid.Row="2"   Text="Please enter your current weight"
+                                        HorizontalOptions="FillAndExpand" TextColor="#828282"
+                                        HorizontalTextAlignment="Center"
+                                        FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                        Style="{StaticResource Byline-Label}" FontSize="18" Margin="0" LineBreakMode="WordWrap" />
+
+                                <StackLayout Grid.Row="3" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                                    <Entry FontSize="40" WidthRequest="140"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center"
+                               VerticalOptions="FillAndExpand"
+                               Text="{Binding WeightItemDetail.InitialWeight}"                                   
+                               TextColor="#006298"
+                               Keyboard="Numeric" />
+                                    <Label  FontSize="40"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Text="{Binding Weight.GetUnit}"
+                               TextColor="#006298" />
+                                </StackLayout>
+
+                                <Label Grid.Row="4"   Text="Please enter your target weight"
+                                        HorizontalOptions="FillAndExpand" TextColor="#828282"
+                                        HorizontalTextAlignment="Center"
+                                        FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                        Style="{StaticResource Byline-Label}" FontSize="18" Margin="0" LineBreakMode="WordWrap" />
+
+                                <StackLayout Grid.Row="5" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                                    <Entry FontSize="40" WidthRequest="140"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="Center"
+                               VerticalOptions="FillAndExpand"
+                               Text="{Binding WeightItemDetail.TargetWeight}"                                   
+                               TextColor="#006298"
+                               Keyboard="Numeric" />
+                                    <Label  FontSize="40"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               Text="{Binding Weight.GetUnit}"
+                               TextColor="#006298" />
+                                </StackLayout>
+
+                                <buttons:SfButton  Grid.Row="7"
+                                    Text="Save"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding AddNewGoalCommand}" />
+                            </Grid>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+                </borders:SfBorder>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

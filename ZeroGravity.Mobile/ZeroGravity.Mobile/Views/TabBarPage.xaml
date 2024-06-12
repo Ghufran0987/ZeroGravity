@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:ITabBarPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:tabview="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:views="clr-namespace:ZeroGravity.Mobile.Views;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      mvvm:ViewModelLocator.AutowireViewModel="true"
+                      x:Class="ZeroGravity.Mobile.Views.TabBarPage"
+                      BackgroundColor="White">
+
+    <ContentView.Content>
+        <tabview:SfTabView VisibleHeaderCount="4" x:Name="TabView" EnableVirtualization="True" Style="{StaticResource MainTabView-SfTabView}" EnableSwiping="False">
+            <tabview:SfTabView.Items>
+                <tabview:SfTabItem Title="{x:Static resources:AppResources.TabPage_Progress}" IconFont="&#xF091;"
+                                   TitleFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontFamily}"
+                                   TitleFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontSize}"
+                                   TitleFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=TextColor}"
+                                   FontIconFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontFamily}"
+                                   FontIconFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontSize}"
+                                   FontIconFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=TextColor}"
+                                   TitleFontAttributes="Bold"
+                                   SelectionColor="{x:Static fonts:CustomColors.Pink}">
+                    <tabview:SfTabItem.Content>
+                        <views:AnalysisPage   x:Name="tab_analysis" />
+                    </tabview:SfTabItem.Content>
+                </tabview:SfTabItem>
+                <tabview:SfTabItem Title="{x:Static resources:AppResources.TabPage_Track}" IconFont="&#xf304;"
+                                   TitleFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontFamily}"
+                                   TitleFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontSize}"
+                                   TitleFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=TextColor}"
+                                   FontIconFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontFamily}"
+                                   FontIconFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontSize}"
+                                   FontIconFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=TextColor}"
+                                   TitleFontAttributes="Bold"
+                                   SelectionColor="{x:Static fonts:CustomColors.Pink}">
+                    <tabview:SfTabItem.Content>
+                        <views:MainPage x:Name="tab_main"  IsVisible="false" />
+                    </tabview:SfTabItem.Content>
+                </tabview:SfTabItem>
+                <tabview:SfTabItem Title="{x:Static resources:AppResources.TabPage_Journal}" IconFont="&#xf518;"
+                                   TitleFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontFamily}"
+                                   TitleFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontSize}"
+                                   TitleFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=TextColor}"
+                                   FontIconFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontFamily}"
+                                   FontIconFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontSize}"
+                                   FontIconFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=TextColor}"
+                                   TitleFontAttributes="Bold"
+                                   SelectionColor="{x:Static fonts:CustomColors.Pink}">
+                    <tabview:SfTabItem.Content>
+                        <!--<views:FeedbackPage />-->
+                        <views:MonthlyReportPage x:Name="tab_feedback" IsVisible="false" />
+                        <!-- <views:FeedbackPage x:Name="tab_feedback" IsVisible="false" /> -->
+                    </tabview:SfTabItem.Content>
+                </tabview:SfTabItem>
+                <tabview:SfTabItem Title="{x:Static resources:AppResources.TabPage_Account}" IconFont="&#xF007;"
+                                   TitleFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontFamily}"
+                                   TitleFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=FontSize}"
+                                   TitleFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewText}, Path=TextColor}"
+                                   FontIconFontFamily="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontFamily}"
+                                   FontIconFontSize="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=FontSize}"
+                                   FontIconFontColor="{Binding Source={x:Static fonts:Typography.HomeTabViewIcon}, Path=TextColor}"
+                                   TitleFontAttributes="Bold"
+                                   SelectionColor="{x:Static fonts:CustomColors.Pink}">
+                    <tabview:SfTabItem.Content>
+                        <views:AccountOverviewPage x:Name="tab_account" IsVisible="false" />
+                    </tabview:SfTabItem.Content>
+                </tabview:SfTabItem>
+            </tabview:SfTabView.Items>
+        </tabview:SfTabView>
+    </ContentView.Content>
+</base:ContentViewBase>

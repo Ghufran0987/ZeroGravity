@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentViewBase x:TypeArguments="page:ITermsPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.TermsPage"
+                      Style="{StaticResource ViewBaseStyle}"
+                      ShowTopBorder="False"
+                      ShowBottomBorder="True">
+
+    <ContentView.Content>
+
+        <StackLayout Margin="0, 20, 0, 0" Spacing="10">
+
+            <Label Text="Paragraph 1"
+                   Style="{StaticResource HeadlineM-Label}"/>
+
+            <customControls:ZgParagraph Text="{x:Static resources:AppResources.TermsAndPrivacy_Paragraph_1}"
+                                        Style="{StaticResource Paragraph-ZgParagraph}"/>
+
+            <Label Style="{StaticResource Separator-Label}" Margin="0"/>
+
+            <Label Text="Paragraph 2"
+                   Style="{StaticResource HeadlineM-Label}"/>
+
+
+            <customControls:ZgParagraph Text="Paragraph 2.1"
+                                        Style="{StaticResource Paragraph-ZgParagraph}"
+                                        TextDecoration="Underline"/>
+
+
+            <customControls:ZgParagraph Text="{x:Static resources:AppResources.TermsAndPrivacy_Paragraph_1}"
+                                        Style="{StaticResource Paragraph-ZgParagraph}"/>
+
+            <customControls:ZgParagraph Text="Paragraph 2.2"
+                                        Style="{StaticResource Paragraph-ZgParagraph}"
+                                        TextDecoration="Underline"/>
+
+            <customControls:ZgParagraph Text="{x:Static resources:AppResources.TermsAndPrivacy_Paragraph_1}"
+                                        Style="{StaticResource Paragraph-ZgParagraph}"/>
+
+            <Label Style="{StaticResource Separator-Label}" Margin="0"/>
+
+            <Label Text="Paragraph 3"
+                   Style="{StaticResource HeadlineM-Label}"/>
+
+            <customControls:ZgParagraph Text="{x:Static resources:AppResources.TermsAndPrivacy_Paragraph_1}"
+                                        Style="{StaticResource Paragraph-ZgParagraph}"
+                                        Padding="0, 0, 0, 20"/>
+
+        </StackLayout>
+
+    </ContentView.Content>
+  
+</base:ContentViewBase>

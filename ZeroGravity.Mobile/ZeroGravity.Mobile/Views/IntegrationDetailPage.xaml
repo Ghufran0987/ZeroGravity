@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IIntegrationDetailPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.IntegrationDetailPage"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IntegrationTypeToIconStringConverter x:Key="IntegrationTypeToIconStringConverter" />
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid>
+            <!--Placeholder Image-->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        <Image IsVisible="{Binding ShowPlaceholder}" Source="{Binding PlaceholderImageSource}"
+                BackgroundColor="Transparent" Margin="30"/>
+
+        <Grid IsVisible="{Binding ShowPlaceholder, Converter={StaticResource NegateBooleanConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout Padding="0,20,0,30">
+
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customControls:ZgBubble Grid.Column="1"
+                                                 ShowBadge="False"
+                                                 Style="{StaticResource BubbleWBadge-ZgBubble}">
+                            <customControls:ZgBubble.Content>
+                                <StackLayout Spacing="0">
+                                    <Label
+                                        Text="{Binding IntegrationDataProxy.IntegrationType, Converter={StaticResource IntegrationTypeToIconStringConverter}}"
+                                        HorizontalTextAlignment="Center"
+                                        Style="{StaticResource BubbleIcon-Label}" />
+                                </StackLayout>
+                            </customControls:ZgBubble.Content>
+
+                            <customControls:ZgBubble.BadgeContent>
+                                <Label Text="1" Style="{StaticResource BubbleBadgeText-Label}" />
+                            </customControls:ZgBubble.BadgeContent>
+                        </customControls:ZgBubble>
+                    </Grid>
+
+
+                    <StackLayout Orientation="Vertical" Margin="0,0,0,10">
+                        <Label Text="{Binding IntegrationTitle}"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource HeadlineL-Label}" />
+
+                        <Label Text="{Binding IntegrationTypeName}"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource Byline-Label}" />
+                    </StackLayout>
+
+                    <Label Style="{StaticResource Separator-Label}" />
+
+                    <StackLayout Orientation="Vertical" Margin="0,10,0,0">
+                        <Label Text="{x:Static resources:AppResources.IntegrationDetail_About}"
+                               Style="{StaticResource HeadlineM-Label}" />
+
+                        <Label Text="{Binding IntegrationDescription}"
+                               Style="{StaticResource Byline-Label}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+
+            <customControls:ZgButton Grid.Row="1" Text="{Binding IntegrationButtonText}"
+                                     HorizontalTextAlignment="Center"
+                                     Style="{StaticResource FullWidthButton-ZgButton}"
+                                     Command="{Binding LinkIntegrationCommand}" />
+        </Grid>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

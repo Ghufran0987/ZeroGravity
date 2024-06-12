@@ -1,0 +1,286 @@
+﻿<base:ContentPageBase x:TypeArguments="page:IDemoPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:xForms="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+                      xmlns:comboBox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.DemoPage"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <buttons:SfRadioGroupKey x:Key="A" />
+            <buttons:SfRadioGroupKey x:Key="B" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <!-- CONTENT  -->
+        <ScrollView BackgroundColor="White">
+            <StackLayout Spacing="10"
+                         Margin="0"
+                         Background="White"
+                         BackgroundColor="White">
+                <customControls:ZgButtonGroup ItemsSource="{Binding GroupItems}"
+                                              SelectedItem="{Binding SelectedGroupItem}"
+                                              Style="{StaticResource ButtonGroup-ZgButtonGroup}" />
+
+                <customControls:ZgBubble Margin="40"
+                                         Style="{StaticResource BubbleWBadge-ZgBubble}">
+                    <customControls:ZgBubble.Content>
+                        <StackLayout Spacing="0">
+                            <Label Text="&#xf06c;" Style="{StaticResource BubbleIcon-Label}" />
+                            <Label Text="Hallo" Style="{StaticResource BubbleText-Label}" />
+                        </StackLayout>
+                    </customControls:ZgBubble.Content>
+
+                    <customControls:ZgBubble.BadgeContent>
+                        <Label Text="1" Style="{StaticResource BubbleBadgeText-Label}" />
+                    </customControls:ZgBubble.BadgeContent>
+                </customControls:ZgBubble>
+
+                <!-- Typography -->
+                <Label Text="HeadlineXL" Style="{StaticResource HeadlineXl-Label}" />
+
+                <Label Text="HeadlineL" Style="{StaticResource HeadlineL-Label}" />
+
+                <Label Text="HeadlineM" Style="{StaticResource HeadlineM-Label}" />
+
+                <Label Text="Byline" Style="{StaticResource Byline-Label}" />
+
+                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                            Text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+
+                <!-- INPUT TEXT -->
+                <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                              Label="EMAIL"
+                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                              BorderWidth="0.5"
+                                              HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                              UseHighlighting="True">
+                    <customControls:ZgEntry Keyboard="Email"
+                                            Style="{StaticResource InputEntry-ZgEntry}" />
+                </customControls:ZgInputLayout>
+
+                <!-- INPUT COMBOBOX -->
+                <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                              Label="ITEMS"
+                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                              BorderWidth="0.5">
+                    <comboBox:SfComboBox Style="{StaticResource InputComboBox-SfComboBox}"
+                                         DataSource="{Binding ComboBoxDataSource}"
+                                         DisplayMemberPath="Path" />
+                </customControls:ZgInputLayout>
+
+                <!-- INPUT DATE -->
+                <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                              Label="DATE"
+                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                              BorderWidth="0.5">
+                    <customControls:ZgDatePicker Style="{StaticResource InputDate-ZgDatePicker}" />
+                </customControls:ZgInputLayout>
+
+                <!-- INPUT TIME -->
+                <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                              Label="DATE"
+                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                              BorderWidth="0.5">
+                    <customControls:ZgTimePicker Style="{StaticResource InputTime-ZgTimePicker}" />
+                </customControls:ZgInputLayout>
+
+                <!-- RADIO BUTTON -->
+                <customControls:ZgRadioButton Style="{StaticResource RadioButton-ZgRadioButton}"
+                                              LabelText="Radio Option 1"
+                                              GroupKey="{StaticResource A}" />
+                <customControls:ZgRadioButton Style="{StaticResource RadioButton-ZgRadioButton}"
+                                              LabelText="Radio Option 2"
+                                              GroupKey="{StaticResource A}" />
+                <customControls:ZgRadioButton Style="{StaticResource RadioButtonWithDescription-ZgRadioButton}"
+                                              LabelText="Radio Option 2"
+                                              GroupKey="{StaticResource B}"
+                                              DescriptionText="This is a super duper awesome description text and you will probably never read this. Fish, poultry and other stuff. Bla." />
+                <customControls:ZgRadioButton Style="{StaticResource RadioButtonWithDescription-ZgRadioButton}"
+                                              LabelText="Radio Option 2"
+                                              GroupKey="{StaticResource B}"
+                                              DescriptionText="This is a super duper awesome description text and you will probably never read this. Fish, poultry and other stuff. Bla." />
+                <customControls:ZgRadioButton Style="{StaticResource CheckBoxWithDescription-ZgRadioButton}"
+                                              LabelText="CheckBox"
+                                              DescriptionText="This is a super duper awesome description text and you will probably never read this. Fish, poultry and other stuff. Bla." />
+                <customControls:ZgRadioButton Style="{StaticResource CheckBox-ZgRadioButton}">
+                    <customControls:ZgRadioButton.LabelContent>
+                        <Label
+                            FontSize="14"
+                            FontFamily="{x:Static fonts:CustomFontName.OpenSanMedium}"
+                            TextColor="{x:Static fonts:CustomColors.TextColorRegular}"
+                            VerticalTextAlignment="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Bla bla" />
+                                    <Span Text=" " />
+                                    <Span Text="terms" TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding TermsCommand}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                    <Span Text=" " />
+                                    <Span Text="bla" />
+                                    <Span Text=" " />
+                                    <Span Text="privacy" TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding PrivacyCommand}" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </customControls:ZgRadioButton.LabelContent>
+                </customControls:ZgRadioButton>
+
+                <Label Style="{StaticResource Separator-Label}" />
+
+                <!-- RANGE SLIDER -->
+                <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                         HeaderText="Weight"
+                                         HeaderValueUnit="kg"
+                                         Value="30"
+                                         Minimum="{Binding MinWeight}"
+                                         Maximum="{Binding MaxWeight}"
+                                         RangeMinimum="{Binding MinWeight}"
+                                         RangeMaximum="{Binding MaxWeight}" />
+
+                <!-- BUTTON -->
+                <customControls:ZgButton Text="Submit" IconUnicode="&#xf34e;"
+                                         Style="{StaticResource Button-ZgButton}" />
+                <customControls:ZgButton Text="Submit" IconUnicode="&#xf34e;"
+                                         Style="{StaticResource WhiteButton-ZgButton}" />
+                <customControls:ZgButton Text="Full width"
+                                         Style="{StaticResource FullWidthButton-ZgButton}" />
+                <customControls:ZgButton Text="Full width"
+                                         Style="{StaticResource FullWidthButtonWithoutIcon-ZgButton}" />
+
+                <!-- INDICATOR -->
+                <xForms:SfBusyIndicator
+                    IsBusy="True"
+                    Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+
+                <!-- TAB VIEW -->
+                <tabView:SfTabView Style="{StaticResource SubTabView-SfTabView}"
+                                   VisibleHeaderCount="5">
+                    <tabView:SfTabView.Items>
+                        <tabView:SfTabItem Title="Personal"
+                                           IconFont="&#xF007;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Goals"
+                                           IconFont="&#xF648;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Diet"
+                                           IconFont="&#xF2E6;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Medical"
+                                           IconFont="&#xF481;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Integrations"
+                                           IconFont="&#xf1e6;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Security"
+                                           IconFont="&#xF30D;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                    </tabView:SfTabView.Items>
+                </tabView:SfTabView>
+
+                <tabView:SfTabView Style="{StaticResource MainTabView-SfTabView}"
+                                   VisibleHeaderCount="5">
+                    <tabView:SfTabView.Items>
+                        <tabView:SfTabItem Title="Personal"
+                                           IconFont="&#xF007;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Goals"
+                                           IconFont="&#xF648;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Diet"
+                                           IconFont="&#xF2E6;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Medical"
+                                           IconFont="&#xF481;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                        <tabView:SfTabItem Title="Security"
+                                           IconFont="&#xF30D;"
+                                           TitleFontFamily="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontFamily}"
+                                           TitleFontSize="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=FontSize}"
+                                           TitleFontColor="{Binding Source={x:Static fonts:Typography.TabViewText}, Path=TextColor}"
+                                           FontIconFontFamily="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontFamily}"
+                                           FontIconFontSize="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=FontSize}"
+                                           FontIconFontColor="{Binding Source={x:Static fonts:Typography.TabViewIcon}, Path=TextColor}"
+                                           SelectionColor="{x:Static fonts:CustomColors.Pink}" />
+                    </tabView:SfTabView.Items>
+                </tabView:SfTabView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

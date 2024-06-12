@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IGetStartedPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resx="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                       xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                     xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.GetStartedPage"
+                      NavigationPage.HasNavigationBar="False"
+                      ShowTopBorder="False"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="1">
+                <shimmer:SfShimmer   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsActive="{Binding IsLoginSuccess}" >
+                    <shimmer:SfShimmer.CustomView>
+                        <Grid Padding="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <shimmer:ShimmerView Grid.Row="0" />
+                        </Grid>
+                    </shimmer:SfShimmer.CustomView>
+                    <shimmer:SfShimmer.Content>
+                        <StackLayout Padding="0,30,0,0" Spacing="10" VerticalOptions="EndAndExpand">
+
+                            <Image Source="{Binding LogoImageSource}"/>
+
+                            <!--email input-->
+                            <customControls:ZgInputLayout
+                        Style="{StaticResource InputLayout-ZgInputLayout}"
+                        IsLabelVisible="False"
+                        BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                        
+                        HighlightColor="{x:Static fonts:CustomColors.NewGreen}"
+                        UseHighlighting="True">
+                                <customControls:ZgEntry Keyboard="Email" Text="{Binding Email}" Placeholder="{x:Static resources:AppResources.Email_Address}"
+                                            FontFamily="OpenSans" Margin="5"
+                                                Style="{StaticResource InputEntry-ZgEntry}" TextColor="#4F4F4F" FontSize="16" />
+                            </customControls:ZgInputLayout>
+
+                            <!--password input-->
+                            <customControls:ZgInputLayout
+                        Style="{StaticResource InputLayout-ZgInputLayout}"                        
+                        BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                        IsLabelVisible="False"
+                        HighlightColor="{x:Static fonts:CustomColors.NewGreen}"
+                        UseHighlighting="True">
+                                <customControls:ZgEntry Keyboard="Default" Text="{Binding Password}" Margin="5"
+                                                IsPassword="True" Placeholder="{x:Static resources:AppResources.Password}"
+                                            
+                                                Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontSize="16" FontFamily="OpenSans"/>
+                            </customControls:ZgInputLayout>
+
+                            <!--login button-->
+                            <buttons:SfButton Text="{x:Static resources:AppResources.Login_Submit}" 
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding LoginCommand}" />
+
+                            <!--forgot passsword-->
+                            <customControls:ZgParagraph Margin="0,20"
+                                                    Text="{x:Static resources:AppResources.PasswordForgot}"
+                                                    Style="{StaticResource Paragraph-ZgParagraph}"
+                                TextColor="#006298"  HorizontalTextAlignment="Center"
+                                                    >
+                                <customControls:ZgParagraph.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                                </customControls:ZgParagraph.GestureRecognizers>
+                            </customControls:ZgParagraph>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Style="{StaticResource Separator-Label}" Margin="0,20" BackgroundColor="#BDBDBD" HeightRequest="1"/>
+                                <Label Grid.Column="1" FontSize="18" Text="or" Margin="0,0" TextColor="#006298" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="100"/>
+                                <Label Grid.Column="2" Style="{StaticResource Separator-Label}" Margin="0,20" BackgroundColor="#BDBDBD" HeightRequest="1"/>
+
+                            </Grid>
+
+                            <!--apple button-->
+                            <customControls:ZgButton Text="{x:Static resx:AppResources.ContinueApple}" IconUnicode="&#xf179;"                                             
+                                             Command="{Binding Path=AppleCommand}" CornerRadius="6"
+                                             Style="{StaticResource WhiteButton-Brands-ZgButton}" />
+
+                            <!--google button-->
+                            <customControls:ZgButton Text="{x:Static resx:AppResources.ContinueGoogle}" IconUnicode="&#xf1a0;"
+                                             Command="{Binding Path=GoogleCommand}" CornerRadius="6"
+                                             Style="{StaticResource WhiteButton-Brands-ZgButton}" />
+
+
+                            <!--join MiBoKo singup -->
+                            <Grid Margin="10, 20, 0, 10">
+
+                                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                                    HorizontalTextAlignment="Center">
+                                    <customControls:ZgParagraph.GestureRecognizers>
+                                        <TapGestureRecognizer   Command="{Binding Path=JoinWithEmailCommand}" />
+                                    </customControls:ZgParagraph.GestureRecognizers>
+                                    <ContentView HorizontalOptions="Center">
+
+                                        <Label Style="{StaticResource HeadlineS-Label}"
+                                               FontSize="14"
+                                               VerticalTextAlignment="Center">
+
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static resources:AppResources.GetStartedPage_JoinMiboko}" />
+                                                    <Span Text=" "/>
+                                                    <Span Text="Sign-Up"  TextColor="#FF5869" FontAttributes="Bold"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </ContentView>
+
+                                </customControls:ZgParagraph>
+                            </Grid>
+
+
+                            <!--terms & privacy label -->
+                            <Grid Margin="0, 0, 0, 40">
+
+                                <!--<Label Text="By signing in you agree to our"
+                           Style="{StaticResource HeadlineM-Label}" />-->
+
+
+                                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                                     HorizontalTextAlignment="Center" 
+                                                    >
+                                    <customControls:ZgParagraph.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding PrivacyCommand}" />
+                                    </customControls:ZgParagraph.GestureRecognizers>
+                                    <ContentView HorizontalOptions="Center">
+
+                                        <Label Style="{StaticResource HeadlineS-Label}"
+                                               FontSize="14"
+                                               VerticalTextAlignment="Center">
+
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{x:Static resources:AppResources.Privacy}" />
+                                                    <Span Text=" "/>
+                                                    <Span Text="Privacy &amp; Terms"  TextColor="#006298" FontAttributes="Bold"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </ContentView>
+                                </customControls:ZgParagraph>
+
+                            </Grid>
+
+
+
+                        </StackLayout>
+                    </shimmer:SfShimmer.Content>
+                </shimmer:SfShimmer>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

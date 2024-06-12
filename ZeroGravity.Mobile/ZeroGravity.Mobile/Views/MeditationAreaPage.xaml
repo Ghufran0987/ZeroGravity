@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IMeditationAreaPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.MeditationAreaPage"
+                      xmlns:listView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:converter="clr-namespace:Syncfusion.ListView.XForms.Helpers;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      x:Name="Root"
+                      ShowTopBorder="True"
+                      ShowGreyBackground="True"
+                      ShowBottomBorder="False"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+                <Frame BackgroundColor="#A9345C" HorizontalOptions="FillAndExpand" Margin="0" Padding="0" CornerRadius="0">
+                    <Frame.Background>
+                        <LinearGradientBrush>
+                            <GradientStop Color="#2C1C2B"
+                                      Offset="0.1" />
+                            <GradientStop Color="#A9345C"
+                                      Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <Grid>
+                        <Grid RowSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="10" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <!--Top Margin-->
+                                <RowDefinition Height="20" />
+                                <!--Header-->
+                                <RowDefinition Height="Auto" />
+                                <!--Sub Header-->
+                                <RowDefinition Height="20" />
+
+                                <!--Time Top Margin-->
+                                <RowDefinition Height="45" />
+
+                                <!--Timer-->
+                                <RowDefinition Height="60" />
+
+                                <!--Timer Text-->
+                                <RowDefinition Height="20" />
+                                <!--Top Margin from Image-->
+                                <RowDefinition Height="60" />
+
+                                <RowDefinition Height="Auto" />
+                                <!--Bottom Margin-->
+                                <RowDefinition Height="10" />
+                            </Grid.RowDefinitions>
+
+                            <Image HorizontalOptions="Center" VerticalOptions="Start"  Aspect="AspectFill" HeightRequest="250" WidthRequest="250" Source="{Binding MeditationImageSource}" Grid.Row="2" Grid.Column="1" Grid.RowSpan="6" Margin="15,-10,0,0" />
+
+                            <Label Grid.Column="1" Grid.Row="1" Text="{x:Static resources:AppResources.MeditationArea_Title}"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="36"
+                           TextColor="#FFF"
+                           Style="{StaticResource HeadlineXl-Label}" />
+
+                            <Label Grid.Column="1" Grid.Row="2" Text="Take a moment to relax and unwind"
+                          HorizontalOptions="CenterAndExpand"
+                          Style="{StaticResource Byline-Label}" TextColor="#FFF" />
+
+                            <Label  Text="{Binding TimeElapsed}" Grid.Column="1" Grid.Row="4"
+                                        FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}"
+                                        FontSize="42" FontAttributes="None"
+                                        Style="{StaticResource Byline-Label}"
+                                        HorizontalTextAlignment="Center"
+                                        VerticalTextAlignment="Center"
+                                        TextColor="#FFF" />
+
+
+                            <Label Grid.Column="1" Grid.Row="5" Text="Total time spent meditating" TextColor="#FFF"  Margin="0,-10"
+                               HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+
+                            <listView:SfListView x:Name="listView"  Grid.Column="1" Grid.Row="7"
+                                        ItemsSource="{Binding BookInfoCollection}"
+                                        SelectionMode="Single"
+                                        SelectedItem="{Binding SelectedMediaVideoItem}"
+                                        Margin="0,-30,0,0"
+                                        HorizontalOptions="Fill"
+                                        IsScrollingEnabled="False"
+                                        IsScrollBarVisible="False"
+                                        ItemSpacing="0,8"
+                                        TapCommand="{Binding SelectedMediaVideoItemCommand}"
+                                        ItemSize="200">
+                                <listView:SfListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <border:SfBorder CornerRadius="6" Margin="0" HasShadow="False" HorizontalOptions="FillAndExpand" Padding="0" BackgroundColor="#d0d6e4" BorderWidth="0">
+                                                <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding Source={x:Reference Root}, Path=IsBusy}">
+                                                    <shimmer:SfShimmer.Content>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5" />
+                                                                <ColumnDefinition Width="*" />
+                                                                <ColumnDefinition Width="80" />
+                                                                <ColumnDefinition Width="5" />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="5" />
+                                                                <RowDefinition Height="*" />
+                                                                <RowDefinition Height="60" />
+                                                                <RowDefinition Height="5" />
+                                                            </Grid.RowDefinitions>
+
+                                                            <Image HorizontalOptions="FillAndExpand" Aspect="AspectFill" Source="{Binding ThumbnailUrl}" BackgroundColor="#d0d6e4"
+                                                               Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="0" Grid.ColumnSpan="4" />
+
+                                                            <Label Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"  FontFamily="{x:Static fonts:CustomFontName.FaLight300}" 
+                                                               Text="&#xf144;" HorizontalOptions="Center" VerticalOptions="Center"
+                                                               TextColor="#FFF" Margin="0" FontSize="72" />
+
+                                                            <Label Grid.Row="1" Grid.Column="1"  Text="{Binding Title}" FontSize="28" Margin="5,5" FontAttributes="None" 
+                                                               HorizontalTextAlignment="Start" VerticalTextAlignment="Start" 
+                                                               TextColor="#FFF" LineBreakMode="TailTruncation" MaxLines="3" />
+
+                                                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Description}" FontSize="14" Margin="5,5" FontAttributes="None"
+                                                                HorizontalTextAlignment="Start" VerticalTextAlignment="End"
+                                                                TextColor="#FFF" LineBreakMode="TailTruncation" MaxLines="2" />
+                                                        </Grid>
+                                                    </shimmer:SfShimmer.Content>
+                                                </shimmer:SfShimmer>
+                                            </border:SfBorder>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </listView:SfListView.ItemTemplate>
+                            </listView:SfListView>
+                        </Grid>
+                    </Grid>
+                </Frame>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

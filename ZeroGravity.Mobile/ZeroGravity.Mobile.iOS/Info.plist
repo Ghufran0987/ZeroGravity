@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIDeviceFamily</key>
+	<array>
+		<integer>1</integer>
+		<integer>2</integer>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/fa-light-300.ttf</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>MinimumOSVersion</key>
+	<string>12.0</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>CFBundleVersion</key>
+	<string>0.39.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.39.0</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+	</array>
+	<key>CFBundleDisplayName</key>
+	<string>MiBoKo</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.Nemaura.ZeroG</string>
+	<key>CFBundleName</key>
+	<string>MiBoKo.Mobile</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>MiBoKo needs permission to use your camera to record videos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>MiBoKo needs access to your photo library in order to set an avatar for your profile.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>MiBoKo needs to be able to access motion usage.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Miboko needs Bluetooth access.
+    MiBoKo Would Like to Use Bluetooth.
+    MiBoKo requires permission to use Bluetooth to communicate with your Transmitter.
+  </string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Miboko needs Bluetooth access.
+    MiBoKo Would Like to Use Bluetooth.
+    MiBoKo requires permission to use Bluetooth to communicate with your Transmitter.
+  </string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Miboko needs location access.
+    MiBoKo Would Like to Use Bluetooth.
+    MiBoKo requires permission to use Bluetooth to communicate with your Transmitter.
+   Would Like to Use Bluetooth.
+    MiBoKo requires permission to use Bluetooth to communicate with your Transmitter.
+  </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Miboko needs location access.
+    MiBoKo Would Like to Use Bluetooth.
+    MiBoKo requires permission to use Bluetooth to communicate with your Transmitter.
+   Would Like to Use Bluetooth.
+    MiBoKo requires permission to use Bluetooth to communicate with your Transmitter.
+  </string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>MiBoKo needs permission to use your microphone to record videos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>MiBoKo needs access to the photo gallery for picking photos and videos.</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>de</string>
+		<string>fr</string>
+	</array>
+</dict>
+</plist>

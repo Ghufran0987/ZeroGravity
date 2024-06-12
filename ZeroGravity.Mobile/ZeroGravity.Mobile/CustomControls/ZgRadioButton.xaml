@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+             xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+             xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgRadioButton"
+             x:Name="Root">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+
+            <Grid ColumnSpacing="{Binding Source={x:Reference Root}, Path=GapWidth}"
+                  RowSpacing="{Binding Source={x:Reference Root}, Path=GapHeight}">
+                <Grid.Resources>
+                    <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Frame Grid.Row="0"
+                       Grid.Column="0"
+                       CornerRadius="{Binding Source={x:Reference Root}, Path=IconCornerRadius}"
+                       Padding="0"
+                       WidthRequest="28"
+                       HeightRequest="28">
+                    <Label FontFamily="{Binding Source={x:Reference Root}, Path=IconFontFamily}"
+                           FontSize="{Binding Source={x:Reference Root}, Path=IconFontSize}"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Source={x:Reference HiddenRadioButton}, Path=IsChecked}"
+                                         Value="True">
+                                <Setter Property="Label.Text"
+                                        Value="&#xf00c;" />
+                                <Setter Property="Label.TextColor"
+                                        Value="White" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Source={x:Reference HiddenRadioButton}, Path=IsChecked}"
+                                         Value="False">
+                                <Setter Property="Label.Text"
+                                        Value="{x:Null}" />
+                                <Setter Property="Label.TextColor"
+                                        Value="Transparent" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                    <Frame.Triggers>
+                        <DataTrigger TargetType="Frame"
+                                     Binding="{Binding Source={x:Reference HiddenRadioButton}, Path=IsChecked}"
+                                     Value="True">
+                            <Setter Property="Frame.BackgroundColor"
+                                    Value="{x:Static fonts:CustomColors.Green}" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Frame"
+                                     Binding="{Binding Source={x:Reference HiddenRadioButton}, Path=IsChecked}"
+                                     Value="False">
+                            <Setter Property="Frame.BackgroundColor"
+                                    Value="#E1EAEE" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+                </Frame>
+
+                <buttons:SfRadioButton Grid.Column="0"
+                                       Grid.Row="1"
+                                       IsVisible="False"
+                                       x:Name="HiddenRadioButton"
+                                       IsChecked="{Binding Source={x:Reference Root}, Path=IsChecked}"
+                                       GroupKey="{Binding Source={x:Reference Root}, Path=GroupKey}"/>
+
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding Source={x:Reference Root}, Path=LabelText}"
+                       TextColor="{Binding Source={x:Reference Root}, Path=LabelTextColor}"
+                       FontFamily="{Binding Source={x:Reference Root}, Path=LabelFontFamily}"
+                       FontSize="{Binding Source={x:Reference Root}, Path=LabelFontSize}"
+                       VerticalTextAlignment="Center"
+                       IsVisible="{Binding Source={x:Reference Root}, Path=HasCustomLabelContent, Converter={StaticResource NegateBooleanConverter}}">
+                    <Label.LineHeight>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="iOS" Value="1.2" />
+                            <On Platform="Android" Value="1.0" />
+                        </OnPlatform>
+                    </Label.LineHeight>
+                </Label>
+                <ContentPresenter Grid.Row="0"
+                                  Grid.Column="1"
+                                  IsVisible="{Binding Source={x:Reference Root}, Path=HasCustomLabelContent}"
+                                  Content="{Binding Source={x:Reference Root}, Path=LabelContent}"/>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Source={x:Reference Root}, Path=DescriptionText}"
+                       LineHeight="{Binding Source={x:Reference Root}, Path=DescriptionLineHeight}"
+                       TextColor="{Binding Source={x:Reference Root}, Path=DescriptionTextColor}"
+                       FontFamily="{Binding Source={x:Reference Root}, Path=DescriptionFontFamily}"
+                       FontSize="{Binding Source={x:Reference Root}, Path=DescriptionFontSize}"
+                       LineBreakMode="WordWrap"
+                       x:Name="DescriptionLabel"
+                       IsVisible="{Binding Source={x:Reference Root}, Path=ShowDescription}"/>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTapped" />
+                </Grid.GestureRecognizers>
+            </Grid>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>

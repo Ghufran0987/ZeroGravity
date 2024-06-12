@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgHoldingView"
+             x:Name="This">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+                <ScrollView>
+                    <StackLayout Spacing="15"
+                                 VerticalOptions="FillAndExpand">
+                        <!-- BUBBLE -->
+                        <Grid ColumnSpacing="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <customControls:ZgBubble Grid.Column="1" 
+                                                     x:Name="Bubble"
+                                                     WidthRequest="{Binding Source={x:Reference Bubble}, Path=Height}"
+                                                     HeightRequest="{Binding Source={x:Reference Bubble}, Path=Width}"
+                                                     BubbleBackgroundColor="{Binding Source={x:Reference This}, Path=IconBackgroundColor}"
+                                                     ShowBadge="False">
+                                <customControls:ZgBubble.Content>
+                                    <Label Text="{Binding Source={x:Reference This}, Path=IconText}"
+                                           FontFamily="{Binding Source={x:Reference This}, Path=IconFontFamily}"
+                                           FontSize="{Binding Source={x:Reference This}, Path=IconFontSize}"
+                                           TextColor="{Binding Source={x:Reference This}, Path=IconTextColor}"
+                                           LineHeight="{Binding Source={x:Reference This}, Path=IconLineHeight}"
+                                           HorizontalTextAlignment="Center"/>
+                                </customControls:ZgBubble.Content>
+                                <customControls:ZgBubble.BadgeContent>
+                                    <Label />
+                                </customControls:ZgBubble.BadgeContent>
+                            </customControls:ZgBubble>
+                        </Grid>
+                        
+                        <!-- SEPARATOR -->
+                        <Label Style="{StaticResource Separator-Label}"/>
+
+                        <!-- LABEL -->
+                        <Label Text="{Binding Source={x:Reference This}, Path=Title}"
+                               FontFamily="{Binding Source={x:Reference This}, Path=TitleFontFamily}"
+                               FontSize="{Binding Source={x:Reference This}, Path=TitleFontSize}"
+                               LineHeight="{Binding Source={x:Reference This}, Path=TitleLineHeight}"
+                               TextColor="{Binding Source={x:Reference This}, Path=TitleTextColor}"/>
+
+                        <!-- DESCRIPTION -->
+                        <customControls:ZgParagraph Text="{Binding Source={x:Reference This}, Path=DescriptionText}"
+                                                    FontFamily="{Binding Source={x:Reference This}, Path=DescriptionFontFamily}"
+                                                    FontSize="{Binding Source={x:Reference This}, Path=DescriptionFontSize}"
+                                                    LineHeight="{Binding Source={x:Reference This}, Path=DescriptionLineHeight}"
+                                                    TextColor="{Binding Source={x:Reference This}, Path=DescriptionTextColor}"/>
+
+                        <!-- SEPARATOR -->
+                        <Label Style="{StaticResource Separator-Label}"/>
+
+                        <!-- Buttons -->
+                        <customControls:ZgButton Text="{Binding Source={x:Reference This}, Path=ButtonText}"
+                                                 FontFamily="{Binding Source={x:Reference This}, Path=ButtonFontFamily}"
+                                                 FontSize="{Binding Source={x:Reference This}, Path=ButtonFontSize}"
+                                                 ButtonColor="{Binding Source={x:Reference This}, Path=ButtonBackgroundColor}"
+                                                 TextColor="{Binding Source={x:Reference This}, Path=ButtonTextColor}"
+                                                 ButtonMargin="{Binding Source={x:Reference This}, Path=ButtonMargin}"
+                                                 CornerRadius="{Binding Source={x:Reference This}, Path=ButtonCornerRadius}"
+                                                 BlurRadius="{Binding Source={x:Reference This}, Path=ButtonBlurRadius}"
+                                                 HorizontalTextAlignment="Center"
+                                                 GapWidth="0"
+                                                 Command="{Binding Source={x:Reference This}, Path=ButtonCommand}"
+                                                 CommandParameter="{Binding Source={x:Reference This}, Path=ButtonCommandParameter}"/>
+                        <customControls:ZgParagraph Text="{Binding Source={x:Reference This}, Path=TapableLabelText}"
+                                                    FontFamily="{Binding Source={x:Reference This}, Path=TapableLabelFontFamily}"
+                                                    FontSize="{Binding Source={x:Reference This}, Path=TapableLabelFontSize}"
+                                                    LineHeight="{Binding Source={x:Reference This}, Path=TapableLabelLineHeight}"
+                                                    TextColor="{Binding Source={x:Reference This}, Path=TapableLabelTextColor}"
+                                                    TextDecoration="{Binding Source={x:Reference This}, Path=TapableLabelTextDecoration}"
+                                                    HorizontalTextAlignment="Center">
+                            <customControls:ZgParagraph.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference This}, Path=TapableLabelCommand}"
+                                                      CommandParameter="{Binding Source={x:Reference This}, Path=TapableLabelCommandParameter}"/>
+                            </customControls:ZgParagraph.GestureRecognizers>
+                        </customControls:ZgParagraph>
+                    </StackLayout>
+                </ScrollView>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+    <ContentView.Content>
+        <x:Null/>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<base:ContentViewBase x:TypeArguments="page:IAboutPage" xmlns="http://xamarin.com/schemas/2014/forms" 
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.AboutPage"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      mvvm:ViewModelLocator.AutowireViewModel="True">
+  <ContentView.Content>
+      <StackLayout>
+          <Label Text="About Page!" />
+      </StackLayout>
+  </ContentView.Content>
+</base:ContentViewBase>

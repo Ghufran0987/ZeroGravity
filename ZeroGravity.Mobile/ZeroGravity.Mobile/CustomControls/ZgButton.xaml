@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgButton"
+             x:Name="Root">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <pancakeView:PancakeView CornerRadius="{Binding Source={x:Reference Root}, Path=CornerRadius}">
+                <pancakeView:PancakeView.Shadow>
+                    <pancakeView:DropShadow BlurRadius="{Binding Source={x:Reference Root}, Path=BlurRadius}"/>
+                </pancakeView:PancakeView.Shadow>
+                <buttons:SfButton
+                    BackgroundColor="{Binding Source={x:Reference Root}, Path=ButtonColor}"
+                    BorderColor="{Binding Source={x:Reference Root}, Path=BorderColor}"
+                    BorderWidth="{Binding Source={x:Reference Root}, Path=BorderWidth}"
+                    Command="{Binding Source={x:Reference Root}, Path=Command}"
+                    CommandParameter="{Binding Source={x:Reference Root}, Path=CommandParameter}"
+                    HasShadow="False" >
+                    <buttons:SfButton.Content>
+                        <Grid ColumnSpacing="{Binding Source={x:Reference Root}, Path=GapWidth}"
+                              Margin="{Binding Source={x:Reference Root}, Path=ButtonMargin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" 
+                                   FontFamily="{Binding Source={x:Reference Root}, Path=IconFontFamily}"
+                                   Text="{Binding Source={x:Reference Root}, Path=IconUnicode}"
+                                   TextColor="{Binding Source={x:Reference Root}, Path=IconTextColor}"
+                                   FontSize="{Binding Source={x:Reference Root}, Path=IconFontSize}"
+                                   VerticalTextAlignment="Center"/>
+                            <Label Grid.Column="1" 
+                                   FontFamily="{Binding Source={x:Reference Root}, Path=FontFamily}"
+                                   Text="{Binding Source={x:Reference Root}, Path=Text}"
+                                   TextColor="{Binding Source={x:Reference Root}, Path=TextColor}"
+                                   FontSize="{Binding Source={x:Reference Root}, Path=FontSize}"
+                                   HorizontalTextAlignment="{Binding Source={x:Reference Root}, Path=HorizontalTextAlignment}"
+                                   VerticalTextAlignment="Center">
+                                <Label.LineHeight>
+                                    <OnPlatform x:TypeArguments="x:Double">
+                                            <On Platform="iOS" Value="1.2" />
+                                            <On Platform="Android" Value="1.0" />
+                                        </OnPlatform>
+                                </Label.LineHeight>
+                            </Label>
+                        </Grid>
+                    </buttons:SfButton.Content>
+                </buttons:SfButton>
+            </pancakeView:PancakeView>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>

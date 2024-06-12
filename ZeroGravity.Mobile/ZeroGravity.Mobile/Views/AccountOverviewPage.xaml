@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IAccountOverviewPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+                      xmlns:views="clr-namespace:ZeroGravity.Mobile.Views;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.AccountOverviewPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      Style="{StaticResource ViewBaseStyle}">
+
+    <ContentView.Content>
+        <ScrollView  BackgroundColor="#E7E8EA">
+            <StackLayout
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Margin="0,20,0,20"
+                Padding="0,0,0,20"
+                x:Name="RootLayout1" BackgroundColor="#E7E8EA">
+
+                <Label
+                    Text="Profile"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource HeadlineXl-Label}" />
+
+                <Label
+                    Text="Manage your data and goals"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    TextColor="#4F4F4F" Margin="0,0,0,20" FontSize="16" FontFamily="OpenSans" />
+
+                <borders:SfBorder Margin="20,10" Padding="0" BorderWidth="0" CornerRadius="6" BackgroundColor="#FFF">
+
+                    <tabView:SfTabView x:Name="TabView"
+                                       SelectionChanged="TabViewOnSelectionChanged"
+                                          BackgroundColor="#BEBEBE"
+                                          EnableSwiping="False"
+                                          TabHeight="130"
+                                          TabWidth="120"
+                                          TabHeaderBackgroundColor="#F2F2F2"
+                                          Margin="0,0,0,0">
+                        <tabView:SfTabItem>
+                            <tabView:SfTabItem.HeaderContent>
+                                <borders:SfBorder BorderWidth="0" Margin="0" BackgroundColor="#F2F2F2" BorderThickness="0">
+                                    <borders:SfBorder CornerRadius="10" BorderWidth="0" Margin="10" BackgroundColor="#FF5869" Scale=".9"
+                                                  HasShadow="True" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid HorizontalOptions="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="5" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Fill="#fff" StrokeThickness="2" Stroke="#FFF" Grid.Row="1" Grid.Column="1" Aspect="Uniform" />
+                                            <Label Text="Personal" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                   TextColor="#FFF" FontAttributes="Bold"  FontSize="12" />
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </borders:SfBorder>
+                            </tabView:SfTabItem.HeaderContent>
+                            <tabView:SfTabItem.Content>
+                                <views:PersonalDataPage />
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                        <tabView:SfTabItem>
+                            <tabView:SfTabItem.HeaderContent>
+                                <borders:SfBorder BorderWidth="0" Margin="0" BackgroundColor="#F2F2F2">
+                                    <borders:SfBorder CornerRadius="10" BorderWidth="0" Margin="10" BackgroundColor="White" Scale=".9"
+                                                  HasShadow="True" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid HorizontalOptions="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="5" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Fill="#fff" StrokeThickness="2" Stroke="#FF5869" Grid.Row="1" Grid.Column="1" Aspect="Uniform" />
+                                            <Label Text="Goals" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="1"
+                                                   TextColor="#FF5869" FontAttributes="Bold" FontSize="12"/>
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </borders:SfBorder>
+                            </tabView:SfTabItem.HeaderContent>
+                            <tabView:SfTabItem.Content>
+                                <views:PersonalGoalsPage />
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                        <tabView:SfTabItem>
+                            <tabView:SfTabItem.HeaderContent>
+                                <borders:SfBorder BorderWidth="0" Margin="0" BackgroundColor="#F2F2F2" BorderThickness="0">
+                                    <borders:SfBorder CornerRadius="10" BorderWidth="0" Margin="10" BackgroundColor="White" Scale=".9"
+                                                  HasShadow="True" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid HorizontalOptions="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="5" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Fill="#fff"  StrokeThickness="2" Stroke="#FF5869" Grid.Row="1" Grid.Column="1" Aspect="Uniform" />
+                                            <Label Text="Diet" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="1"
+                                                   TextColor="#FF5869" FontAttributes="Bold" FontSize="12" />
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </borders:SfBorder>
+                            </tabView:SfTabItem.HeaderContent>
+                            <tabView:SfTabItem.Content>
+                                <views:DietPreferencesPage />
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                        <tabView:SfTabItem>
+                            <tabView:SfTabItem.HeaderContent>
+                                <borders:SfBorder BorderWidth="0" Margin="0" BackgroundColor="#F2F2F2">
+                                    <borders:SfBorder CornerRadius="10" BorderWidth="0" Margin="10" BackgroundColor="White" Scale=".9"
+                                                  HasShadow="True" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid HorizontalOptions="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="5" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Fill="#fff"  StrokeThickness="2" Stroke="#FF5869" Grid.Row="1" Grid.Column="1" Aspect="Uniform" />
+                                            <Label Text="Health" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="1"
+                                                   TextColor="#FF5869" FontAttributes="Bold" FontSize="12" />
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </borders:SfBorder>
+                            </tabView:SfTabItem.HeaderContent>
+                            <tabView:SfTabItem.Content>
+                                <views:MedicalPreConditionsPage />
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                        <tabView:SfTabItem>
+                            <tabView:SfTabItem.HeaderContent>
+                                <borders:SfBorder BorderWidth="0" Margin="0" BackgroundColor="#F2F2F2">
+                                    <borders:SfBorder CornerRadius="10" BorderWidth="0" Margin="10" BackgroundColor="White" Scale=".9"
+                                                  HasShadow="True" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid HorizontalOptions="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="5" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Fill="#fff"  StrokeThickness="2" Stroke="#FF5869" Grid.Row="1" Grid.Column="1" Aspect="Uniform" />
+                                            <Label Text="Integration" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="0"
+                                                   Grid.ColumnSpan="3" TextColor="#FF5869" FontAttributes="Bold" FontSize="12"/>
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </borders:SfBorder>
+                            </tabView:SfTabItem.HeaderContent>
+                            <tabView:SfTabItem.Content>
+                                <views:IntegrationsPage />
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                        <tabView:SfTabItem>
+                            <tabView:SfTabItem.HeaderContent>
+                                <borders:SfBorder BorderWidth="0" Margin="0" BackgroundColor="#F2F2F2">
+                                    <borders:SfBorder CornerRadius="10" BorderWidth="0" Margin="10" BackgroundColor="White" Scale=".9"
+                                                  HasShadow="True" WidthRequest="100" HeightRequest="100" HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Grid HorizontalOptions="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5" />
+                                                <RowDefinition Height="50" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition Height="5" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Ellipse Fill="#fff"  StrokeThickness="2" Stroke="#FF5869" Grid.Row="1" Grid.Column="1" Aspect="Uniform" />
+                                            <Label Text="Account" HorizontalTextAlignment="Center" Grid.Row="2" Grid.Column="0"
+                                                   Grid.ColumnSpan="3" TextColor="#FF5869" FontAttributes="Bold" FontSize="12"/>
+                                        </Grid>
+                                    </borders:SfBorder>
+                                </borders:SfBorder>
+                            </tabView:SfTabItem.HeaderContent>
+                            <tabView:SfTabItem.Content>
+                                <views:AccountSecurityPage />
+                            </tabView:SfTabItem.Content>
+                        </tabView:SfTabItem>
+                    </tabView:SfTabView>
+                </borders:SfBorder>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</base:ContentViewBase>

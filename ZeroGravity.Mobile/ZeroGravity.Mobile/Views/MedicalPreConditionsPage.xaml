@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IMedicalPreConditionsPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.MedicalPreConditionsPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      x:Name="Root"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource ViewBaseStyle}">
+
+    <ContentView.Resources>
+        <buttons:SfRadioGroupKey x:Key="DiabeticOptions" />
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <Style TargetType="{x:Type NavigationPage}">
+                <Setter Property="BarBackgroundColor" Value="{x:Static fonts:CustomColors.GrayBackgroundColor}" />
+                <Setter Property="BarTextColor" Value="{x:Static fonts:CustomColors.Pink}" />
+            </Style>
+        </ResourceDictionary>
+        <ControlTemplate x:Key="FrameRadioTemplate">
+            <borders:SfBorder Padding="5" CornerRadius="5" HeightRequest="100" WidthRequest="100" BorderColor="#E0E0E0"
+                 HasShadow="True"  BackgroundColor="#FFF" BorderWidth="0">
+
+                <ContentPresenter>
+                    <ContentPresenter.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="HorizontalOptions" Value="Center" />
+                            <Setter Property="VerticalOptions" Value="Center" />
+
+                            <Style.Triggers>
+                                <DataTrigger TargetType="Label"
+                                         Binding="{Binding Path=IsChecked,
+                                                           Source={x:RelativeSource AncestorType={x:Type RadioButton}}}"
+                                         Value="True">
+                                    <Setter Property="TextColor" Value="#FFF" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentPresenter.Resources>
+                </ContentPresenter>
+
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CheckedStates">
+                        <VisualState x:Name="Checked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#FF5869" />
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="Unchecked">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#FFF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </borders:SfBorder>
+        </ControlTemplate>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Text="{x:Static resources:AppResources.MedicalPreconditions_Title}" Style="{StaticResource HeadlineM-Label}"  FontSize="16" Margin="20,10" TextColor="#4F4F4F" />
+            <ScrollView Grid.Row="1">
+                <StackLayout Spacing="14" IsVisible="{Binding MedicalPreconditionsProxy, Converter={StaticResource NullVisibilityConverter}}">
+                    <borders:SfBorder CornerRadius="6" BackgroundColor="#F2F2F2" Margin="20" BorderWidth="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Grid.Row="1" Margin="10">
+
+                                <buttons:SfCheckBox
+                                                      TextColor="#FF5869"
+                                                      HorizontalOptions="Start"
+                                                      FontSize="18"
+                                                      IsChecked="{Binding MedicalPreconditionsProxy.HasHypertension, Mode=TwoWay}"
+                                                      Text="{x:Static resources:AppResources.MedicalPreconditions_Hypertension}">
+                                </buttons:SfCheckBox>
+
+                                <buttons:SfCheckBox
+                                                      TextColor="#FF5869"
+                                                      HorizontalOptions="Start"
+                                                      FontSize="18"
+                                                      IsChecked="{Binding MedicalPreconditionsProxy.HasCardiacCondition, Mode=TwoWay}"
+                                                      Text="{x:Static resources:AppResources.MedicalPreconditions_CardiacCondition}">
+                                </buttons:SfCheckBox>
+
+                                <buttons:SfCheckBox
+                                                      TextColor="#FF5869"
+                                                      HorizontalOptions="Start"
+                                                      FontSize="18"
+                                                      IsChecked="{Binding MedicalPreconditionsProxy.HasArthritis, Mode=TwoWay}"
+                                                      Text="{x:Static resources:AppResources.MedicalPreconditions_Arthritis}">
+                                </buttons:SfCheckBox>
+
+                                <buttons:SfCheckBox
+                                                      TextColor="#FF5869"
+                                                      HorizontalOptions="Start"
+                                                      FontSize="18"
+                                                      IsChecked="{Binding MedicalPreconditionsProxy.Others, Mode=TwoWay}"
+                                                      Text="Other">
+                                </buttons:SfCheckBox>
+                                <buttons:SfCheckBox
+                                                      TextColor="#FF5869"
+                                                      HorizontalOptions="Start"
+                                                      FontSize="18"
+                                                      IsChecked="{Binding MedicalPreconditionsProxy.DontWantToSayNow, Mode=TwoWay}"
+                                                      Text="Don't Want to Say Now">
+                                </buttons:SfCheckBox>
+
+                                <buttons:SfCheckBox
+                                                      TextColor="#FF5869"
+                                                      HorizontalOptions="Start"
+                                                      FontSize="18"
+                                                      IsChecked="{Binding MedicalPreconditionsProxy.HasDiabetes, Mode=TwoWay}"
+                                                      Text="{x:Static resources:AppResources.MedicalPreconditions_Diabetes_Title}">
+                                </buttons:SfCheckBox>
+                            </StackLayout>
+
+                            <Grid Margin="15" Grid.Row="2" RowSpacing="8" ColumnSpacing="8" IsVisible="{Binding MedicalPreconditionsProxy.HasDiabetes}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="105" />
+                                    <RowDefinition Height="105" />
+                                    <RowDefinition Height="105" />
+                                </Grid.RowDefinitions>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}"
+                                       GroupName="{StaticResource DiabeticOptions}" IsChecked="{Binding DiabetesPreDiabetic.IsChecked}"  Grid.Row="0" Grid.Column="0">
+                                    <RadioButton.Content>
+                                        <StackLayout Margin="10">
+                                            <Label
+                                       Text="{x:Static resources:AppResources.MedicalPreconditions_Diabetes_Prediabetic}" VerticalOptions="EndAndExpand" HorizontalOptions="Start"
+                                       TextColor="#FF5869" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}"
+                                        GroupName="{StaticResource DiabeticOptions}" IsChecked="{Binding DiabetesType1.IsChecked}"  Grid.Row="0" Grid.Column="2">
+                                    <RadioButton.Content>
+                                        <StackLayout Margin="10">
+                                            <Label
+                                       Text="{x:Static resources:AppResources.MedicalPreconditions_Diabetes_Type1}" VerticalOptions="EndAndExpand" HorizontalOptions="Start"
+                                       TextColor="#FF5869" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}"
+                                      GroupName="{StaticResource DiabeticOptions}" IsChecked="{Binding DiabetesType2Insulin.IsChecked}" Grid.Row="1" Grid.Column="0">
+                                    <RadioButton.Content Margin="10">
+                                        <StackLayout>
+                                            <Label
+                                       Text="{x:Static resources:AppResources.MedicalPreconditions_Diabetes_Type2Insulin}" VerticalOptions="EndAndExpand" HorizontalOptions="Start"
+                                       TextColor="#FF5869" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}"
+                                      GroupName="{StaticResource DiabeticOptions}" IsChecked="{Binding DiabetesType2OralMedication.IsChecked}" Grid.Row="1" Grid.Column="2">
+                                    <RadioButton.Content  Margin="10">
+                                        <StackLayout>
+                                            <Label
+                                       Text="{x:Static resources:AppResources.MedicalPreconditions_Diabetes_Type2Oralmedication}" VerticalOptions="EndAndExpand" HorizontalOptions="Start"
+                                       TextColor="#FF5869" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}"
+                                       GroupName="{StaticResource DiabeticOptions}" IsChecked="{Binding DiabetesType2Diet.IsChecked}"  Grid.Row="2" Grid.Column="0">
+                                    <RadioButton.Content  Margin="10">
+                                        <StackLayout>
+                                            <Label
+                                       Text="{x:Static resources:AppResources.MedicalPreconditions_Diabetes_Type2Dietcontrol}" VerticalOptions="EndAndExpand" HorizontalOptions="Start"
+                                       TextColor="#FF5869" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </Grid>
+                        </Grid>
+                    </borders:SfBorder>
+                </StackLayout>
+            </ScrollView>
+
+            <buttons:SfButton Grid.Row="2"
+                                    Text="{x:Static resources:AppResources.Button_Save}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding Path=SaveMedicalConditionsDelegateCommand}" />
+          
+        </Grid>
+    </ContentView.Content>
+</base:ContentViewBase>

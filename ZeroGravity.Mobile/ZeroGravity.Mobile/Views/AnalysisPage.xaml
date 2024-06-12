@@ -1,0 +1,1811 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IAnalysisPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.AnalysisPage"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:gauge="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+                      xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+                       xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"
+                      Style="{StaticResource ViewBaseStyle}">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <converter:NumberToVisiblityConveter x:Key="NumberToVisiblityConveter" />
+            <converter:NumberToInverseVisiblityConveter x:Key="NumberToInverseVisiblityConveter" />
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <Style x:Key="progress_VeryHeavy" TargetType="{x:Type border:SfBorder}">
+                <Setter Property="BackgroundColor" Value="#FF5869" />
+                <Setter Property="BorderColor" Value="#FF5869" />
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="CornerRadius" Value="6" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+            <Style x:Key="progress_Heavy" TargetType="{x:Type border:SfBorder}">
+                <Setter Property="BackgroundColor" Value="#ffacb4" />
+                <Setter Property="BorderColor" Value="#ffacb4" />
+                <Setter Property="HeightRequest" Value="20" />
+                <Setter Property="CornerRadius" Value="6" />
+            </Style>
+            <Style x:Key="progress_Medium" TargetType="{x:Type border:SfBorder}">
+                <Setter Property="BackgroundColor" Value="#FFC658" />
+                <Setter Property="BorderColor" Value="#FFC658" />
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="CornerRadius" Value="6" />
+            </Style>
+            <Style x:Key="progress_Light" TargetType="{x:Type border:SfBorder}">
+                <Setter Property="BackgroundColor" Value="#319C8A" />
+                <Setter Property="BorderColor" Value="#319C8A" />
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="CornerRadius" Value="6" />
+            </Style>
+            <Style x:Key="progress_VeryLight" TargetType="{x:Type border:SfBorder}">
+                <Setter Property="BackgroundColor" Value="#98CEC5" />
+                <Setter Property="BorderColor" Value="#98CEC5" />
+                <Setter Property="HeightRequest" Value="16" />
+                <Setter Property="CornerRadius" Value="6" />
+
+            </Style>
+            <Style x:Key="progress_label" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#FFF" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="progress_Line" TargetType="{x:Type border:SfBorder}">
+                <Setter Property="BorderThickness" Value="0,1,0,0" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="CornerRadius" Value="6" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid  BackgroundColor="#E7E8EA">
+            <Grid.Resources>
+                <converter:AnalysisItemProxyToColorConverter x:Key="AnalysisItemProxyToColorConverter" />
+            </Grid.Resources>
+            <ScrollView>
+                <Grid Margin="10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0">
+                        <Label Style="{StaticResource HeadlineXl-Label}" Text="{x:Static resources:AppResources.ProgressPage_Title}"
+                                   HorizontalTextAlignment="Center" Margin="0,20,0,0" />
+                        <Label Style="{StaticResource Byline-Label}"
+                                   Text="{x:Static resources:AppResources.ProgressPage_SubTitle}"
+                                   HorizontalTextAlignment="Center" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="0" Margin="0,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" HorizontalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <RadioButton  Grid.Column="0" Margin="5" IsChecked="{Binding TrackedToday}"
+                                              ControlTemplate="{StaticResource ProgressRadioTemplate}"
+                                              HorizontalOptions="Start" VerticalOptions="Start"  GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <Label  Margin="0" FontAttributes="Bold" FontSize="16" Text="{x:Static resources:AppResources.MyDay_TrackedToday}" HorizontalTextAlignment="Center" />
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton Grid.Row="0" Grid.Column="1" Margin="5" IsChecked="{Binding Tracked7day}"
+                                             ControlTemplate="{StaticResource ProgressRadioTemplate}"
+                                             HorizontalOptions="Start" VerticalOptions="Start"  GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <Label  Margin="0" FontSize="16"  FontAttributes="Bold" Text="{x:Static resources:AppResources.MyDay_Tracked7Day}"  HorizontalTextAlignment="Center" />
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton Grid.Row="0" Grid.Column="2" Margin="5" IsChecked="{Binding Tracked30day}"
+                                             ControlTemplate="{StaticResource ProgressRadioTemplate}"
+                                             HorizontalOptions="Start" VerticalOptions="Start"  GroupName="Meal">
+                                    <RadioButton.Content>
+                                        <Label  Margin="0" FontSize="16"  FontAttributes="Bold" Text="{x:Static resources:AppResources.MyDay_Tracked30Day}"  HorizontalTextAlignment="Center" />
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="180" />
+                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="180" />
+                                    <RowDefinition Height="220" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="220" />
+                                </Grid.RowDefinitions>
+                                <!-- Water-->
+                                <border:SfBorder Grid.Row="0" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid  RowSpacing="0"  ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+                                                <StackLayout Grid.Row="0" Margin="5,5" Orientation="Horizontal">
+                                                    <Label  Text="&#xf75c;" TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="End" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_Water}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="End" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Text="Goal" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" VerticalOptions="End" Margin="5,0" />
+                                                    <Label Grid.Row="0" Grid.Column="2" Text="Achieved so far" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" VerticalOptions="End" />
+
+                                                    <Grid Grid.Row="1" Grid.Column="0">
+                                                        <xForms:SfListView  SelectionMode="None" IsScrollingEnabled="False"
+                                                                ItemsSource="{Binding Path=ProgressProxyModel.WaterProgress.GoalCupCount}"
+                                                        ItemSize="35" AutoFitMode="None" Margin="0" ItemSpacing="3"  HorizontalOptions="Start" VerticalOptions="Center">
+                                                            <xForms:SfListView.LayoutManager>
+                                                                <xForms:GridLayout SpanCount="4" />
+                                                            </xForms:SfListView.LayoutManager>
+                                                            <xForms:SfListView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="true">
+                                                                                    <Setter Property="IsVisible" Value="true" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="false">
+                                                                                    <Setter Property="IsVisible" Value="false" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"
+                                                                                   Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Water-Cup-Full.png}"
+                                                                                   IsVisible="{Binding }"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="false">
+                                                                                    <Setter Property="IsVisible" Value="true" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="true">
+                                                                                    <Setter Property="IsVisible" Value="false" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Water-Cup-Empty.png}"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </DataTemplate>
+                                                            </xForms:SfListView.ItemTemplate>
+                                                        </xForms:SfListView>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1"  Grid.Column="2">
+                                                        <xForms:SfListView  SelectionMode="None" IsScrollingEnabled="False"
+                                                                ItemsSource="{Binding Path=ProgressProxyModel.WaterProgress.ActualCupCount}"
+                                                        ItemSize="35" AutoFitMode="None" Margin="0" ItemSpacing="3"  HorizontalOptions="Start" VerticalOptions="Center">
+                                                            <xForms:SfListView.LayoutManager>
+                                                                <xForms:GridLayout SpanCount="4" />
+                                                            </xForms:SfListView.LayoutManager>
+                                                            <xForms:SfListView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="True">
+                                                                                    <Setter Property="IsVisible" Value="True" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="False">
+                                                                                    <Setter Property="IsVisible" Value="False" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Water-Cup-Full.png}"
+
+                                                                    IsVisible="{Binding }"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="False">
+                                                                                    <Setter Property="IsVisible" Value="True" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="True">
+                                                                                    <Setter Property="IsVisible" Value="False" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Water-Cup-Empty.png}"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </DataTemplate>
+                                                            </xForms:SfListView.ItemTemplate>
+                                                        </xForms:SfListView>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!-- BreakFast-->
+                                <border:SfBorder Grid.Row="1" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="0" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf7f6;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_Breakfast}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="14" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,-2" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" VerticalOptions="Start" VerticalTextAlignment="Start" />
+                                                    <Label Grid.Row="0" Grid.Column="4" Margin="0,-2" Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"  VerticalOptions="Start" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.BreakFastProgress.GoalColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_BreakFast.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                      CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.BreakFastProgress.ActualColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_BreakFast.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869"  Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869"  Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.BreakFastProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5" 
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="Very Heavy"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="Heavy" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="Medium" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="Very Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!-- Lunch-->
+                                <border:SfBorder Grid.Row="2" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf81f;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_Lunch}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="2"  Margin="0,1" Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.LunchProgress.GoalColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_Lunch.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.LunchProgress.ActualColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_Lunch.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.LunchProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5" 
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="Very Heavy"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="Heavy" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="Medium" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="Very Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!-- Dinner -->
+                                <border:SfBorder Grid.Row="3" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf817;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_Dinner}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="4" Margin="0,1"  Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.DinnerProgress.GoalColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_Dinner.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.DinnerProgress.ActualColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_Dinner.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" CornerRadius="0,0,8,8" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.DinnerProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5" 
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="Very Heavy"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="Heavy" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="Medium" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="Very Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!--Healthy snack -->
+                                <border:SfBorder Grid.Row="4" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+
+                                            <Grid  RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf5d1;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_HealthySnack}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="4" Margin="0,1"  Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.HealthySnacksProgress.GoalColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_HealthySnack.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.HealthySnacksProgress.ActualColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_HealthySnack.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.HealthySnacksProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5" 
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="Very Heavy"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="Heavy" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="Medium" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="Very Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!--UnHealty snack -->
+                                <border:SfBorder Grid.Row="5" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf564;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_UnhealthySnack}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="4" Margin="0,1"  Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.GoalColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_UnhealthySnack_new.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}"   Opacity=".7"
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}"
+                                                                     CornerRadius="0,0,8,8" 
+                                                                     IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}"  
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}" CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.ActualColorType}" BackgroundColor="#DFDFDF">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_UnhealthySnack_new.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7"
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     CornerRadius="0,0,8,8" Style="{StaticResource progress_Heavy}"  Opacity=".7"
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.UnHealthySnacksProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5" 
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="Very Heavy"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="Heavy" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="Medium" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="Very Light" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!--Calorie  -->
+                                <border:SfBorder Grid.Row="6" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid  RowSpacing="0"  ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <StackLayout Grid.Row="0" Margin="5,5" Orientation="Horizontal">
+                                                    <Label  Text="&#xf75c;" TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="End" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_CalorieDrink}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="End" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="40" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Text="Goal" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" VerticalOptions="End" Margin="5,5,5,0" />
+                                                    <Label Grid.Row="0" Grid.Column="2" Text="Achieved so far" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" VerticalOptions="End"  Margin="5,5,5,0"/>
+
+                                                    <Grid Grid.Row="1" Grid.Column="0">
+                                                        <xForms:SfListView  SelectionMode="None" IsScrollingEnabled="False"
+                                                                ItemsSource="{Binding Path=ProgressProxyModel.CalorieProgress.GoalCupCount}"
+                                                        ItemSize="35" AutoFitMode="None" Margin="0" ItemSpacing="3"  HorizontalOptions="Start" VerticalOptions="Start">
+                                                            <xForms:SfListView.LayoutManager>
+                                                                <xForms:GridLayout SpanCount="4" />
+                                                            </xForms:SfListView.LayoutManager>
+                                                            <xForms:SfListView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="true">
+                                                                                    <Setter Property="IsVisible" Value="true" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="false">
+                                                                                    <Setter Property="IsVisible" Value="false" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"
+                                                                                   Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Coffee-Cup-Full.png}"
+                                                                                   IsVisible="{Binding }"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="false">
+                                                                                    <Setter Property="IsVisible" Value="true" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="true">
+                                                                                    <Setter Property="IsVisible" Value="false" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Coffee-Cup-Empty.png}"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </DataTemplate>
+                                                            </xForms:SfListView.ItemTemplate>
+                                                        </xForms:SfListView>
+                                                    </Grid>
+                                                    <Grid Grid.Row="1"  Grid.Column="2">
+                                                        <xForms:SfListView  SelectionMode="None" IsScrollingEnabled="False"
+                                                                ItemsSource="{Binding Path=ProgressProxyModel.CalorieProgress.ActualCupCount}"
+                                                        ItemSize="35" AutoFitMode="None" Margin="0" ItemSpacing="3"  HorizontalOptions="Start" VerticalOptions="Start">
+                                                            <xForms:SfListView.LayoutManager>
+                                                                <xForms:GridLayout SpanCount="4" />
+                                                            </xForms:SfListView.LayoutManager>
+                                                            <xForms:SfListView.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="True">
+                                                                                    <Setter Property="IsVisible" Value="True" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="False">
+                                                                                    <Setter Property="IsVisible" Value="False" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Coffee-Cup-Full.png}"
+
+                                                                    IsVisible="{Binding }"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                        <Grid>
+                                                                            <Grid.Triggers>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="False">
+                                                                                    <Setter Property="IsVisible" Value="True" />
+                                                                                </DataTrigger>
+                                                                                <DataTrigger TargetType="Grid" Binding="{Binding }" Value="True">
+                                                                                    <Setter Property="IsVisible" Value="False" />
+                                                                                </DataTrigger>
+                                                                            </Grid.Triggers>
+                                                                            <Image Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Coffee-Cup-Empty.png}"
+                                                                    HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                </DataTemplate>
+                                                            </xForms:SfListView.ItemTemplate>
+                                                        </xForms:SfListView>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!--Activity -->
+                                <border:SfBorder Grid.Row="7" CornerRadius="6" Margin="5,5" Padding="10"  BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid  RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf554;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.AnalysisPage_Items_Activity}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="4" Margin="0,1" Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.ActivitiesProgress.GoalColorType}" BackgroundColor="#FDFDFD">
+                                                        <Grid>
+
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_activity.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Light}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Heavy}"  Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0" 
+                                                                      Style="{StaticResource progress_VeryHeavy}"
+                                                                     CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4" Grid.RowSpan="9" CornerRadius="6" 
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.ActivitiesProgress.ActualColorType}" BackgroundColor="#FDFDFD">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_activity.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Light}" CornerRadius="0,0,8,8" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Heavy}"  Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A" Margin="5,0"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5" 
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.ActivitiesProgress.IsVeryLightFood}"
+                                                             BorderColor="#FF5869" 
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="40 mins"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="35 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="30 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="25 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="20 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!--Fasting-->
+                                <border:SfBorder Grid.Row="8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsFastingProgressVisible}"   CornerRadius="6" Margin="5,5" Padding="10" BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid  RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf554;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="Fasting"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0"  Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="4"  Margin="0,1" Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0"  Grid.RowSpan="9" CornerRadius="6"
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.FastingProgress.GoalColorType}" BackgroundColor="#FDFDFD">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_Fasting.png}"
+                                                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-5" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}"  Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0" Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4"  Grid.RowSpan="9" CornerRadius="6"
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.FastingProgress.ActualColorType}" BackgroundColor="#FDFDFD">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Progress_Fasting.png}"
+                                                                        HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-5" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" CornerRadius="0,0,8,8" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}"  Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.FastingProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="24 Hrs"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="20 Hrs" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="16 Hrs" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="12 Hrs" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="8 Hrs" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+                                <!--Meditation-->
+                                <border:SfBorder Grid.Row="9" CornerRadius="6" Margin="5,5" Padding="10" BackgroundColor="#FFF" BorderWidth="0">
+                                    <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping">
+                                        <shimmer:SfShimmer.Content>
+                                            <Grid  RowSpacing="0" ColumnSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="5" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackLayout Grid.Row="0" Orientation="Horizontal">
+                                                    <Label  Text="&#xf554;"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                                                    <Label  Text="{x:Static resources:AppResources.MyDay_MeditationArea}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+                                                </StackLayout>
+                                                <Grid Grid.Row="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="20" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="8" />
+                                                        <RowDefinition Height="10" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width=".8*" />
+                                                        <ColumnDefinition Width="5" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Grid.Row="0" Grid.Column="0" Margin="0,1" Text="Target" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    <Label Grid.Row="0" Grid.Column="4" Margin="0,1" Text="Actual" TextColor="#FF5869" FontSize="14" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0"  Grid.RowSpan="9" CornerRadius="6"
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.MeditationProgress.GoalColorType}" BackgroundColor="#FDFDFD">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Meditation.png}"
+                                                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-3" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}"  Opacity=".7"
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}"  Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0" Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8"  IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="4"  Grid.RowSpan="9" CornerRadius="6"
+                                                                     BorderWidth="1"  BorderColor="{Binding Path=ProgressProxyModel.MeditationProgress.ActualColorType}" BackgroundColor="#FDFDFD">
+                                                        <Grid>
+                                                            <Image Aspect="AspectFit" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Meditation.png}"
+                                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="-3" />
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                    <RowDefinition Height="8" />
+                                                                </Grid.RowDefinitions>
+                                                                <border:SfBorder Grid.Row="0" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryHeavy}" CornerRadius="0,0,8,8" Opacity=".7" 
+                                                                                 IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualVeryHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="2" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Heavy}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualHeavyFood}" />
+                                                                <border:SfBorder Grid.Row="4" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_Medium}" Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualMediumFood}" />
+                                                                <border:SfBorder Grid.Row="6" Grid.RowSpan="10" Margin="0" Padding="0" HorizontalOptions="Fill"
+                                                                     Style="{StaticResource progress_Light}"  Opacity=".7"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualLightFood}" />
+                                                                <border:SfBorder Grid.Row="8" Grid.RowSpan="10" Margin="0" Padding="0"
+                                                                     Style="{StaticResource progress_VeryLight}"
+                                                                     CornerRadius="0,0,8,8" IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualVeryLightFood}" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </border:SfBorder>
+
+                                                    <!--Actual Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="3"
+                                                             BorderColor="#98CEC5"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsActualVeryLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <!--Target Line -->
+                                                    <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FF5869"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsVeryHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#ffacb4"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsHeavyFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#FFC658"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsMediumFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             BorderColor="#319C8A"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsLightFood}"
+                                                             Style="{StaticResource progress_Line}" />
+                                                    <border:SfBorder Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3"
+                                                             IsVisible="{Binding Path=ProgressProxyModel.MeditationProgress.IsVeryLightFood}"
+                                                             BorderColor="#98CEC5"
+                                                             Style="{StaticResource progress_Line}" />
+
+                                                    <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryHeavy}">
+                                                        <Label Text="30 mins"  Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Heavy}">
+                                                        <Label Text="25 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Medium}">
+                                                        <Label Text="20 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_Light}">
+                                                        <Label Text="15 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                    <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="2" Style="{StaticResource progress_VeryLight}">
+                                                        <Label Text="10 mins" Style="{StaticResource progress_label}" />
+                                                    </border:SfBorder>
+                                                </Grid>
+                                            </Grid>
+                                        </shimmer:SfShimmer.Content>
+                                    </shimmer:SfShimmer>
+                                </border:SfBorder>
+
+
+                            </Grid>
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</base:ContentViewBase>

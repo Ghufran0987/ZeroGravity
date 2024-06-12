@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IContentShellPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:views="clr-namespace:ZeroGravity.Mobile.Views"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      NavigationPage.HasNavigationBar="false"
+                      x:Class="ZeroGravity.Mobile.Views.ContentShellPage"
+                      BackgroundColor="#E7E8EA" ShowBottomBorder="False" ShowTopBorder="True">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--<StackLayout Spacing="1">-->
+            <!--<views:ProfileImagePage Grid.Row="0" x:Name="ProfileImgPage" Margin="20, 15" />-->
+            <!--<customControls:ZgShadowSeparator Grid.Row="1" Style="{StaticResource ShadowBorderTop-ZgShadowSeparator}" />-->
+            <views:TabBarPage Grid.Row="1"  x:Name="_tabBarPage"/>
+            <!--</StackLayout>-->
+        </Grid>
+    </ContentPage.Content>
+
+</base:ContentPageBase>

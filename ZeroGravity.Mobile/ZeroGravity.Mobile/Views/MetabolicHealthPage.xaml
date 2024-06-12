@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentPageBase x:TypeArguments="page:IMetabolicHealthPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:resources1="clr-namespace:ZeroGravity.Mobile.Resources;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      Title="{Binding Path=Title}"
+                      x:Name="Page"
+                      x:Class="ZeroGravity.Mobile.Views.MetabolicHealthPage"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+            <!--<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                --><!--Placeholder Image--><!--
+                <Image Grid.Row="0" Source="{Binding PlaceholderImageSource}"
+                       BackgroundColor="Transparent" Margin="30"/>
+            </Grid>-->
+
+            <!--coming soon placeholder-->
+            <!--<StackLayout Padding="0,30,0,30"
+                         Spacing="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <customControls:ZgBubble Style="{StaticResource BubbleWBadge-ZgBubble}"
+                                             BubbleBackgroundColor="{x:Static fonts:CustomColors.TextColorRegular}"
+                                             ShowBadge="False"
+                                             Grid.Column="1">
+                        <customControls:ZgBubble.Content>
+                            <Label Text="&#xf1b2;" 
+                                   HorizontalTextAlignment="Center"
+                                   Style="{StaticResource BubbleIcon-Label}"
+                                   TextColor="{x:Static fonts:CustomColors.White}"/>
+                        </customControls:ZgBubble.Content>
+                        <customControls:ZgBubble.BadgeContent>
+                            <Label Text=""/>
+                        </customControls:ZgBubble.BadgeContent>
+                    </customControls:ZgBubble>
+                </Grid>
+
+                <Label Text="{x:Static resources:AppResources.MetabolicHealth_Title}"
+                       Style="{StaticResource HeadlineL-Label}"
+                       HorizontalTextAlignment="Center"/>
+                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                            Text="{x:Static resources:AppResources.MetabolicHealth_ComingSoon}"/>
+            </StackLayout>-->
+
+
+            <!--ToDo: einkommentieren, wenn Glukose feature freigegeben wurde-->
+            <Grid RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ScrollView Grid.Row="0">
+
+                    <StackLayout Padding="0,30,0,0">
+
+                        <Label Text="{x:Static resources:AppResources.MetabolicHealth_Title}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource HeadlineL-Label}" />
+
+                        <Label Text="{x:Static resources:AppResources.MetabolicHealth_Subtitle}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource Byline-Label}" />
+
+                        <customControls:ZgButtonGroup ItemsSource="{Binding GroupItems}"
+                                                      SelectedItem="{Binding SelectedGroupItem}"
+                                                      Style="{StaticResource ButtonGroup-ZgButtonGroup}"/>
+
+                        <!--Manual-->
+                        <StackLayout IsVisible="{Binding  Path=IsManual}">
+                            <Grid Margin="0,20,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <customControls:ZgBubble Grid.Column="1"
+                                                         ShowBadge="False"
+                                                         Style="{StaticResource BubbleWBadge-ZgBubble}">
+                                    <customControls:ZgBubble.Content>
+                                        <StackLayout Spacing="0">
+                                            <Label Text="{Binding Source={x:Reference Name=GlucoseValueSlider}, Path=Value, StringFormat='{0:F1}'}" HorizontalTextAlignment="Center"
+                                                   Style="{StaticResource BubbleTextInsteadOfIcon-Label}"/>
+
+                                            <Label Text="{x:Static resources:AppResources.Glucose_Value}"
+                                                   Style="{StaticResource BubbleText-Label}" />
+                                        </StackLayout>
+                                    </customControls:ZgBubble.Content>
+
+                                    <customControls:ZgBubble.BadgeContent>
+                                        <Label Text="1" Style="{StaticResource BubbleBadgeText-Label}" />
+                                    </customControls:ZgBubble.BadgeContent>
+                                </customControls:ZgBubble>
+                            </Grid>
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}" TrackSelectionColor="{x:Static fonts:CustomColors.Green}" x:Name="GlucoseValueSlider"
+                                                     ShowHeader="False"
+                                                     Value="{Binding GlucoseValue}"
+                                                     Minimum="{Binding MinGlucoseValue}"
+                                                     Maximum="{Binding MaxGlucoseValue}"
+                                                     RangeMinimum="{Binding MinGlucoseValue}"
+                                                     RangeMaximum="{Binding MaxGlucoseValue}"
+                                                     StepFrequency="0.1" />
+
+                            <StackLayout Orientation="Vertical" Spacing="15">
+
+                                <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                              Label="{x:Static resources:AppResources.Activities_Time}"
+                                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                              BorderWidth="0.5">
+                                    <customControls:ZgTimePicker Style="{StaticResource InputTime-ZgTimePicker}"
+                                                                 Time="{Binding GlucoseManualProxy.MeasurementTime}" />
+                                </customControls:ZgInputLayout>
+
+                            </StackLayout>
+
+                        </StackLayout>
+
+
+
+                        <!--ToDo: Content für sugarBEAT-->
+                        <StackLayout IsVisible="{Binding Path=IsSugarBeat}">
+                        <Label Text="Content for Miboko" VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+
+                    </StackLayout>
+
+
+                </ScrollView>
+
+                <customControls:ZgButton Grid.Row="1"
+                                         IsVisible="{Binding Path=IsManual}"
+                                         Text="{x:Static resources:AppResources.Button_Save}"
+                                         Margin="0,20,0,0"
+                                         HorizontalTextAlignment="Center"
+                                         Command="{Binding Path=SaveCommand}"
+                                         Style="{StaticResource FullWidthButton-ZgButton}" />
+
+            </Grid>
+    </ContentPage.Content>
+    <!--<base:ContentPageBase.Overlay>
+        <customControls:ZgHoldingView Title="{x:Static resources:AppResources.MetabolicHealth_Title}"
+                                      IconText="{x:Static resources1:IconUnicodes.MetabolicHealth}"
+                                      DescriptionText="{x:Static resources:AppResources.MetabolicHealth_HoldingPage_Description}"
+                                      ButtonText="{x:Static resources:AppResources.HoldingPage_CloseButton}"
+                                      TapableLabelText="{x:Static resources:AppResources.HoldingPage_DoNotShowAgain}"
+                                      ButtonCommand="{Binding CloseOverlayCommand}"
+                                      TapableLabelCommand="{Binding CloseOverlayCommand}"
+                                      TapableLabelCommandParameter="custom"
+                                      Style="{StaticResource HoldingView-ZgHoldingView}" />
+    </base:ContentPageBase.Overlay>-->
+</base:ContentPageBase>

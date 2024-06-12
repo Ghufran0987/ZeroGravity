@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+             xmlns:behaviors="clr-namespace:ZeroGravity.Mobile.Behaviors;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgOverlayView"
+             x:Name="This">
+  <ContentView.ControlTemplate>
+      <ControlTemplate>
+          <Grid RowSpacing="0"
+                ColumnSpacing="0">
+              <!-- OVERLAY BG -->
+              <Frame BackgroundColor="Gray"
+                     Opacity="0.7"
+                     HasShadow="False"/>
+              <!-- OVERLAY CONTENT -->
+                <Grid BackgroundColor="#9e9e9e"
+                     
+                    Margin="5,5"
+                    RowSpacing="0"
+                    ColumnSpacing="0">
+                  <Grid.RowDefinitions>
+                      <RowDefinition Height="Auto"/>
+                      <RowDefinition Height="*"/>
+                  </Grid.RowDefinitions>
+                  <ContentPresenter Grid.Row="0" Grid.RowSpan="2" Content="{Binding Source={x:Reference This}, Path=Content}" />
+                    <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                           Margin="10,5,30,0"
+                         FontSize="22"
+                         TextColor="{x:Static fonts:CustomColors.TextColorRegular}"
+                         Text="&#xf00d;"
+                         HorizontalTextAlignment="End"
+                         VerticalTextAlignment="Center"
+                         HorizontalOptions="End">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference This}, Path=CloseOverlayCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Grid.Behaviors>
+                        <behaviors:OverlayAnimationBehavior IsVisible="{Binding Source={x:Reference This}, Path=IsVisible}"/>
+                  </Grid.Behaviors>
+              </Grid>
+          </Grid>
+      </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>

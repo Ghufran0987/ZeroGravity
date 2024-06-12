@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentPageBase x:TypeArguments="page:IRegisterPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile" xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.RegisterPage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="1">
+                <StackLayout Padding="0,30,0,0" Spacing="10" VerticalOptions="EndAndExpand">
+
+                    <Image Source="{Binding LogoImageSource}" Margin="0,0,0,40" />
+
+                    <!--email input-->
+                    <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+
+                                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                              IsLabelVisible="False"
+                                                              HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                              UseHighlighting="True">
+                        <customControls:ZgEntry Keyboard="Email" Text="{Binding Email}" Margin="5"
+                                                             Placeholder="{x:Static resources:AppResources.Email_Address}"
+                                                Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" FontSize="16" />
+                    </customControls:ZgInputLayout>
+
+                    <!--password input-->
+                    <customControls:ZgInputLayout   Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                              BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                              IsLabelVisible="False"
+                                                              HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                              UseHighlighting="True">
+                        <customControls:ZgEntry Keyboard="Default" Text="{Binding Password}" Margin="5"
+                                                            Placeholder="{x:Static resources:AppResources.Password}"
+                                                            IsPassword="True"
+                                                            Style="{StaticResource InputEntry-ZgEntry}" TextColor="#4F4F4F"
+                                                            FontSize="16" FontFamily="OpenSans" />
+                    </customControls:ZgInputLayout>
+
+                    <customControls:ZgRadioButton Style="{StaticResource CheckBox-ZgRadioButton}"
+                                                      IsChecked="{Binding AcceptTermsAndPrivacy}"
+                                                      ShowDescription="False"
+                                                      Margin="30, 0, 0, 0">
+
+                        <customControls:ZgRadioButton.LabelContent>
+
+                            <Label Style="{StaticResource HeadlineS-Label}"
+                                               FontSize="14"
+                                               VerticalTextAlignment="Center"
+                                               Margin="0, 0, 30, 0">
+
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_1_Label}" />
+                                        <Span Text=" " />
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_2_Label}"  TextColor="#006298" FontAttributes="Bold">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding TermsCommand}"></TapGestureRecognizer>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                        <Span Text=" " />
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_3_Label}" />
+                                        <Span Text=" " />
+                                        <Span Text="{x:Static resources:AppResources.TermsAndPrivacy_4_Label}"  TextColor="#006298" FontAttributes="Bold">
+                                            <Span.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding PrivacyCommand}"></TapGestureRecognizer>
+                                            </Span.GestureRecognizers>
+                                        </Span>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </customControls:ZgRadioButton.LabelContent>
+                    </customControls:ZgRadioButton>
+
+                    <!--NewsletterSend-->
+                    <customControls:ZgRadioButton Style="{StaticResource CheckBox-ZgRadioButton}"
+                                                      IsChecked="{Binding NewsletterSend}"
+                                                      ShowDescription="False"
+                                                      Margin="30, 0, 0, 0">
+
+                        <customControls:ZgRadioButton.LabelContent>
+
+                            <Label Style="{StaticResource HeadlineS-Label}"
+                                               FontSize="14"
+                                               VerticalTextAlignment="Center"
+                                               Margin="0, 0, 30, 0">
+
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{x:Static resources:AppResources.Newsletter_Label1}" />
+                                        <Span Text=" " />
+                                        <Span Text="{x:Static resources:AppResources.Newsletter_Label2}"  TextColor="#FF5869" FontAttributes="Bold" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </customControls:ZgRadioButton.LabelContent>
+                    </customControls:ZgRadioButton>
+
+                    <!--<customControls:ZgRadioButton
+                                                              Style="{StaticResource CheckBoxWithDescription-ZgRadioButton}"
+                                                              LabelText="{x:Static resources:AppResources.Newsletter_Label}"
+                                                              IsChecked="{Binding NewsletterSend}"
+                                                              ShowDescription="false"
+                                                              LabelFontSize="14" LabelTextColor="#FF5869" />-->
+
+                    <!--register button-->
+                    <!--<customControls:ZgButton Text="{x:Static resources:AppResources.Register_Submit}"                                                          Command="{Binding Path=RegisterCommand}"
+                                             FontAttributes="Bold"
+                                             Style="{StaticResource Button-ZgButtonPink}"
+                                             Margin="20,10" />-->
+
+                    <buttons:SfButton Text="{x:Static resources:AppResources.Register_Submit}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#FF5869"
+                                  TextColor="#FFF"
+                                  WidthRequest="250"
+                                  HeightRequest="40"
+                                  Command="{Binding RegisterCommand}" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

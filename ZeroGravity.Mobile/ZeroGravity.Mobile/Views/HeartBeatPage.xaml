@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentPageBase x:TypeArguments="page:IHeartBeatPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resx="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resources;assembly=ZeroGravity.Mobile"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.HeartBeatPage"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Title="{x:Static resx:AppResources.HeartBeat_Title}"
+                      BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      Style="{StaticResource PageBaseStyle}"
+                      x:Name="Base">
+    <ContentPage.Content>
+        <Grid>
+            <Image HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" Aspect="AspectFill"
+                   Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Background.png}"  Margin="0" />
+
+            <borders:SfBorder Margin="20,40,20,20" BackgroundColor="White" CornerRadius="6" BorderThickness="0" BorderWidth="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="1" HeightRequest="40" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Logo.png}" />
+                    <Label Grid.Row="2"  Text="Heart Beat"
+                           HorizontalOptions="CenterAndExpand"
+                           FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynBold}"
+                           FontSize="40"
+                           TextColor="#319C8A" />
+                    <ScrollView Grid.Row="4">
+                        <StackLayout>
+                            <Label VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="CenterAndExpand" FontSize="18"
+                                   TextColor="#319C8A"
+                                   
+                                   Margin="10,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="It's the engine of life, yet most of us are oblivious to the stresses and strain we place on the heart." />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="CenterAndExpand" FontSize="18"
+                                   TextColor="#319C8A"
+                                  
+                                   Margin="10,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Using the Miboko FDA and CE Mark approved patch that sticks to your chest, we can continuously measure your heart rhythm (ECG) with medical grade precision and accuracy, for up to 3 days continuously and not just for a few seconds that existing wearable devices offer" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="CenterAndExpand" FontSize="18"
+                                   TextColor="#319C8A"
+                                  
+                                   Margin="10,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="As a result, we can not only help diagnose potential heart conditions, but importantly, we can provide you with feedback on the best forms of exercise for you and how to optimize your exercise routines with data that's personalized to you." />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="CenterAndExpand" FontSize="18"
+                                   TextColor="#319C8A"
+                                   
+                                   Margin="10,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="To learn more, register your interest at " />
+                                        <Span Text="Miboko.com" TextColor="Red" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </ScrollView>
+                </Grid>
+            </borders:SfBorder>
+        </Grid>
+    </ContentPage.Content>
+    <!--<base:ContentPageBase.Overlay>
+        <customControls:ZgHoldingView Title="{x:Static resx:AppResources.HeartBeat_Title}"
+                                      IconText="{x:Static resources:IconUnicodes.HeartBeat}"
+                                      DescriptionText="{x:Static resx:AppResources.HeartBeat_HoldingPage_Description}"
+                                      ButtonText="{x:Static resx:AppResources.HoldingPage_CloseButton}"
+                                      TapableLabelText="{x:Static resx:AppResources.HoldingPage_DoNotShowAgain}"
+                                      ButtonCommand="{Binding CloseOverlayCommand}"
+                                      TapableLabelCommand="{Binding CloseOverlayCommand}"
+                                      TapableLabelCommandParameter="custom"
+                                      Style="{StaticResource HoldingView-ZgHoldingView}" />
+    </base:ContentPageBase.Overlay>-->
+</base:ContentPageBase>

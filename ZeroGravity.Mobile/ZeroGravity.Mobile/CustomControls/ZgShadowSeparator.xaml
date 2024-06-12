@@ -1,0 +1,26 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgShadowSeparator"
+             x:Name="Root">
+  <ContentView.ControlTemplate>
+      <ControlTemplate>
+          <pancakeView:PancakeView BackgroundColor="White">
+              <pancakeView:PancakeView.Border>
+                  <pancakeView:Border Thickness="{Binding Source={x:Reference Root}, Path=Thickness}"
+                                      GradientStartPoint="1,0"
+                                      GradientEndPoint="1,1">
+                      <pancakeView:Border.GradientStops>
+                          <pancakeView:GradientStopCollection>
+                              <pancakeView:GradientStop Color="{Binding Source={x:Reference Root}, Path=GradientStartColor}" 
+                                                        Offset="0"/>
+                              <pancakeView:GradientStop Color="{Binding Source={x:Reference Root}, Path=GradientStopColor}" 
+                                                        Offset="1"/>
+                          </pancakeView:GradientStopCollection>
+                      </pancakeView:Border.GradientStops>
+                  </pancakeView:Border>
+              </pancakeView:PancakeView.Border>
+          </pancakeView:PancakeView>
+        </ControlTemplate>
+  </ContentView.ControlTemplate>
+</ContentView>

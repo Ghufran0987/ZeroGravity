@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:ILoginPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.LoginPage"
+                      Title="{Binding Path=Title}"
+                      BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0,30,0,0" Spacing="15" VerticalOptions="EndAndExpand">
+
+                    <Label Text="{x:Static resources:AppResources.SignInWithEmail}"
+                           Style="{StaticResource HeadlineM-Label}" />
+
+                    <!--email input-->
+                    <customControls:ZgInputLayout
+                        
+                        Label="{x:Static resources:AppResources.Email_Capitals}"
+
+                        BorderColor="Red"
+                        BorderThickness="2"
+                        CornerRadius="15"
+                        HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                        UseHighlighting="True">
+
+                        <Entry Keyboard="Email" Text="{Binding Email}"
+                                                TextColor="Red"
+                                                BackgroundColor="Tomato"
+                                                FontSize="26"></Entry>
+                        <!--<customControls:ZgEntry Keyboard="Email" Text="{Binding Email}"
+                                                TextColor="Red"
+                                                BackgroundColor="Green"
+                                                FontSize="18"
+                                                />-->
+                    </customControls:ZgInputLayout>
+                    <!--password input-->
+                    <customControls:ZgInputLayout
+                        Style="{StaticResource InputLayout-ZgInputLayout}"
+                        Label="{x:Static resources:AppResources.Password_Capitals}"
+                        BorderColor="Red"
+                        BorderThickness="2"
+                        CornerRadius="15"
+                        HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                        UseHighlighting="True">
+
+                        <customControls:ZgEntry Keyboard="Default" Text="{Binding Password}"
+                                                IsPassword="True"
+                                                Style="{StaticResource InputEntry-ZgEntry}" />
+                    </customControls:ZgInputLayout>
+
+                    <!--login button-->
+                    <customControls:ZgButton
+                        Text="{x:Static resources:AppResources.Login_Submit}"
+                        IconUnicode="&#xf0a9;"
+                        Command="{Binding Path=LoginCommand}"
+                        Style="{StaticResource Button-ZgButton}" />
+
+                    <Grid Margin="0, 0, 0, 20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <customControls:ZgParagraph Grid.Column="0"
+                                                    Text="{x:Static resources:AppResources.GetStartedPage_JoinMiboko}"
+                                                    Style="{StaticResource ParagraphMedium-ZgParagraph}"
+                                                    TextDecoration="Underline"
+                                                    Margin="30, 0, 0, 0">
+                            <customControls:ZgParagraph.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding JoinMibokoCommand}" />
+                            </customControls:ZgParagraph.GestureRecognizers>
+                        </customControls:ZgParagraph>
+
+                        <customControls:ZgParagraph Grid.Column="2"
+                                                    Text="{x:Static resources:AppResources.PasswordForgot}"
+                                                    Style="{StaticResource ParagraphMedium-ZgParagraph}"
+                                                    TextDecoration="Underline"
+                                                    FontSize="24"
+                                                    Margin="0, 0, 30, 0">
+                            <customControls:ZgParagraph.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                            </customControls:ZgParagraph.GestureRecognizers>
+                        </customControls:ZgParagraph>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

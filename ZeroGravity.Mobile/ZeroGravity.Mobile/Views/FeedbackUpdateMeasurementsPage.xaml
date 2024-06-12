@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IFeedbackUpdateMeasurementsPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:views="clr-namespace:ZeroGravity.Mobile.Views;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.FeedbackUpdateMeasurementsPage"
+                      x:Name="Root"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <views:UpdateBodyMeasurementsPage ShowTopBorder="False" ShowBottomBorder="False" ShowBusyIndicator="False" />
+    </ContentPage.Content>
+</base:ContentPageBase>

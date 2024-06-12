@@ -1,0 +1,950 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IWizardNewPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                       xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+                      xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+                      xmlns:syncfusion="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+                      xmlns:templateSelector="clr-namespace:ZeroGravity.Mobile.Contract"
+                      xmlns:syncfusionNumber="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
+                      xmlns:syncfusionListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      xmlns:FFImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:system="clr-namespace:System;assembly=netstandard"
+                      x:Class="ZeroGravity.Mobile.Views.WizardNewPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="False"
+                      BackgroundColor="#FFF"
+                      ShowBottomBorder="False"
+                      NavigationPage.HasNavigationBar="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <converter:IntToBooleanConverter x:Key="IntToBooleanConverter" />
+            <converter:IntToBooleanNegateConverter x:Key="IntToBooleanNegateConverter" />
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+
+            <DataTemplate x:Key="DefaultTemplate">
+                <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <!--<Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>-->
+
+                        <!--Category-->
+                        <Label 
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <!--Question-->
+                        <Label 
+                               Text="{Binding Name}"
+                               Margin="15,20,15,5"
+                               FontSize="18"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+                        <!--Answer-->
+                        <syncfusionListView:SfListView
+                             Margin="40,5"
+                            SelectedItem="{Binding SelectedAnswer, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            SelectionGesture="Tap"
+                            AutoFitMode="DynamicHeight"
+                            IsScrollingEnabled="False"
+                            ItemsSource="{Binding Answers}">
+                            <syncfusionListView:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#BDBDBD">
+
+                                        <Label Text="{Binding DisplayText}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.ItemTemplate>
+                            <syncfusionListView:SfListView.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#FF5869">
+
+                                        <Label Text="{Binding DisplayText}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.SelectedItemTemplate>
+                        </syncfusionListView:SfListView>
+                    </StackLayout>
+                </ScrollView>
+            </DataTemplate>
+            <DataTemplate x:Key="Template2">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Question-->
+                    <Label Grid.Row="2"
+                               Text="{Binding Name}"
+                               Margin="5"
+                               FontSize="32"
+                               FontFamily="{Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Description-->
+                    <ScrollView Grid.Row="3" VerticalOptions="Fill">
+
+                        <Label Grid.Row="3"
+                               Text="{Binding Discription}"
+                               Margin="25"
+                               FontSize="18"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+                    </ScrollView>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Template3">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Question-->
+                    <Label Grid.Row="1"
+                               Text="{Binding Name}"
+                               Margin="15"
+                               FontSize="32"
+                               FontFamily="{Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Description-->
+                    <Label Grid.Row="2"
+                               Text="{Binding Discription}"
+                               Margin="20,5"
+                               FontSize="16"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Image-->
+                    <border:SfBorder Grid.Row="3" BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="50,20,50,5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <!--<FFImage:CachedImage Aspect="AspectFill" CacheDuration="2" Grid.RowSpan="2"
+                                                 LoadingPlaceholder="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.PlaceHolder.png}"
+                                                 Source="{Binding ImageUrl}" />-->
+
+                            <Image  Aspect="AspectFill"  Grid.RowSpan="2" Source="{Binding ImageSource}" />
+
+                            <border:SfBorder Grid.Row="1" BorderWidth="0" CornerRadius="0,0,6,6" BackgroundColor="#FF5869">
+                                <Label
+                               Text="{Binding Subtitle}"
+                               Margin="8"
+                               FontSize="14"
+                               TextColor="#FFF"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+                            </border:SfBorder>
+                        </Grid>
+                    </border:SfBorder>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Template4">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <border:SfBorder Grid.Row="1" BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="20,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <!--<FFImage:CachedImage Aspect="AspectFill" CacheDuration="2" Grid.RowSpan="3"
+                                                 LoadingPlaceholder="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.PlaceHolder.png}"
+                                                 Source="{Binding ImageUrl}" />-->
+                            <Image  Aspect="AspectFill"  Grid.RowSpan="3" Source="{Binding ImageSource}" />
+
+                            <Label Grid.Row="0"
+                                       Text="{Binding Name}"
+                                       Margin="5,30"
+                                       FontSize="32"
+                                       FontFamily="{Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                                       TextColor="{Binding TextColor}"
+                                       HorizontalOptions="FillAndExpand"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center" />
+                            <Label Grid.Row="2"
+                                       Text="{Binding Discription}"
+                                       Margin="10"
+                                       FontSize="16"
+                                       TextColor="{Binding TextColor}"
+                                       HorizontalOptions="FillAndExpand"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center" />
+                        </Grid>
+                    </border:SfBorder>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Template5">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="120"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--<FFImage:CachedImage Aspect="AspectFit" CacheDuration="2" Grid.Row="1" Grid.RowSpan="3"
+                                         LoadingPlaceholder="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.PlaceHolder.png}"
+                                         Source="{Binding BackgroundImageUrl}" Margin="5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="320" />-->
+
+                    <Image  Aspect="AspectFit"  Grid.Row="1" Grid.RowSpan="3" Source="{Binding BackgroundImageSource}"  Margin="5" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" HeightRequest="320" />
+
+                    <!--Question-->
+                    <Label Grid.Row="2"
+                               Text="{Binding Name}"
+                               Margin="5"
+                               FontSize="18"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Answer-->
+                    <border:SfBorder Grid.Row="3" BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="80,0,80,5" BackgroundColor="#FFF">
+                        <!--<syncfusionNumber:SfNumericTextBox
+                               Value="{Binding SelectedAnswer.Value, Mode=TwoWay}"
+                               Margin="5"
+                               FontSize="48"
+                               TextColor="#FF5869"
+                               MaximumNumberDecimalDigits="2"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand"
+                               BorderColor="#FFF"
+                               TextAlignment="Center" />-->
+                        <Entry Keyboard="Numeric" x:Name="entry5"
+                               Text="{Binding SelectedAnswer.Value, Mode=TwoWay}"
+                               Margin="0"
+                               FontSize="42"
+                               IsTabStop="True"
+                               TabIndex="0"
+                               Placeholder="type here"
+                               TextColor="#FF5869"
+                               BackgroundColor="Transparent"
+                               HorizontalTextAlignment="center"
+                               VerticalTextAlignment="center"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" />
+                    </border:SfBorder>
+
+                    <Grid Grid.Row="4" Margin="70,0">
+                        <syncfusionListView:SfListView
+                            ItemsSource="{Binding TagOptions}"
+                            Orientation="Vertical"
+                            IsScrollingEnabled="False"
+                            SelectedItem="{Binding SelectedTag, Mode=TwoWay}"
+                            ItemSize="100"
+                            ItemSpacing="0">
+                            <syncfusionListView:SfListView.LayoutManager>
+                                <syncfusionListView:GridLayout SpanCount="2" />
+                            </syncfusionListView:SfListView.LayoutManager>
+                            <syncfusionListView:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="6" Margin="10" HasShadow="True" BackgroundColor="#BDBDBD">
+
+                                        <Label Text="{Binding}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  VerticalOptions="End" HorizontalOptions="Start" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.ItemTemplate>
+                            <syncfusionListView:SfListView.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="6" Margin="10" HasShadow="True" BackgroundColor="#FF5869">
+
+                                        <Label Text="{Binding}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  VerticalOptions="End" HorizontalOptions="Start" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.SelectedItemTemplate>
+                        </syncfusionListView:SfListView>
+
+                        <!--<RadioButton ControlTemplate="{StaticResource SqureRadioTemplate}" IsChecked="True" Grid.Column="0" Value="{Binding Tag1}">
+                            <RadioButton.Content>
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="1"
+                                                FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="5,0"
+                                                Text="{Binding Tag1}"
+                                                HorizontalOptions="Start" VerticalOptions="End"
+                                                TextColor="#FF5869" />
+                                </Grid>
+                            </RadioButton.Content>
+                        </RadioButton>
+
+                        <RadioButton  ControlTemplate="{StaticResource SqureRadioTemplate}" IsChecked="False"  Grid.Column="2">
+                            <RadioButton.Content>
+                                <Grid Margin="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="1"
+                                                FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="5,0"
+                                                Text="{Binding Tag2}"
+                                                HorizontalOptions="Start" VerticalOptions="End"
+                                                TextColor="#FF5869" />
+                                </Grid>
+                            </RadioButton.Content>
+                        </RadioButton>-->
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Template6">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Image-->
+                    <border:SfBorder Grid.Row="1" BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="20,20,20,5">
+                        <!--<FFImage:CachedImage Aspect="AspectFill" CacheDuration="2"
+                                             LoadingPlaceholder="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.PlaceHolder.png}"
+                                             Source="{Binding ImageUrl}" />-->
+
+                        <Image  Aspect="AspectFill"  Source="{Binding ImageSource}" />
+                    </border:SfBorder>
+
+                    <!--Description-->
+                    <ScrollView Grid.Row="2" VerticalOptions="Fill">
+                        <Label Text="{Binding Discription}"
+                               Margin="20,5"
+                               FontSize="16"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+                    </ScrollView>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Template7">
+                <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+
+                        <!--Category-->
+                        <Label 
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <!--Question-->
+                        <Label 
+                               Text="{Binding Name}"
+                               Margin="10,5"
+                               FontSize="32"
+                               FontFamily="{Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+
+                        <!--Image-->
+                        <border:SfBorder  BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="20,20,20,5"  HeightRequest="300">
+                            <!--<FFImage:CachedImage Aspect="AspectFill"
+                                             LoadingPlaceholder="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.PlaceHolder.png}"
+                                             CacheDuration="2"  Source="{Binding ImageUrl}" />-->
+
+                            <Image  Aspect="AspectFill"  Source="{Binding ImageSource}"/>
+                        </border:SfBorder>
+
+                        <!--Description-->
+                        <Label 
+                               Text="{Binding Discription}"
+                               Margin="20,20,20,5"
+                               FontSize="16"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="End"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+                        <!--Answer-->
+                        <syncfusionListView:SfListView
+                             Margin="40,5"
+                            SelectedItem="{Binding SelectedAnswer, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            SelectionGesture="Tap"
+                            AutoFitMode="DynamicHeight"
+                            IsScrollingEnabled="False"
+                            ItemsSource="{Binding Answers}">
+                            <syncfusionListView:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#BDBDBD">
+
+                                        <Label Text="{Binding DisplayText}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.ItemTemplate>
+                            <syncfusionListView:SfListView.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#FF5869">
+
+                                        <Label Text="{Binding DisplayText}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.SelectedItemTemplate>
+                        </syncfusionListView:SfListView>
+
+
+                    </StackLayout>
+                </ScrollView>
+            </DataTemplate>
+
+            <DataTemplate x:Key="Template8">
+                <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+
+                        <!--Category-->
+                        <Label 
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                        <!--Question-->
+                        <Label 
+                               Text="{Binding Name}"
+                               Margin="10,5"
+                               FontSize="32"
+                               FontFamily="{Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+
+                        <!--Image-->
+                        <border:SfBorder  BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="20,20,20,5"  HeightRequest="300">
+                            <!--<FFImage:CachedImage Aspect="AspectFill"
+                                             LoadingPlaceholder="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.PlaceHolder.png}"
+                                             CacheDuration="2"  Source="{Binding ImageUrl}" />-->
+
+                            <Image  Aspect="AspectFill"  Source="{Binding ImageSource}"/>
+                        </border:SfBorder>
+
+                        <!--Description-->
+                        <Label 
+                               Text="{Binding Discription}"
+                               Margin="20,20,20,5"
+                               FontSize="16"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="End"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+
+                    </StackLayout>
+                </ScrollView>
+            </DataTemplate>
+            <DataTemplate x:Key="Template9">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="180"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Question-->
+                    <Label Grid.Row="2"
+                               Text="{Binding Name}"
+                               Margin="5"
+                               FontSize="18"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Answer
+                     Maximum="999"
+                               MaximumNumberDecimalDigits="2"
+                        BorderColor="#FFF"
+                               TextAlignment="Center"
+                    -->
+                    <border:SfBorder Grid.Row="3" BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="20,0,20,5" BackgroundColor="#FFF">
+                        <Entry Keyboard="Numeric" x:Name="entry9"
+                               Text="{Binding SelectedAnswer.Value, Mode=TwoWay}"
+                               Margin="0"
+                               FontSize="68"
+                               Placeholder="type here"
+                               TextColor="#FF5869"
+                               BackgroundColor="Transparent"
+                               IsTabStop="True"
+                               TabIndex="0"
+                             HorizontalTextAlignment="center"
+                            VerticalTextAlignment="center"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" />
+                    </border:SfBorder>
+
+                    <Grid Grid.Row="4" Margin="10,0">
+                        <syncfusionListView:SfListView
+                            ItemsSource="{Binding TagOptions}"
+                            Orientation="Vertical"
+                            IsScrollingEnabled="False"
+                            SelectedItem="{Binding SelectedTag, Mode=TwoWay}"
+                            ItemSize="100"
+                            ItemSpacing="0">
+                            <syncfusionListView:SfListView.LayoutManager>
+                                <syncfusionListView:GridLayout SpanCount="3" />
+                            </syncfusionListView:SfListView.LayoutManager>
+                            <syncfusionListView:SfListView.ItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="6" Margin="10" HasShadow="True" BackgroundColor="#BDBDBD">
+
+                                        <Label Text="{Binding}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  VerticalOptions="End" HorizontalOptions="Start" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.ItemTemplate>
+                            <syncfusionListView:SfListView.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="6" Margin="10" HasShadow="True" BackgroundColor="#FF5869">
+
+                                        <Label Text="{Binding}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  VerticalOptions="End" HorizontalOptions="Start" />
+                                    </border:SfBorder>
+                                </DataTemplate>
+                            </syncfusionListView:SfListView.SelectedItemTemplate>
+                        </syncfusionListView:SfListView>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="Template10">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Question-->
+                    <Label Grid.Row="1"
+                               Text="{Binding Name}"
+                               Margin="15,20,15,5"
+                               FontSize="18"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Answer-->
+                    <syncfusionListView:SfListView
+                            Grid.Row="2" Margin="40,5"
+                            SelectedItems="{Binding SelectedAnswers, Mode=TwoWay}"
+                            SelectionMode="Multiple"
+                            SelectionGesture="Tap"
+                            AutoFitMode="DynamicHeight"
+                            IsScrollingEnabled="False"
+                            ItemsSource="{Binding Answers}">
+                        <syncfusionListView:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#BDBDBD">
+
+                                    <Label Text="{Binding DisplayText}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                </border:SfBorder>
+                            </DataTemplate>
+                        </syncfusionListView:SfListView.ItemTemplate>
+                        <syncfusionListView:SfListView.SelectedItemTemplate>
+                            <DataTemplate>
+                                <border:SfBorder BorderThickness="0" BorderWidth="0" CornerRadius="26" Margin="10" BackgroundColor="#FF5869">
+
+                                    <Label Text="{Binding DisplayText}" FontAttributes="Bold" TextColor="#FFF" FontSize="16" Margin="10" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                                </border:SfBorder>
+                            </DataTemplate>
+                        </syncfusionListView:SfListView.SelectedItemTemplate>
+                    </syncfusionListView:SfListView>
+                </Grid>
+            </DataTemplate>
+            <!--Text Entry-->
+            <DataTemplate x:Key="Template11">
+                <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="120"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <!--Category-->
+                    <Label Grid.Row="0"
+                               Text="{Binding Category}"
+                               Margin="5,15"
+                               FontSize="18"
+                               TextColor="#FF5869"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Question-->
+                    <Label Grid.Row="2"
+                               Text="{Binding Name}"
+                               Margin="5"
+                               FontSize="18"
+                               TextColor="#319C8A"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalTextAlignment="End"
+                               HorizontalTextAlignment="Center" />
+
+                    <!--Answer-->
+                    <border:SfBorder Grid.Row="3" BorderThickness="0" BorderWidth="0" CornerRadius="6" HasShadow="True" Margin="20,0,20,5" BackgroundColor="#FFF">
+                        <Entry x:Name="entry11"
+                               Text="{Binding SelectedAnswer.Value, Mode=TwoWay}"
+                               Margin="0"
+                               FontSize="20"
+                               Placeholder="type here"
+                               TextColor="#FF5869"
+                               BackgroundColor="Transparent"
+                               IsTabStop="True"
+                               TabIndex="0"
+                               HorizontalTextAlignment="center"
+                               VerticalTextAlignment="center"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="FillAndExpand" />
+                    </border:SfBorder>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="#FFF">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <border:SfBorder Grid.Row="0" BorderColor="Red" BorderWidth="0" BackgroundColor="#FFF" BorderThickness="0,0,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <buttons:SfButton BackgroundColor="White" Grid.Column="1"
+                                          Command="{Binding PreviousCommand}"
+                                          HeightRequest="40" WidthRequest="40">
+                            <buttons:SfButton.Content>
+                                <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf060;" HorizontalOptions="Center" VerticalOptions="Center"
+                                       TextColor="#FF5869" Margin="2"
+                                       FontSize="18" FontAttributes="Bold" />
+                            </buttons:SfButton.Content>
+                        </buttons:SfButton>
+                    </Grid>
+                </border:SfBorder>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--Step 1-->
+                    <border:SfBorder Grid.Column="1" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step1Progress.FillColor}"
+                                     BackgroundColor="#FFF"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="" FontSize="12" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#FFF" />
+                    </border:SfBorder>
+                    <progressBar:SfLinearProgressBar  Grid.Column="2" Grid.ColumnSpan="1"
+                                                      Progress="{Binding Step1Progress.ProgressValue}"
+                                                      ProgressColor="{Binding Step1Progress.FillColor}"
+                                                      VerticalOptions="Center" HorizontalOptions="Fill"
+                                                      HeightRequest="2" Margin="-6" />
+
+                    <border:SfBorder Grid.Column="3" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step1Progress.FillColor}"
+                                     BackgroundColor="{Binding Step1Progress.FillColor}"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="1" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"   TextColor="#FFF" />
+                    </border:SfBorder>
+
+                    <!--Step 2-->
+                    <progressBar:SfLinearProgressBar Grid.Column="4"
+                                                     Progress="{Binding Step2Progress.ProgressValue}"
+                                                     ProgressColor="{Binding Step2Progress.FillColor}"
+                                                     BackgroundColor="{Binding Step2Progress.FillColor}"
+                                                     VerticalOptions="Center" HorizontalOptions="Fill"
+                                                     HeightRequest="2" Margin="-6" />
+                    <border:SfBorder Grid.Column="5" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step2Progress.FillColor}"
+                                     BackgroundColor="{Binding Step2Progress.FillColor}"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="2" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  TextColor="#FFF" />
+                    </border:SfBorder>
+
+                    <!--Step 3-->
+                    <progressBar:SfLinearProgressBar Grid.Column="6"
+                                                     Progress="{Binding Step3Progress.ProgressValue}"
+                                                     ProgressColor="{Binding Step3Progress.FillColor}"
+                                                     BackgroundColor="{Binding Step3Progress.FillColor}"
+                                                     VerticalOptions="Center" HorizontalOptions="Fill"
+                                                     HeightRequest="2" Margin="-6" />
+
+                    <border:SfBorder Grid.Column="7" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step3Progress.FillColor}"
+                                     BackgroundColor="{Binding Step3Progress.FillColor}"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="3" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  TextColor="#FFF" />
+                    </border:SfBorder>
+
+                    <!--Step 4-->
+                    <progressBar:SfLinearProgressBar Grid.Column="8"
+                                                     Progress="{Binding Step4Progress.ProgressValue}"
+                                                     ProgressColor="{Binding Step4Progress.FillColor}"
+                                                     BackgroundColor="{Binding Step4Progress.FillColor}"
+                                                     VerticalOptions="Center" HorizontalOptions="Fill"
+                                                     HeightRequest="2" Margin="-6" />
+
+                    <border:SfBorder Grid.Column="9" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step4Progress.FillColor}"
+                                     BackgroundColor="{Binding Step4Progress.FillColor}"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="4" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  TextColor="#FFF" />
+                    </border:SfBorder>
+
+                    <!--Step 5-->
+                    <progressBar:SfLinearProgressBar Grid.Column="10"
+                                                     Progress="{Binding Step5Progress.ProgressValue}"
+                                                     ProgressColor="{Binding Step5Progress.FillColor}"
+                                                     BackgroundColor="{Binding Step5Progress.FillColor}"
+                                                     VerticalOptions="Center" HorizontalOptions="Fill"
+                                                     HeightRequest="2" Margin="-6" />
+
+                    <border:SfBorder Grid.Column="11" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step5Progress.FillColor}"
+                                     BackgroundColor="{Binding Step5Progress.FillColor}"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="5" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  TextColor="#FFF" />
+                    </border:SfBorder>
+
+
+                    <!--Step 6-->
+                    <progressBar:SfLinearProgressBar Grid.Column="12"
+                                                     Progress="{Binding Step6Progress.ProgressValue}"
+                                                     ProgressColor="{Binding Step6Progress.FillColor}"
+                                                     BackgroundColor="{Binding Step6Progress.FillColor}"
+                                                     VerticalOptions="Center" HorizontalOptions="Fill"
+                                                     HeightRequest="2" Margin="-6" />
+
+                    <border:SfBorder Grid.Column="13" BorderThickness="0" BorderWidth="2" CornerRadius="6"
+                                     BorderColor="{Binding Step6Progress.FillColor}"
+                                     BackgroundColor="{Binding Step6Progress.FillColor}"
+                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="30" WidthRequest="30">
+                        <Label Text="6" FontSize="12"  HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  TextColor="#FFF" />
+                    </border:SfBorder>
+
+
+                </Grid>
+
+                <Grid Grid.Row="2">
+
+                    <syncfusion:SfRotator x:Name="rotator"
+                                                    EnableAutoPlay="False"
+                                                    NavigationDelay="2000"
+                                                    ItemsSource="{Binding Questions, Mode=TwoWay}"
+                                                    SelectedIndex="{Binding SelectedQuestionIndex, Mode=TwoWay}"
+                                                    NavigationDirection="Horizontal"
+                                                    NavigationStripMode="Dots"
+                                                    DotPlacement="None"
+                                                    EnableSwiping="False"
+                                                    BackgroundColor="#FFF">
+                        <syncfusion:SfRotator.ItemTemplate>
+                            <templateSelector:OnBoardingTemplateSelector
+                                                        DefaultTemplate="{StaticResource DefaultTemplate}"
+                                                        Template2="{StaticResource Template2}"
+                                                        Template3="{StaticResource Template3}"
+                                                        Template4="{StaticResource Template4}"
+                                                        Template5="{StaticResource Template5}"
+                                                        Template6="{StaticResource Template6}"
+                                                        Template7="{StaticResource Template7}"
+                                                        Template8="{StaticResource Template8}"
+                                                        Template9="{StaticResource Template9}"
+                                                        Template10="{StaticResource Template10}"
+                                                        Template11="{StaticResource Template11}" />
+                        </syncfusion:SfRotator.ItemTemplate>
+                    </syncfusion:SfRotator>
+
+                </Grid>
+
+                <StackLayout BackgroundColor="Transparent" Grid.Row="3">
+                    <buttons:SfButton Text="{x:Static resources:AppResources.Button_Continue}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  TextColor="#FFF"
+                                  BackgroundColor="#319C8A"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding NextCommand}" />
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

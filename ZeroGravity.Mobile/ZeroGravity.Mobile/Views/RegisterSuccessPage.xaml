@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IRegisterSuccessPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resx="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.RegisterSuccessPage"
+                      ShowTopBorder="False"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Content>
+        <StackLayout Padding="0,30,0,30">
+            <StackLayout Spacing="10" VerticalOptions="CenterAndExpand">
+                <!--<customControls:ZgJaggedIcon Text="&#xf813;"
+                                             Style="{StaticResource JaggedIcon-ZgJaggedIcon}" />-->
+                <Image Source="{Binding LogoImageSource}" Margin="0,0,0,40"/>
+
+                <Label Text="{x:Static resx:AppResources.Common_ThankYou}"
+                       Style="{StaticResource HeadlineXl-Label}"
+                       HorizontalTextAlignment="Center" />
+
+                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                            Text="{x:Static resx:AppResources.RegisterSuccessPage_Success_Description}"
+                                            HorizontalOptions="Center" />
+                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                            Text="{x:Static resx:AppResources.RegisterSuccessPage_Success_Description1}"
+                                            HorizontalOptions="Center" />
+
+                <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                            Text="{x:Static resx:AppResources.RegisterSuccessPage_Success_Description2}"
+                                            HorizontalOptions="Center" />
+            </StackLayout>
+
+            <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                 HorizontalTextAlignment="Center" Margin="20">
+                <customControls:ZgParagraph.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToLoginPageCommand}" />
+                </customControls:ZgParagraph.GestureRecognizers>
+                <ContentView HorizontalOptions="Center">
+
+                    <Label Text="&#xf0a8;" HorizontalTextAlignment="Center" TextColor="#FF5869"
+                                                   Style="{StaticResource BubbleIcon-Label}" FontSize="50" FontAttributes="None"/>
+                </ContentView>
+            </customControls:ZgParagraph>
+
+            <!--sign in button-->
+            <!--<Image Source="{Binding ArrowBackImageSource}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer    Command="{Binding Path=GoToLoginPageCommand}"                
+                NumberOfTapsRequired="1" />
+                </Image.GestureRecognizers>
+            </Image>-->
+
+            <!--<customControls:ZgButton Text="{x:Static resx:AppResources.SignIn}" IconUnicode="&#xf0e0;"
+                                  
+                                     Style="{StaticResource Button-ZgButton}" />-->
+
+        </StackLayout>
+    </ContentPage.Content>
+</base:ContentPageBase>

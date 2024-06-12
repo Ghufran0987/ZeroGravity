@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="ZeroGravity.Mobile.CustomControls.BubbleView"
+             x:Name="Root">
+    <ContentView.Content>
+        <AbsoluteLayout BackgroundColor="Transparent">
+            <!-- Button -->
+            <buttons:SfButton AbsoluteLayout.LayoutFlags="PositionProportional"
+                              Command="{Binding Source={x:Reference Root}, Path=Command}"
+                              BackgroundColor="{Binding Source={x:Reference Root}, Path=ButtonColor}"
+                              Rotation="{Binding Source={x:Reference Root}, Path=ButtonRotationAngle}"
+                              Opacity="0.99"
+                              AnchorX="0.5"
+                              AnchorY="0.5"
+                              x:Name="Button"
+                              SizeChanged="OnButtonSizeChanged">
+                <buttons:SfButton.Clip>
+                    <EllipseGeometry RadiusX="{Binding Source={x:Reference Root}, Path=ButtonRadiusX}"
+                                     RadiusY="{Binding Source={x:Reference Root}, Path=ButtonRadiusY}"
+                                     x:Name="ButtonEllipse" />
+                </buttons:SfButton.Clip>
+            </buttons:SfButton>
+
+            <!-- Button Label -->
+            <Frame AbsoluteLayout.LayoutBounds="0.5, 0.5"
+                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                   InputTransparent="True"
+                   Padding="0"
+                   BackgroundColor="Transparent"
+                   Content="{Binding Source={x:Reference Root}, Path=ButtonContent}"
+                   x:Name="LabelFrame" />
+
+            <!-- Extra Label -->
+            <Frame AbsoluteLayout.LayoutFlags="PositionProportional"
+                   Padding="0"
+                   IsVisible="{Binding Source={x:Reference Root}, Path=ShowBadge}"
+                   BackgroundColor="{Binding Source={x:Reference Root}, Path=BadgeColor}"
+                   Content="{Binding Source={x:Reference Root}, Path=BadgeContent}"
+                   x:Name="BadgeFrame" />
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

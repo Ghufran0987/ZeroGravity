@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:INotificationPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resx="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.NotificationsPage"
+                      Title="{Binding Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Content>
+        <StackLayout Padding="0,30,0,30"
+                     Spacing="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <customControls:ZgBubble Style="{StaticResource BubbleWBadge-ZgBubble}"
+                                         BubbleBackgroundColor="{x:Static fonts:CustomColors.TextColorRegular}"
+                                         ShowBadge="False"
+                                         Grid.Column="1">
+                    <customControls:ZgBubble.Content>
+                        <Label Text="&#xf0f3;"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource BubbleIcon-Label}"
+                               TextColor="{x:Static fonts:CustomColors.White}" />
+                    </customControls:ZgBubble.Content>
+                    <customControls:ZgBubble.BadgeContent>
+                        <Label Text="" />
+                    </customControls:ZgBubble.BadgeContent>
+                </customControls:ZgBubble>
+            </Grid>
+
+            <Label Text="{x:Static resx:AppResources.Notifications_Title}"
+                   Style="{StaticResource HeadlineL-Label}"
+                   HorizontalTextAlignment="Center" />
+            <customControls:ZgParagraph Style="{StaticResource Paragraph-ZgParagraph}"
+                                        Text="{x:Static resx:AppResources.Notifications_ComingSoon}" />
+        </StackLayout>
+
+
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Margin="0, 20, 0, 0"
+                   TextColor="Black"
+                   Text="Headline"
+                   FontSize="30"
+                   HorizontalTextAlignment="Center"
+                   Style="{StaticResource CustomLabelFontStyleBold}">
+            </Label>
+
+
+            <listview:SfListView Grid.Row="1" 
+                                 x:Name="listView" 
+                                 ItemsSource="{Binding Path=Notifications}" 
+                                 AutoFitMode="Height" 
+                                 SelectionBackgroundColor="#ECECEC"
+                                 FocusBorderThickness="0"
+                                 SelectionMode="Single">
+                <listview:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowSpacing="0" Padding="8,12,8,0" ColumnSpacing="0" Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="1" />
+                            </Grid.RowDefinitions>
+                            <Grid RowSpacing="0" Padding="0,0,8,10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Orientation="Vertical" VerticalOptions="Start" Grid.Row="0" Grid.Column="1"
+                                             Padding='{OnPlatform  Default="5,-5,0,0"}'>
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" TextColor="#474747" Style="{StaticResource CustomLabelFontStyleBold}"/>
+                                    <Label Text="{Binding Content}" Opacity=" 0.54" TextColor="#474747" FontSize="13" Style="{StaticResource CustomLabelFontStyleNormal}"/>
+                                </StackLayout>
+                            </Grid>
+                            <BoxView Grid.Row="1" Margin="5,0,0,0" HeightRequest="1" Opacity="0.75" BackgroundColor="#CECECE" />
+     
+                        </Grid>
+                    </DataTemplate>
+                </listview:SfListView.ItemTemplate>
+            </listview:SfListView>
+
+            <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center">
+                <Button Text="+" FontSize="30" HeightRequest="50" Command="{Binding AddCommand}"></Button>
+                <Button Text="-" FontSize="30" HeightRequest="50" Command="{Binding RemoveCommand}"></Button>
+            </StackLayout>
+
+        </Grid>-->
+    </ContentPage.Content>
+</base:ContentPageBase>

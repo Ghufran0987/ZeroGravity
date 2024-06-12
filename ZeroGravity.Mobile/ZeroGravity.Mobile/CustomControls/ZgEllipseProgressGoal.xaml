@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgEllipseProgressGoal"
+             x:Name="Root">
+  <ContentView.Content>
+        <Grid RowSpacing="0" Margin="5" Padding="10" ColumnSpacing="0"  BackgroundColor="#FFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" Orientation="Horizontal" >
+                <Label  Text="{Binding Source={x:Reference Root}, Path=TitleIcon}"   TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.FaLight300}" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontAttributes="Bold" />
+                <Label  Text="{Binding Source={x:Reference Root}, Path=TitleLabel}"  TextColor="#FF5869" FontSize="18" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"   VerticalTextAlignment="Center" FontAttributes="Bold" />
+            </StackLayout>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Text="Target" TextColor="#FF5869" FontSize="12" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                <Label Grid.Row="0" Grid.Column="2" Text="Actual" TextColor="#FF5869" FontSize="12" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+
+                <border:SfBorder Grid.Row="2" Grid.Column="0" Grid.RowSpan="9" CornerRadius="6" BorderWidth="0" BorderThickness="1"  >
+                    <Grid>
+
+                        <Image x:Name="Imgfood1" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                            </Grid.RowDefinitions>
+                            <border:SfBorder Grid.Row="0" />
+                            <border:SfBorder Grid.Row="1" />
+                            <border:SfBorder Grid.Row="2" />
+                            <border:SfBorder Grid.Row="3" />
+                            <border:SfBorder Grid.Row="4" />
+                            <border:SfBorder Grid.Row="5" />
+                            <border:SfBorder Grid.Row="6" />
+                            <border:SfBorder Grid.Row="7" />
+                            <border:SfBorder Grid.Row="8" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="9" BackgroundColor="#319C8A" Opacity=".5"  />
+                        </Grid>
+                    </Grid>
+
+                </border:SfBorder>
+                <border:SfBorder Grid.Row="2" Grid.Column="2" Grid.RowSpan="9" CornerRadius="6" BorderWidth="0" BorderThickness="1" >
+                    <Grid>
+                        <Image x:Name="Imgfood2" Aspect="AspectFill" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                                <RowDefinition Height="8" />
+                            </Grid.RowDefinitions>
+                            <border:SfBorder Grid.Row="0" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="1" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="2" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="3" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="4" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="5" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="6" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="7" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="8" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5" />
+                            <border:SfBorder Grid.Row="9" Margin="0" Padding="0" HeightRequest="8" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" BorderColor="#319C8A" BackgroundColor="#319C8A" Opacity=".5"  />
+                        </Grid>
+                    </Grid>
+                </border:SfBorder>
+
+                <border:SfBorder Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource progress_VeryHeavy}" >
+                    <Label Text="Very Heavy"  Style="{StaticResource progress_label}" />
+                </border:SfBorder>
+                <border:SfBorder Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource progress_Heavy}" >
+                    <Label Text="Heavy" Style="{StaticResource progress_label}" />
+                </border:SfBorder>
+                <border:SfBorder Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource progress_Medium}" >
+                    <Label Text="Medium" Style="{StaticResource progress_label}" />
+                </border:SfBorder>
+                <border:SfBorder Grid.Row="7" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource progress_Light}" >
+                    <Label Text="Light" Style="{StaticResource progress_label}" />
+                </border:SfBorder>
+                <border:SfBorder Grid.Row="9" Grid.RowSpan="2" Grid.Column="1" Style="{StaticResource progress_VeryLight}" >
+                    <Label Text="Very Light" Style="{StaticResource progress_label}" />
+                </border:SfBorder>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

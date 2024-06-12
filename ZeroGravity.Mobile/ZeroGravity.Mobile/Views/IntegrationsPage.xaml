@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IIntegrationsPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.IntegrationsPage"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:xForms="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms1="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                       xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"
+                      Style="{StaticResource ViewBaseStyle}">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:IntegrationTypeToIconStringConverter x:Key="IntegrationTypeToIconStringConverter" />
+            <converter:LinkedStatusToIconStringConverter x:Key="LinkedStatusToIconStringConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="1" Grid.Column="1" Text="Device Integration" FontSize="18" TextColor="#4F4F4F"></Label>
+
+                <xForms1:SfListView Grid.Row="2" Grid.Column="1"
+                                    ItemsSource="{Binding IntegrationDataProxies}"
+                                    SelectionMode="None"
+                                    TapCommand="{Binding OnItemTappedCommand}"
+                                    ItemSize="120"  Margin="-10,10" ItemSpacing="4">
+                    <xForms1:SfListView.LayoutManager>
+                        <xForms1:GridLayout SpanCount="2"></xForms1:GridLayout>
+                    </xForms1:SfListView.LayoutManager>
+                    <xForms1:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <border:SfBorder CornerRadius="6" BorderColor="#E0E0E0" Margin="0" BackgroundColor="#FF5869" HeightRequest="160">
+                                    <Grid Margin="10">
+
+                                        <!--<Label
+                                               Text="{Binding IntegrationType, Converter={StaticResource IntegrationTypeToIconStringConverter}}"
+                                               VerticalTextAlignment="Start" TextColor="#FFF"
+                                               Style="{StaticResource ListViewIcon-Label}" />-->
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Image HorizontalOptions="FillAndExpand" Aspect="AspectFit" Source="{Binding Image}"
+                                                Grid.Row="0" Margin="4" />
+
+                                        <Label Grid.Row="1"
+                                               Text="{Binding Name}"
+                                               VerticalTextAlignment="End" TextColor="#FFF"
+                                               Style="{StaticResource HeadlineS-Label}" />
+                                    </Grid>
+                                </border:SfBorder>
+                            </ViewCell>
+                        </DataTemplate>
+                    </xForms1:SfListView.ItemTemplate>
+                </xForms1:SfListView>
+
+                <xForms:SfBusyIndicator
+                    IsBusy="{Binding Path=IsBusy}"
+                    Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+            </Grid>
+        </ScrollView>
+    </ContentView.Content>
+</base:ContentViewBase>

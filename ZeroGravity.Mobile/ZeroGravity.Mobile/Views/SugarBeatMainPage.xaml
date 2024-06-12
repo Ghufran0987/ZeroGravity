@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:ISugarBeatMainPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+                      xmlns:local="clr-namespace:ZeroGravity.Mobile.ViewModels"
+                      xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.SugarBeatMainPage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowGreyBackground="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter  x:Key="InverseBoolConverter" />
+            <Style x:Key="LabelSugerBeatHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.PlayfairDisplaynRegular}" />
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="TextColor"   Value="#319C8A" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="LabelSugerBeatMainReport" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="TextColor"   Value="#828282" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+                <Setter Property="Margin" Value="10,0" />
+            </Style>
+
+            <Style x:Key="LabelSugerBeatSubHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor"   Value="#4F4F4F" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView  BackgroundColor="{x:Static fonts:CustomColors.GrayBackgroundColor}">
+            <StackLayout>
+                <border:SfBorder CornerRadius="10" BorderThickness="0" BorderWidth="0" Margin="20,10">
+                    <Grid BackgroundColor="White">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="220" />
+                            <RowDefinition Height="250" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="250" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="20" />
+                        </Grid.RowDefinitions>
+
+                        <Label Text="{Binding Path= UserName}" Grid.Row="1"   Style="{StaticResource LabelSugerBeatHeader}" />
+
+                        <Label Text="{Binding Subtitle}" Grid.Row="2" Margin="0,0,10,0"  Style="{StaticResource LabelSugerBeatSubHeader}" />
+
+                        <border:SfBorder Grid.Row="3" CornerRadius="10" BorderThickness="0" BorderWidth="0" Margin="10,30" BackgroundColor="White" HorizontalOptions="Center" WidthRequest="160"   HasShadow="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <lottie:AnimationView x:Name="ltDevice" IsVisible="{Binding ShowMetabolicScore, Converter={StaticResource InverseBoolConverter},Mode=TwoWay}"
+                                  Grid.Row="1"  HeightRequest="100" WidthRequest="100"
+                                  AnimationSource="EmbeddedResource"
+                                  AutoPlay="True"
+                                  Animation="Resources.Animation.metabolic-score-loading.json"
+                                  RepeatMode="Infinite" />
+
+                                <Label Text="{Binding Metabolicscore}" Grid.Row="1" FontSize="56" TextColor="#FF5869" HorizontalOptions="Center" Margin="5" IsVisible="{Binding ShowMetabolicScore}" />
+
+                                <Label Text="Metabolic Score"  LineBreakMode="WordWrap" FontSize="16" TextColor="#319C8A" Grid.Row="2"  Margin="5" HorizontalTextAlignment="Center" />
+                            </Grid>
+                        </border:SfBorder>
+
+                        <StackLayout Grid.Row="4">
+                            <chart:SfChart VerticalOptions="FillAndExpand" Margin="5">
+                                <chart:SfChart.PrimaryAxis>
+                                    <chart:NumericalAxis x:Name="XAxis"
+                                                    EdgeLabelsVisibilityMode="Default"
+                                                    Minimum="0" Maximum="270" Interval="60"
+                                                    ShowMinorGridLines="False" ShowMajorGridLines="False" LabelCreated="TimeAxis_LabelCreated">
+                                    </chart:NumericalAxis>
+                                </chart:SfChart.PrimaryAxis>
+                                <chart:SfChart.SecondaryAxis>
+                                    <chart:NumericalAxis IsVisible="False" Minimum="3.5" Maximum="9" />
+                                </chart:SfChart.SecondaryAxis>
+                                <chart:SplineAreaSeries ItemsSource ="{Binding Path=TargetGlucoses}" StrokeColor="DarkGray"  Color="White"  XBindingPath="XValue"	YBindingPath="YValue" />
+                                <chart:SplineAreaSeries ItemsSource ="{Binding Path=HourlyTargetGlucoses}" StrokeColor="Transparent"  Color="{Binding MetabolicScoreColor}"  XBindingPath="XValue"	YBindingPath="YValue" />
+                            </chart:SfChart>
+
+                        </StackLayout>
+                        <StackLayout Grid.Row="6">
+                            <chart:SfChart VerticalOptions="FillAndExpand" Margin="5">
+                                <chart:SfChart.PrimaryAxis>
+                                    <chart:NumericalAxis x:Name="XLiveAxis"
+                                                    EdgeLabelsVisibilityMode="Default"
+                                                    Minimum="0" Maximum="270" Interval="60"
+                                                    ShowMinorGridLines="False" ShowMajorGridLines="False" LabelCreated="TimeAxis_LabelCreated">
+                                    </chart:NumericalAxis>
+                                </chart:SfChart.PrimaryAxis>
+                                <chart:SfChart.SecondaryAxis>
+                                    <chart:NumericalAxis IsVisible="False" Minimum="3.5" Maximum="9" />
+                                </chart:SfChart.SecondaryAxis>
+                                <chart:SplineSeries  ItemsSource ="{Binding  Path=ActualGlucoses}" Color="DarkBlue"   XBindingPath="XValue"  YBindingPath="YValue" />
+                            </chart:SfChart>
+
+                        </StackLayout>
+                        <border:SfBorder Grid.Row="8"  BorderColor="#44649a" BackgroundColor="#f2f2f2"
+                                         Margin="10" BorderThickness="0" BorderWidth="2" CornerRadius="15" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="10" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="1" Text="MetaScore Range" TextColor="#000000"  HorizontalOptions="Center" FontSize="20" FontFamily="{Static fonts:CustomFontName.OpenSanBold}" />
+                                <Label Grid.Row="2" Margin="10,0" Text="80-100% Awesome" FontSize="18" TextColor="Green" FontFamily="{Static fonts:CustomFontName.OpenSanBold}" />
+                                <Label Grid.Row="3" Margin="10,0" FontFamily="{Static fonts:CustomFontName.OpenSanRegular}" TextColor="#828282"
+                                       Text="Your MetaScore is within the ideal range for living a better quality of life, a healthier and longer life." />
+                                <Label Grid.Row="4" Margin="10,0" Text="50-80% Reasonable" FontSize="18" TextColor="#fec413" FontFamily="{Static fonts:CustomFontName.OpenSanBold}" />
+                                <Label Grid.Row="5" Margin="10,0" FontFamily="{Static fonts:CustomFontName.OpenSanRegular}" TextColor="#828282"
+                                       Text="You're not doing too bad but there is still a bit of work. Taking small steps by following Miboko's exclusive program will put you on the right path to better health." />
+                                <Label Grid.Row="6" Margin="10,0" Text="0-50% Not So Great" FontSize="18" TextColor="Red" FontFamily="{Static fonts:CustomFontName.OpenSanBold}" />
+                                <Label Grid.Row="7" Margin="10,0" FontFamily="{Static fonts:CustomFontName.OpenSanRegular}" TextColor="#828282"
+                                       Text="We need some attention here as we've got a bit of work to do, and that's what Miboko is here for. Together we'll build long lasting healthy habits." />
+                            </Grid>
+                        </border:SfBorder>
+                        <Label Grid.Row="9" Text="Your unique MetaScore will appear at the end of the 4 hour health tracking session.  &#x0a;  &#x0a; Once you have finished wearing your sensor for the day, your insights report will be emailed to you. &#x0a;  &#x0a;
+Packed full of actionable suggestions showing you exactly where to make changes to your daily routines. So you can learn how to give your body what it needs to live the life you want today and secure the health you need tomorrow."
+                           Style="{StaticResource LabelSugerBeatMainReport}" />
+
+                        <!--<Label Grid.Row="7" Text="Don't forget - logging your meals, activities and mood will maximize your results."
+                           Style="{StaticResource LabelSugerBeatMainReport}" />-->
+                    </Grid>
+                </border:SfBorder>
+
+
+
+                <buttons:SfButton x:Name="BtnUnlink"
+                                                      Command="{Binding Path=UnLinkDeviceCommand}"
+                                                     CornerRadius="30"
+                                                    HorizontalOptions="Center"
+                                                    Margin="10"
+                                                    BackgroundColor="#319C8A"
+                                                    TextColor="#FFF"
+                                                    WidthRequest="160"
+                                                    HeightRequest="40"
+                                                    FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                                    Grid.Row="4"
+                                Text="Disconnect Device" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

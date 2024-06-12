@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IWizardStep1Page"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                       xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:system="clr-namespace:System;assembly=netstandard"
+                      x:Class="ZeroGravity.Mobile.Views.WizardStep1Page"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <converter:IntToBooleanConverter x:Key="IntToBooleanConverter" />
+            <converter:IntToBooleanNegateConverter x:Key="IntToBooleanNegateConverter" />
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid BackgroundColor="#FFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="160" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Column="1" Grid.Row="1" Source="{Binding LogoImageSource}" VerticalOptions="Center" HorizontalOptions="Center" />
+
+                    <Label  Grid.Column="1" Grid.Row="2" Text="About you" Style="{StaticResource HeadlineXl-Label}" />
+
+                    <Label  Grid.Column="1" Grid.Row="3" Text="Please Provide your identification details, and information about your overall physique."
+                        Style="{StaticResource Byline-Label}" HorizontalTextAlignment="Center" />
+
+                    <StackLayout Grid.Row="5" Grid.Column="1">
+
+                        <Label Text="{x:Static resources:AppResources.PersonalData_Title}" FontSize="18"  Margin="0,10" TextColor="#4F4F4F" />
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}" Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_Salutation}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}">
+                            <customControls:ZgPicker ItemsSource="{Binding SalutationsList}"
+                                                     SelectedIndex="{Binding PersonalDataProxy.Salutation, Mode=TwoWay}"
+                                                     ItemDisplayBinding="{Binding Text}"
+                                                     Title="{x:Static resources:AppResources.PersonalData_Salutation}"
+                                                     Style="{StaticResource InputPicker-ZgPicker}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}" Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_FirstName}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                      HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                      UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Default"
+                                                      Placeholder="your first name" PlaceholderColor="#4F4F4F"
+                                                    Text="{Binding PersonalDataProxy.FirstName}"
+                                                    Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}" Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_LastName}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                      HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                      UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Default"
+                                                    Text="{Binding PersonalDataProxy.LastName}"
+                                                    Placeholder="your surname" PlaceholderColor="#4F4F4F"
+                                                    Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}" Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_County}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}">
+                            <customControls:ZgPicker ItemsSource="{Binding CountryList}"
+                                                     SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
+                                                     ItemDisplayBinding="{Binding Text}"
+                                                     Title="{x:Static resources:AppResources.PersonalData_County}"
+                                                     Style="{StaticResource InputPicker-ZgPicker}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}" Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_YearOfBirth}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                      HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                      UseHighlighting="True">
+
+                            <customControls:ZgEntry Keyboard="Numeric"
+                                                    Text="{Binding PersonalDataProxy.YearOfBirth}"
+                                                    MaxLength="4" Placeholder="When were you are born?"
+                                                    Style="{StaticResource InputEntry-ZgEntry}" TextColor="#4F4F4F" FontFamily="OpenSans">
+                                <customControls:ZgEntry.HeightRequest>
+                                    <OnPlatform x:TypeArguments="system:Double">
+                                        <On Platform="iOS">18</On>
+                                        <On Platform="Android">20</On>
+                                    </OnPlatform>
+                                </customControls:ZgEntry.HeightRequest>
+                            </customControls:ZgEntry>
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}" Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="ETHNICITY"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}">
+                            <customControls:ZgPicker ItemsSource="{Binding EthnicityList}"
+                                                     ItemDisplayBinding="{Binding Text}"
+                                                     SelectedItem="{Binding SelectedEthnicity, Mode=TwoWay}"
+                                                     Title="Ethnicity you identify with"
+                                                     Style="{StaticResource InputPicker-ZgPicker}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+
+                        <Label Text="{x:Static resources:AppResources.PersonalData_Preferences}"
+                              FontSize="18"  Margin="0,10" TextColor="#4F4F4F" />
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                      IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_Units}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}">
+
+                            <StackLayout Orientation="Horizontal" RadioButtonGroup.GroupName="unit">
+                                <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}"  WidthRequest="120"  TextColor="#FFF"
+                                                IsChecked="{Binding IsMetricUnit, Converter={StaticResource NegateBooleanConverter}}" Content="Imperial" FontSize="14">
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}" WidthRequest="120" TextColor="#FFF"
+                                               Content="Metric" FontSize="14"  IsChecked="{Binding IsMetricUnit}">
+                                </RadioButton>
+                            </StackLayout>
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                     IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_Time}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}">
+                            <StackLayout Orientation="Horizontal" RadioButtonGroup.GroupName="time">
+                                <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}" WidthRequest="120" TextColor="#FFF"
+                                               Content="24Hr" FontSize="14"  IsChecked="{Binding Is24HourDay}">
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource ThemeRadioTemplate}"  WidthRequest="120"  TextColor="#FFF"
+                                                IsChecked="{Binding Is24HourDay, Converter={StaticResource NegateBooleanConverter}}" Content="AM/PM" FontSize="14">
+                                </RadioButton>
+                            </StackLayout>
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                         IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_Weight}"
+                                                          BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                          HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                          UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Numeric"
+                                                        Placeholder="How much do you weight?"
+                                                        Text="{Binding PersonalDataProxy.Weight}"
+                                                        MaxLength="10"
+                                                        Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                         IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_Height}"
+                                                          BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                          HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                          UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Numeric"
+                                                        Placeholder="How tall are you?"
+                                                        Text="{Binding PersonalDataProxy.Height}"
+                                                        MaxLength="10"
+                                                        Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                        IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_WaistDiameter}"
+                                                          BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                          HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                          UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Numeric"
+                                                        Placeholder="What's your waist size?"
+                                                        Text="{Binding PersonalDataProxy.WaistDiameter}"
+                                                        MaxLength="10"
+                                                        Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                         IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_HipDiameter}"
+                                                          BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                          HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                          UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Numeric"
+                                                        Placeholder="What diameter are your hips?"
+                                                        Text="{Binding PersonalDataProxy.HipDiameter}"
+                                                        MaxLength="10"
+                                                        Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"  Margin="0"
+                                                        IsLabelVisible="True"
+                                                      Label="{x:Static resources:AppResources.PersonalData_NeckDiameter}"
+                                                          BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                          HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                          UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Numeric"
+                                                        Placeholder="What's your neck diameter?"
+                                                        Text="{Binding PersonalDataProxy.NeckDiameter}"
+                                                        MaxLength="10"
+                                                        Style="{StaticResource InputEntry-ZgEntry}"  TextColor="#4F4F4F" FontFamily="OpenSans" />
+                        </customControls:ZgInputLayout>
+
+                        <!--<customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                                     TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                                     HeaderText="{x:Static resources:AppResources.PersonalData_Weight}"
+                                                     HeaderValueUnit="{Binding WeightSliderUnit}"
+                                                     Value="{Binding PersonalDataProxy.Weight}"
+                                                     Minimum="{Binding MinWeight}"
+                                                     Maximum="{Binding MaxWeight}"
+                                                     RangeMinimum="{Binding MinWeight}"
+                                                     RangeMaximum="{Binding MaxWeight}"
+                                                     HeaderValueConverter="{converter:MetricWeightToPoundsConverter}" />
+
+                                <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                                     TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                                     HeaderText="{x:Static resources:AppResources.PersonalData_Height}"
+                                                     HeaderValueUnit="{Binding WidthSliderUnit}"
+                                                     Value="{Binding PersonalDataProxy.Height}"
+                                                     Minimum="{Binding MinHeight}"
+                                                     Maximum="{Binding MaxHeight}"
+                                                     RangeMinimum="{Binding MinHeight}"
+                                                     RangeMaximum="{Binding MaxHeight}"
+                                                     HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                                <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                                     TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                                     HeaderText="{x:Static resources:AppResources.PersonalData_WaistDiameter}"
+                                                     HeaderValueUnit="{Binding WidthSliderUnit}"
+                                                     Value="{Binding PersonalDataProxy.WaistDiameter}"
+                                                     Minimum="{Binding MinWaistDiameter}"
+                                                     Maximum="{Binding MaxWaistDiameter}"
+                                                     RangeMinimum="{Binding MinWaistDiameter}"
+                                                     RangeMaximum="{Binding MaxWaistDiameter}"
+                                                     HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                                <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                                     TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                                     HeaderText="{x:Static resources:AppResources.PersonalData_HipDiameter}"
+                                                     HeaderValueUnit="{Binding WidthSliderUnit}"
+                                                     Value="{Binding PersonalDataProxy.HipDiameter}"
+                                                     Minimum="{Binding MinHipDiameter}"
+                                                     Maximum="{Binding MaxHipDiameter}"
+                                                     RangeMinimum="{Binding MinHipDiameter}"
+                                                     RangeMaximum="{Binding MaxHipDiameter}"
+                                                     HeaderValueConverter="{converter:MetricLengthToInchConverter}" />
+
+                                <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}"
+                                                     TrackSelectionColor="{x:Static fonts:CustomColors.Green}"
+                                                     HeaderText="{x:Static resources:AppResources.PersonalData_NeckDiameter}"
+                                                     HeaderValueUnit="{Binding WidthSliderUnit}"
+                                                     Value="{Binding PersonalDataProxy.NeckDiameter}"
+                                                     Minimum="{Binding MinNeckDiameter}"
+                                                     Maximum="{Binding MaxNeckDiameter}"
+                                                     RangeMinimum="{Binding MinNeckDiameter}"
+                                                     RangeMaximum="{Binding MaxNeckDiameter}"
+                                                     HeaderValueConverter="{converter:MetricLengthToInchConverter}" />-->
+
+                        <Grid Margin="0, 10, 0, 10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <border:SfBorder Grid.Column="0" Padding="5" BorderColor="#FFF" Margin="0,0,5,0"
+                                                 CornerRadius="5" BorderThickness="0" BackgroundColor="#F2F2F2">
+                                <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                                    <Label x:Name="BodyFatValueLabel" HorizontalTextAlignment="Center"
+                                               LineHeight="1.3"
+                                               Text="{Binding PersonalDataProxy.BodyFat}"
+                                                TextColor="#FF5869"
+                                                   FontSize="32"
+                                               Style="{StaticResource Byline-Label}" Margin="0" />
+                                    <Label x:Name="BodyFatLabel" Style="{StaticResource HeadlineM-Label}"
+                                               Text="{x:Static resources:AppResources.PersonalData_BodyFat}" Margin="0"
+                                               HorizontalTextAlignment="Center"   TextColor="#FF5869"
+                                                   FontSize="16" />
+                                </StackLayout>
+                            </border:SfBorder>
+
+                            <border:SfBorder Padding="10" Grid.Column="1" BorderColor="#FFF" Margin="0,0,5,0"
+                                                 CornerRadius="5" BorderThickness="0" BackgroundColor="#F2F2F2">
+                                <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                                    <Label x:Name="BodyMassIndexValueLabel"
+                                               Style="{StaticResource Byline-Label}" LineHeight="1.3"
+                                               Margin="0"
+                                               Text="{Binding PersonalDataProxy.BodyMassIndex}"
+                                                 TextColor="#FF5869"
+                                                   FontSize="32"
+                                               HorizontalTextAlignment="Center" />
+                                    <Label x:Name="BodyMassIndexLabel" Style="{StaticResource HeadlineM-Label}"
+                                               Text="{x:Static resources:AppResources.PersonalData_Bmi}"
+                                               HorizontalTextAlignment="Center" Margin="0"
+                                             TextColor="#FF5869"
+                                                   FontSize="16" />
+                                </StackLayout>
+                            </border:SfBorder>
+                        </Grid>
+
+                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.howToMeasure_dummy.png}"
+                                   HeightRequest="{Binding Source={x:Reference Image}, Path=Width}"
+                                   x:Name="Image" />
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+            <StackLayout BackgroundColor="#FFF" Grid.Row="1">
+                <!--submit button-->
+                <!--<customControls:ZgButton Text="{x:Static resources:AppResources.Button_Continue}"
+                                                 Command="{Binding Path=WizardStep1SaveDataCommand}"
+                                                 Style="{StaticResource FullWidthButton-ZgButton}" />-->
+
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_Continue}"
+                                  Style="{x:StaticResource SaveButton}"
+                                  Margin="15,10"
+                                  Command="{Binding WizardStep1SaveDataCommand}" />
+            </StackLayout>
+        </Grid>
+
+        <!--<Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0, 30, 0 ,30"
+                             IsVisible="{Binding PersonalDataProxy, Converter={StaticResource NullVisibilityConverter}}">
+
+                    <StackLayout Padding="0, 20, 0, 0">
+
+                        <Label
+                            Text="{x:Static resources:AppResources.PersonalData_Guidance_Title}"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Start"
+                            Margin="30,0,0,0"
+                            Style="{StaticResource HeadlineS-Label}" />
+
+                        <customControls:ZgParagraph
+                            Text="{x:Static resources:AppResources.PersonalData_Guidance_Text}"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource Paragraph-ZgParagraph}" />
+
+                        <Label Style="{StaticResource Separator-Label}" />
+
+                        <Label Style="{StaticResource Separator-Label}" />
+
+                        <customControls:ZgButton Text="{x:Static resources:AppResources.Button_Continue}"
+                                                 IconUnicode="&#xf0a9;"
+                                                 Command="{Binding Path=WizardStep1SaveDataCommand}"
+                                                 Style="{StaticResource Button-ZgButton}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>-->
+    </ContentPage.Content>
+</base:ContentPageBase>

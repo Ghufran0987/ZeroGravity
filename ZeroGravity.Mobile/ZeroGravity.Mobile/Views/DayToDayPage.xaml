@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IDayToDayPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.DayToDayPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Padding="0,30,0,30"
+                    IsVisible="{Binding DayToDayActivityProxy, Converter={StaticResource NullVisibilityConverter}}">
+
+                    <Label
+                        Text="{x:Static resources:AppResources.DayToDay_Title}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource HeadlineL-Label}" />
+
+                    <Label
+                        Text="{x:Static resources:AppResources.DayToDay_Subtitle}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource Byline-Label}" />
+
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customControls:ZgBubble Grid.Column="1"
+                                                 ShowBadge="False"
+                                                 Style="{StaticResource BubbleWBadge-ZgBubble}">
+                            <customControls:ZgBubble.Content>
+                                <StackLayout Spacing="0">
+                                    <Label Text="&#xf017;" HorizontalTextAlignment="Center"
+                                           Style="{StaticResource BubbleIcon-Label}" />
+                                    <Label
+                                        Text="{Binding Source={x:Reference Name=DurationSlider}, Path=Value, StringFormat={x:Static resources:AppResources.DayToDay_Duration}}"
+                                        Style="{StaticResource BubbleText-Label}" />
+                                </StackLayout>
+                            </customControls:ZgBubble.Content>
+
+                            <customControls:ZgBubble.BadgeContent>
+                                <Label Text="1" Style="{StaticResource BubbleBadgeText-Label}" />
+                            </customControls:ZgBubble.BadgeContent>
+                        </customControls:ZgBubble>
+                    </Grid>
+
+                    <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider}" x:Name="DurationSlider"
+                                             ShowHeader="False"
+                                             Value="{Binding DayToDayActivityProxy.Duration}"
+                                             Minimum="{Binding MinDuration}"
+                                             Maximum="{Binding MaxDuration}"
+                                             RangeMinimum="{Binding MinDuration}"
+                                             RangeMaximum="{Binding MaxDuration}"
+                                             StepFrequency="0.5" />
+
+
+                    <StackLayout Orientation="Vertical" Spacing="15">
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                      Label="{x:Static resources:AppResources.DayToDay_Date}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                      BorderWidth="0.5">
+                            <customControls:ZgDatePicker Style="{StaticResource InputDate-ZgDatePicker}"
+                                                         Date="{Binding DayToDayActivityProxy.DayToDayDateTime}" />
+                        </customControls:ZgInputLayout>
+
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                      Label="{x:Static resources:AppResources.DayToDay_Time}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                      BorderWidth="0.5">
+                            <customControls:ZgTimePicker Style="{StaticResource InputTime-ZgTimePicker}"
+                                                         Time="{Binding DayToDayActivityProxy.DayToDayTime}" />
+                        </customControls:ZgInputLayout>
+
+                    </StackLayout>
+
+                    <xForms:SfBusyIndicator
+                        IsBusy="{Binding Path=IsBusy}"
+                        Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+                </StackLayout>
+            </ScrollView>
+
+            <customControls:ZgButton Grid.Row="1" Text="{x:Static resources:AppResources.Button_Save}"
+                                     HorizontalTextAlignment="Center"
+                                     Style="{StaticResource FullWidthButton-ZgButton}"
+                                     Command="{Binding SaveDayToDayActivityCommand}" />
+
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

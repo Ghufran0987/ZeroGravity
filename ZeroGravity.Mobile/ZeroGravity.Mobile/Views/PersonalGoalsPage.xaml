@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IPersonalGoalsPage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile" xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms" xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.PersonalGoalsPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      x:Name="Root"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource ViewBaseStyle}">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converter:FoodAmountToStringConverter x:Key="FoodAmountToStringConverter" />
+          
+            <Style TargetType="{x:Type NavigationPage}">
+                <Setter Property="BarBackgroundColor" Value="{x:Static fonts:CustomColors.GrayBackgroundColor}" />
+                <Setter Property="BarTextColor" Value="{x:Static fonts:CustomColors.Pink}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Text="{x:Static resources:AppResources.PersonalGoal_Title}"
+                           Style="{StaticResource HeadlineM-Label}" FontSize="16" Margin="10,10" TextColor="#4F4F4F" />
+
+                <Label Grid.Row="1"
+                                Text="{x:Static resources:AppResources.PersonalGoal_Description}"
+                                HorizontalTextAlignment="Start"  Margin="10,0,0,10" />
+
+                <shimmer:SfShimmer HorizontalOptions="Fill" IsActive="{Binding ShowProgress,Mode=TwoWay}" Type="Shopping" Grid.Row="2" MinimumHeightRequest="200" Margin="0" Padding="0">
+                    <shimmer:SfShimmer.Content>
+                        <!--IsVisible="{Binding PersonalGoalProxy, Converter={StaticResource NullVisibilityConverter }}"-->
+                        <StackLayout  IsVisible="{Binding ShowProgress, Converter={StaticResource InverseBoolConverter}}">
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_WaterConsumption}"
+                                             x:Name="WaterSlider"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=WaterSlider}, Path=Value, StringFormat={x:Static resources:AppResources.PersonalGoal_LiquidPerDay}}"   
+                                             Value="{Binding WaterConsumption}"
+                                             Minimum="{Binding MinWaterConsumption}"
+                                             Maximum="{Binding MaxWaterConsumption}"
+                                             RangeMinimum="{Binding MinWaterConsumption}"
+                                             RangeMaximum="{Binding MaxWaterConsumption}"
+                                             StepFrequency="0.25"/>
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_CalorieDrinks}"
+                                            x:Name="CalorieDrinksSlider"
+                                            HeaderValueUnit="{Binding Source={x:Reference Name=CalorieDrinksSlider}, Path=Value, StringFormat={x:Static resources:AppResources.PersonalGoal_LiquidPerDay}}"         
+                                             Value="{Binding CalorieDrinkConsumption}"
+                                             Minimum="{Binding MinCalorieDrinkConsumption}"
+                                             Maximum="{Binding MaxCalorieDrinkConsumption}"
+                                             RangeMinimum="{Binding MinCalorieDrinkConsumption}"
+                                             RangeMaximum="{Binding MaxCalorieDrinkConsumption}"
+                                             StepFrequency="0.25" />
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="BreakfastSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_Breakfast}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=BreakfastSlider}, Path=Value, Converter={StaticResource FoodAmountToStringConverter}}"
+                                             Value="{Binding PersonalGoalProxy.BreakfastAmount}"
+                                             Minimum="{Binding MinMealAmount}"
+                                             Maximum="{Binding MaxMealAmount}"
+                                             RangeMinimum="{Binding MinMealAmount}"
+                                             RangeMaximum="{Binding MaxMealAmount}" />
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="LunchSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_Lunch}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=LunchSlider}, Path=Value, Converter={StaticResource FoodAmountToStringConverter}}"
+                                             Value="{Binding PersonalGoalProxy.LunchAmount}"
+                                             Minimum="{Binding MinMealAmount}"
+                                             Maximum="{Binding MaxMealAmount}"
+                                             RangeMinimum="{Binding MinMealAmount}"
+                                             RangeMaximum="{Binding MaxMealAmount}" />
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="DinnerSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_Dinner}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=DinnerSlider}, Path=Value, Converter={StaticResource FoodAmountToStringConverter}}"
+                                             Value="{Binding PersonalGoalProxy.DinnerAmount}"
+                                             Minimum="{Binding MinMealAmount}"
+                                             Maximum="{Binding MaxMealAmount}"
+                                             RangeMinimum="{Binding MinMealAmount}"
+                                             RangeMaximum="{Binding MaxMealAmount}" />
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="HealthySnackSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_HealthySnacks}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=HealthySnackSlider}, Path=Value, Converter={StaticResource FoodAmountToStringConverter}}"
+                                             Value="{Binding PersonalGoalProxy.HealthySnackAmount}"
+                                             Minimum="{Binding MinMealAmount}"
+                                             Maximum="{Binding MaxMealAmount}"
+                                             RangeMinimum="{Binding MinMealAmount}"
+                                             RangeMaximum="{Binding MaxMealAmount}" />
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="UnhealthySnackSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_UnhealthySnacks}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=UnhealthySnackSlider}, Path=Value, Converter={StaticResource FoodAmountToStringConverter}}"
+                                             Value="{Binding PersonalGoalProxy.UnhealthySnackAmount}"
+                                             Minimum="{Binding MinMealAmount}"
+                                             Maximum="{Binding MaxMealAmount}"
+                                             RangeMinimum="{Binding MinMealAmount}"
+                                             RangeMaximum="{Binding MaxMealAmount}" />
+
+
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="ActivitySlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_Activites}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=ActivitySlider}, Path=Value, StringFormat={x:Static resources:AppResources.PersonalGoal_HoursPerDay}}"
+                                             Value="{Binding ActivityDuration}"
+                                             Minimum="{Binding MinActivityDuration}"
+                                             Maximum="{Binding MaxActivityDuration}"
+                                             RangeMinimum="{Binding MinActivityDuration}"
+                                             RangeMaximum="{Binding MaxActivityDuration}"
+                                             StepFrequency="5" />
+
+                            <!--//Fasting-->
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="FastingSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_Fasting}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=FastingSlider}, Path=Value, StringFormat={x:Static resources:AppResources.PersonalGoal_HoursPerWeek}}"
+                                             Value="{Binding PersonalGoalProxy.FastingDuration}"
+                                             Minimum="{Binding MinFastingDuration}"
+                                             Maximum="{Binding MaxFastingDuration}"
+                                             RangeMinimum="{Binding MinFastingDuration}"
+                                             RangeMaximum="{Binding MaxFastingDuration}"
+                                             StepFrequency="4" />
+
+                            <!--//Meditation-->
+                            <customControls:ZgSlider Style="{StaticResource Slider-ZgSlider-NoValueHeader}"
+                                             x:Name="MeditationSlider"
+                                             HeaderText="{x:Static resources:AppResources.PersonalGoal_Meditation}"
+                                             HeaderValueUnit="{Binding Source={x:Reference Name=MeditationSlider}, Path=Value, StringFormat={x:Static resources:AppResources.PersonalGoal_MinutesPerDay}}"
+                                             Value="{Binding PersonalGoalProxy.MeditationDuration}"
+                                             Minimum="{Binding MinMeditationDuration}"
+                                             Maximum="{Binding MaxMeditationDuration}"
+                                             RangeMinimum="{Binding MinMeditationDuration}"
+                                             RangeMaximum="{Binding MaxMeditationDuration}"
+                                             StepFrequency="5" />
+
+                            <buttons:SfButton Grid.Row="1"
+                                    Text="{x:Static resources:AppResources.Button_Save}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding Path=SavePersonalGoalsDelegateCommand}" />
+
+                        </StackLayout>
+                    </shimmer:SfShimmer.Content>
+                </shimmer:SfShimmer>
+            </Grid>
+        </ScrollView>
+    </ContentView.Content>
+</base:ContentViewBase>

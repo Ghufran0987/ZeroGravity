@@ -1,0 +1,2050 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<base:ContentViewBase x:TypeArguments="page:IMonthlyReportPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      x:Class="ZeroGravity.Mobile.Views.MonthlyReportPage"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:linear="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+                     xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:syncfusionListView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="True"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      BackgroundColor="Transparent">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converter:SplitTittleCaseConverter x:Key="SplitTittleCaseConverter" />
+            <Style x:Key="MonthlyHeaderLabel" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#319C8A" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanMedium}" />
+            </Style>
+            <Style x:Key="MonthlySubHeaderLabel" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#828282" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+            <Style x:Key="FoodTypeHeader" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#319C8A" />
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Start" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanLight}" />
+            </Style>
+            <Style x:Key="ScoredLabel" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#FF5869" />
+                <Setter Property="FontSize" Value="72" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanLight}" />
+            </Style>
+            <Style x:Key="DailyAvgLabel" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#319C8A" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+            <Style x:Key="DailyheaderLabel" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#FF5869" />
+                <Setter Property="FontSize" Value="34" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanLight}" />
+            </Style>
+            <Style x:Key="DailySubheaderLabel" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="#828282" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="FontFamily" Value="{x:Static fonts:CustomFontName.OpenSanRegular}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <ContentView.Content>
+        <Grid BackgroundColor="#F2F2F2">
+            <Image HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand" Aspect="AspectFill"
+                   Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Background.png}"  Margin="0" />
+
+            <ScrollView Margin="20,40,20,20">
+                <borders:SfBorder  BackgroundColor="White" CornerRadius="6" BorderThickness="0" BorderWidth="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="1" HeightRequest="40" Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Logo.png}" />
+                        <Label Grid.Row="2"  Text="Your Progress"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="40"
+                           FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                           TextColor="#FF5869" />
+                        <Label Grid.Row="3"  Text="{Binding SelectedMonth.Key,StringFormat='{0:MMMM yyyy}'}"
+                           HorizontalOptions="CenterAndExpand" TextColor="#828282"
+                           FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                           FontSize="18" />
+
+                        <Grid x:Name="ReportWelcomePage" Grid.Row="4" IsVisible="{Binding IsVisible, Converter={StaticResource InverseBoolConverter}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="310" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   HorizontalOptions="CenterAndExpand" FontSize="36"
+                                   TextColor="#319C8A"
+                                   FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                                   Margin="30,0">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Let's find out how you've been getting on " />
+                                        <Span Text="{Binding DisplayName}" TextColor="#319C8A" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+
+                            <StackLayout Grid.Row="1" BackgroundColor="Transparent">
+                                <buttons:SfButton
+                                    Text="Let's go!"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                                  IsVisible="{Binding ShowProgress,Converter={StaticResource InverseBoolConverter}}"
+                                  Command="{Binding LetsGoCommand}" />
+
+                                <buttons:SfButton
+                                  Text="Loading..."
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#FF5869"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  IsVisible="{Binding ShowProgress}" />
+                            </StackLayout>
+                        </Grid>
+
+                        <Grid x:Name="ReportPage" Grid.Row="4" Margin="5,0" IsVisible="{Binding IsVisible}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="1" Style="{StaticResource MonthlySubHeaderLabel}"
+                                   FontSize="16"
+                                   Margin="10,5"
+                                   Text="After the first 7 days of using the app we pull together everything you've inputted into the App." />
+                            <Label Grid.Row="2" Style="{StaticResource MonthlySubHeaderLabel}"
+                                   FontSize="16"
+                                   Margin="10,5"
+                                   HorizontalTextAlignment="Center"
+                                   Text="Miboko analyzes all your data into an overall running health score, showing you how you're performing against your personalized targets. We're all aming for a score close to 100 and Miboko aims to help you sustain your score at that level for months and years to come." />
+
+                            <StackLayout Grid.Row="3" Orientation="Vertical" VerticalOptions="FillAndExpand">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                  
+                                    <Label Grid.Row="1"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="16"
+                                           Text="Your monthly progress score is"
+                                           TextColor="#319C8A">                                      
+                                    </Label>
+                                    <Label Grid.Row="2" Style="{StaticResource ScoredLabel}"
+                                            Text="{Binding ReportData.TotalScore}" HorizontalTextAlignment="Center" />
+
+                                    <Label Grid.Row="3" Style="{StaticResource FoodTypeHeader}"
+                                           FontSize="18"
+                                           FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}"
+                                           Text="{Binding ReportData.Message}" TextColor="#319C8A" Margin="10,0" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding ReportData.Message}" TextColor="#319C8A" />
+                                                <Span Text=", " TextColor="#319C8A" />
+                                                <Span Text="{Binding DisplayName}" TextColor="#FF5869" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                       <Label Grid.Row="4"
+                                           HorizontalTextAlignment="Center"
+                                           FontSize="16"
+                                           Text="You might not be hitting your targets every day, but on the whole you're doing a great job of following through on the changes you know you need to make."
+                                           TextColor="#319C8A">                                      
+                                    </Label>
+                                  
+                                    <linear:SfLinearGauge Grid.Row="5" Margin="10,0">
+                                        <linear:SfLinearGauge.Annotations>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+
+                                            <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <StackLayout Orientation="Vertical">
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                    </StackLayout>
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <StackLayout>
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                    </StackLayout>
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <StackLayout>
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                    </StackLayout>
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <StackLayout>
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                    </StackLayout>
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                            <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                <linear:LinearGaugeAnnotation.View>
+                                                    <StackLayout>
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                        <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                    </StackLayout>
+                                                </linear:LinearGaugeAnnotation.View>
+                                            </linear:LinearGaugeAnnotation>
+                                        </linear:SfLinearGauge.Annotations>
+                                        <linear:SfLinearGauge.Scales>
+                                            <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                <linear:LinearScale.Ranges>
+                                                    <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                        <linear:LinearRange.GradientStops>
+                                                            <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                            <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                            <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                            <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                            <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                        </linear:LinearRange.GradientStops>
+                                                    </linear:LinearRange>
+                                                </linear:LinearScale.Ranges>
+
+                                                <linear:LinearScale.Pointers>
+                                                    <linear:SymbolPointer Value ="{Binding ReportData.TotalScore}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                </linear:LinearScale.Pointers>
+                                            </linear:LinearScale>
+                                        </linear:SfLinearGauge.Scales>
+                                    </linear:SfLinearGauge>
+                                </Grid>
+
+                                <borders:SfBorder BorderColor="#BDBDBD" BorderThickness="1" BorderWidth="1" HorizontalOptions="FillAndExpand" HeightRequest="1" Margin="10" />
+
+                                <!--How does your score compare to previous months -->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="1" TextColor="#319C8A"
+                                           HorizontalTextAlignment="Center" FontSize="18" Margin="10,5"
+                                        Text="How does your score compared to previous months" />
+                                    <syncfusionListView:SfListView
+                                            Grid.Row="2" Margin="10,5"
+                                            SelectionMode="Single"
+                                            IsScrollingEnabled="False"
+                                            ItemSpacing="2"
+                                            ItemSize="90"
+                                            SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
+                                            ItemsSource="{Binding Months, Mode=TwoWay}">
+                                        <syncfusionListView:SfListView.LayoutManager>
+                                            <syncfusionListView:GridLayout SpanCount="3"></syncfusionListView:GridLayout>
+                                        </syncfusionListView:SfListView.LayoutManager>
+                                        <syncfusionListView:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <borders:SfBorder BorderThickness="0" CornerRadius="6" HasShadow="False" BackgroundColor="#FFF" BorderWidth="1" BorderColor="LightGray">
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+
+                                                            <Label  Text="{Binding Value.TotalScore}" TextColor="#FF5869" FontSize="28" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                                                            <Label  Text="{Binding Key, StringFormat='{0:MMMM}'}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="14" Margin="2" HorizontalTextAlignment="Start" HorizontalOptions="Center" />
+                                                        </StackLayout>
+                                                    </borders:SfBorder>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </syncfusionListView:SfListView.ItemTemplate>
+                                        <syncfusionListView:SfListView.SelectedItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <borders:SfBorder BorderThickness="0" CornerRadius="6" HasShadow="False" BackgroundColor="#FF5869" BorderWidth="0" BorderColor="#FF5869">
+                                                        <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+
+                                                            <Label  Text="{Binding Value.TotalScore}" TextColor="#FFF" FontSize="28" HorizontalTextAlignment="Center" HorizontalOptions="Center" VerticalOptions="Center" />
+
+                                                            <Label  Text="{Binding Key, StringFormat='{0:MMMM}'}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#FFF" FontSize="14" Margin="2" HorizontalTextAlignment="Start" HorizontalOptions="Center" />
+                                                        </StackLayout>
+                                                    </borders:SfBorder>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </syncfusionListView:SfListView.SelectedItemTemplate>
+                                    </syncfusionListView:SfListView>
+
+                                    <!--<syncfusionListView:SfListView
+                                            Grid.Row="2"
+                                            Margin="40,5"
+                                            SelectionMode="Single"
+                                            IsScrollingEnabled="False"
+                                            SelectedItem="{Binding SelectedMonth}"
+                                            RowSpacing="10"
+                                            ItemSize="120"
+                                            ItemsSource="{Binding Months}">
+                                        <syncfusionListView:SfListView.LayoutManager>
+                                            <syncfusionListView:GridLayout SpanCount="3"></syncfusionListView:GridLayout>
+                                        </syncfusionListView:SfListView.LayoutManager>
+                                        <syncfusionListView:SfListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Label Grid.Row="0" Text="56" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#FF5869" FontSize="18" Margin="2" HorizontalTextAlignment="Start" />
+                                                    <Label Grid.Row="1" Text="{Binding StringFormat='{0:MMMM}'}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="14" Margin="2" HorizontalTextAlignment="Start" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </syncfusionListView:SfListView.ItemTemplate>
+                                    </syncfusionListView:SfListView>-->
+                                </Grid>
+
+                                <!--Now let's look at each activity in a little more detail-->
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="5" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="5" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="1" FontSize="18" Margin="10,0" HorizontalTextAlignment="Center" 
+                                           FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}" TextColor="#319C8A"
+                                        Text="Now let's break down your overall score and see how you did on each of your targets" />
+                                    <Label Grid.Row="2" FontSize="16" Margin="10,0" HorizontalTextAlignment="Center"
+                                           FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                        Text="Your scores for each activity are a monthly average, based on how often the daily data you recorded matched up with the target you set." />
+                                </Grid>
+
+                                <!--Water-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10" ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_water.png}" />
+                                        <Label Grid.Row="1"  Text="Water" Style="{StaticResource FoodTypeHeader}" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.WaterProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.WaterProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.WaterProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.WaterProgress.GoalCount}" Style="{StaticResource DailyheaderLabel}" />
+                                                <Label Text="Cups" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Text="Daily target this month" Style="{StaticResource DailyAvgLabel}"  HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                            <borders:SfBorder  Grid.Column="2" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="3">
+                                                <Label Text="{Binding ReportData.WaterProgress.ActualCount}" Style="{StaticResource DailyheaderLabel}" />
+                                                <Label Text="Cups" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label  Text="Daily average this month"
+                                               Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Healthy Snacks-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_Healthy_Snacks.png}" />
+                                        <Label Grid.Row="1"  Text="Healthy Snacks" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.HealthySnacksProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.HealthySnacksProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.HealthySnacksProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.HealthySnacksProgress.TargetFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}" FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <borders:SfBorder  Grid.Column="3" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="4">
+                                                <Label Text="{Binding ReportData.HealthySnacksProgress.ActualFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}"  FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--UnHealthy Snacks-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_UnHealthy_Snacks.png}" />
+                                        <Label Grid.Row="1"  Text="Unhealthy Snacks" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.UnHealthySnacksProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.UnHealthySnacksProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.UnHealthySnacksProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.UnHealthySnacksProgress.TargetFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}" FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <borders:SfBorder  Grid.Column="3" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="4">
+                                                <Label Text="{Binding ReportData.UnHealthySnacksProgress.ActualFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}"  FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Breakfast-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_Breakfast.png}" />
+                                        <Label Grid.Row="1"  Text="Breakfast" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.BreakFastProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.BreakFastProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.BreakFastProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.BreakFastProgress.TargetFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}" FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <borders:SfBorder  Grid.Column="3" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="4">
+                                                <Label Text="{Binding ReportData.BreakFastProgress.ActualFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}"  FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Lunch-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_Lunch.png}" />
+                                        <Label Grid.Row="1" Margin="0,-4"  Text="Lunch" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.LunchProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.LunchProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.LunchProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.LunchProgress.TargetFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}" FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <borders:SfBorder  Grid.Column="3" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="4">
+                                                <Label Text="{Binding ReportData.LunchProgress.ActualFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}"  FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Dinner-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_Dinner.png}" />
+                                        <Label Grid.Row="1"  Text="Dinner" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.DinnerProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                         FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.DinnerProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.DinnerProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="0" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.DinnerProgress.TargetFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}" FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+
+                                            <borders:SfBorder  Grid.Column="3" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="4">
+                                                <Label Text="{Binding ReportData.DinnerProgress.ActualFood, Converter={StaticResource SplitTittleCaseConverter}}" Style="{StaticResource DailyheaderLabel}"  FontSize="22" />
+                                                <Label Text="Portions" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Caloried Drinks-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_Drinks.png}" />
+                                        <Label Grid.Row="1"  Text="Caloried Drinks" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.CalorieProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.CalorieProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.CalorieProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.CalorieProgress.GoalCount}" Style="{StaticResource DailyheaderLabel}" />
+                                                <Label Text="Glass" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}"  HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                            <borders:SfBorder  Grid.Column="2" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="3">
+                                                <Label Text="{Binding ReportData.CalorieProgress.ActualCount}" Style="{StaticResource DailyheaderLabel}" />
+                                                <Label Text="Glass" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month"
+                                               Style="{StaticResource DailyAvgLabel}" HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Exercise & Activities-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_Activities.png}" />
+                                        <Label Grid.Row="1"  Text="Exercise and Activities" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.ActivitiesProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.ActivitiesProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.ActivitiesProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30" SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.ActivitiesProgress.TargetFood}" Style="{StaticResource DailyheaderLabel}" FontSize="28" />
+                                                <Label Text="Minutes" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}"  HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                            <borders:SfBorder  Grid.Column="2" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="3">
+                                                <Label Text="{Binding ReportData.ActivitiesProgress.ActualFood}" Style="{StaticResource DailyheaderLabel}"  FontSize="28" />
+                                                <Label Text="Minutes" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <!--Meditation-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10"
+                                                  ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="250" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+                                        <Image Grid.Row="1" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                           Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Monthly_meditation.png}" />
+                                        <Label Grid.Row="1"  Text="Meditation" Style="{StaticResource FoodTypeHeader}" TextColor="#006298" />
+                                        <Label Grid.Row="2" VerticalOptions="Center" FontSize="20"  HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding ReportData.MeditationProgress.Message}" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                          TextColor="#FF5869" />
+                                                    <Span Text=" You scored" 
+                                                          FontFamily="{x:Static fonts:CustomFontName.OpenSanRegular}"
+                                                          TextColor="#319C8A" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"  Text="{Binding ReportData.MeditationProgress.Score}" Style="{StaticResource ScoredLabel}" />
+
+                                        <linear:SfLinearGauge Grid.Row="4" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.MeditationProgress.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <Grid Grid.Row="5" HeightRequest="120">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="5" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="1">
+                                                <Label Text="{Binding ReportData.MeditationProgress.TargetFood}" Style="{StaticResource DailyheaderLabel}" FontSize="28" />
+                                                <Label Text="Minutes" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="2" Text="Daily target this month" Style="{StaticResource DailyAvgLabel}"  HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                            <borders:SfBorder  Grid.Column="2" BorderColor="#BDBDBD" BorderThickness="0,0,1,0" BorderWidth="0" />
+                                            <StackLayout Grid.Column="3">
+                                                <Label Text="{Binding ReportData.MeditationProgress.ActualFood}" Style="{StaticResource DailyheaderLabel}"  FontSize="28" />
+                                                <Label Text="Minutes" Style="{StaticResource DailySubheaderLabel}" />
+                                                <Label Grid.Column="5" Text="Daily average this month" HorizontalTextAlignment="Center"
+                                               Style="{StaticResource DailyAvgLabel}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <borders:SfBorder BorderColor="#BDBDBD" BorderThickness="1" BorderWidth="1" HorizontalOptions="FillAndExpand" HeightRequest="1" Margin="10" />
+
+                                <!--<Label Text="Now let's take a look at what's happening 'inside' your body." Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="18" Margin="10" HorizontalTextAlignment="Center" />
+
+                                <Label Grid.Row="2" VerticalOptions="Center"  HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="10,0" FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="The way your body responds to sugar intake is a powerful way of measuring what's going on inside your body. It's like taking an X-ray of your overall health; your Metabolic Health. If our body cannot handle sugar well and instead of neutralising it and storing it as energy reserves, and instead the sugar simply floats around in the blood it could signal poor metabolic health, and it could also be a signal of other long term chronic diseases, including cardiovascular risk, dementia and diabetes.&#10;&#10;"  TextColor="#828282" />
+                                            <Span Text="Our sensors were designed over a period of 10 years and is a world-first daily skin sensor. A patch that sits on your skin and measures the state of your metabolic health using sophisticated algorithms that measure spikes in your sugar levels which our sensors can detect on the surface of your skin.&#10;&#10;"   TextColor="#828282" />
+                                            <Span Text="Let's keep our inside as healthy as the outside!&#10;&#10;"   TextColor="#828282" />
+                                            <Span Text="Now let's see how you scored.&#10;&#10;"   TextColor="#FF5869" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>-->
+
+                                <!--Your Metabolic Health Score-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10" ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="1"  Text="Your MetaScore"
+                                               FontFamily="{x:Static fonts:CustomFontName.PlayfairDisplaynRegular}"                                               
+                                               Style="{StaticResource FoodTypeHeader}" Margin="10,10,20,10" />
+                                        <Label Grid.Row="2" IsVisible="{Binding ReportData.MetaScore.IsMetabolicDeveiceActive, Converter={StaticResource InverseBoolConverter}}" VerticalOptions="Center" 
+                                               HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="10,0" FontSize="16">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="No health tracking detected. &#10;" TextColor="#FF5869" />
+                                                    <Span Text="Since you're not using our wearable sensors, we can't see exactly how your body is responding to the things you're eating and doing every day.&#10;&#10;"  TextColor="#828282" />
+                                                    <Span Text="The insights we gain from the sensors help us make sure all the guidance we give you is fully personalized. They also allow you to see for yourself, in real time, the impact of the changes you're making.&#10;"   TextColor="#828282" />
+                                                    <Span Text="Do you want to find out more about how our wearable sensors work?" TextColor="#828282" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Grid Grid.Row="3" HeightRequest="60" HorizontalOptions="Center"  
+                                              IsVisible="{Binding ReportData.MetaScore.IsMetabolicDeveiceActive, Converter={StaticResource InverseBoolConverter}}">
+                                            <buttons:SfButton Text="I'm interested, tell me more"
+                                              Command="{Binding UpdateQuestion}" CommandParameter="1"
+                                              CornerRadius="30"
+                                              HorizontalOptions="Center"
+                                              Margin="10"
+                                              BackgroundColor="#FF5869"
+                                              TextColor="#FFF"
+                                              WidthRequest="220"
+                                              HeightRequest="50"
+                                               />
+                                        </Grid>
+                                        <Grid Grid.Row="4" HeightRequest="60" HorizontalOptions="Center"
+                                              IsVisible="{Binding ReportData.MetaScore.IsMetabolicDeveiceActive, Converter={StaticResource InverseBoolConverter}}">
+                                            <buttons:SfButton Text="I'm ok for now – ask me again later"
+                                              Command="{Binding UpdateQuestion}" CommandParameter="2"
+                                              CornerRadius="30"
+                                              HorizontalOptions="Center"
+                                              Margin="10"
+                                              BackgroundColor="#FF5869"
+                                              TextColor="#FFF"
+                                              WidthRequest="220"
+                                              HeightRequest="50"
+                                               />
+                                        </Grid>
+
+                                        <Label Grid.Row="5"  Text="{Binding ReportData.MetaScore.Score}" Style="{StaticResource ScoredLabel}" 
+                                               IsVisible="{Binding ReportData.MetaScore.IsMetabolicDeveiceActive}" />
+
+                                        <linear:SfLinearGauge Grid.Row="6" HeightRequest="100">
+                                            <linear:SfLinearGauge.Annotations>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="0" TextColor="#FF5869" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="25" TextColor="#FA9917" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="50" TextColor="#F3CA3E" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="75" TextColor="#C1E000" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <Label Text="100" TextColor="#319C8A" FontSize="15" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" />
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+
+                                                <linear:LinearGaugeAnnotation  ScaleValue="1" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout Orientation="Vertical">
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_V_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="25" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Sad.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Sad.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="50" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Neutral.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Neutral.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="75" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_Happy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                                <linear:LinearGaugeAnnotation  ScaleValue="98" ViewMargin ="0,-20">
+                                                    <linear:LinearGaugeAnnotation.View>
+                                                        <StackLayout>
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Very_Happy.png}" WidthRequest="25" HeightRequest="25" />
+                                                            <Image Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.Tick_VHappy.png}" WidthRequest="15" HeightRequest="15" />
+                                                        </StackLayout>
+                                                    </linear:LinearGaugeAnnotation.View>
+                                                </linear:LinearGaugeAnnotation>
+                                            </linear:SfLinearGauge.Annotations>
+                                            <linear:SfLinearGauge.Scales>
+                                                <linear:LinearScale MinimumValue="0" MaximumValue="100"
+                                                ShowLabels="False" ScaleBarColor="Transparent" CornerRadius="10"
+                                                MinorTicksPerInterval="1" ScaleBarSize="1" ScalePosition="Forward" ShowTicks ="False">
+
+                                                    <linear:LinearScale.Ranges>
+                                                        <linear:LinearRange StartWidth="10"   EndWidth="10" StartValue="0" EndValue="100">
+                                                            <linear:LinearRange.GradientStops>
+                                                                <linear:GaugeGradientStop Value="0" Color="#FF5869" />
+                                                                <linear:GaugeGradientStop Value="25" Color="#FA9917" />
+                                                                <linear:GaugeGradientStop Value="50" Color="#F3CA3E" />
+                                                                <linear:GaugeGradientStop Value="75" Color="#C1E000" />
+                                                                <linear:GaugeGradientStop Value="100" Color="#319C8A" />
+                                                            </linear:LinearRange.GradientStops>
+                                                        </linear:LinearRange>
+                                                    </linear:LinearScale.Ranges>
+
+                                                    <linear:LinearScale.Pointers>
+                                                        <linear:SymbolPointer Value ="{Binding ReportData.MetaScore.Score}" EnableAnimation ="True" Color= "Red" LengthFactor="30"
+                                                                          SymbolPointerPosition="Away" Offset="10" MarkerShape = "InvertedTriangle" />
+                                                    </linear:LinearScale.Pointers>
+                                                </linear:LinearScale>
+                                            </linear:SfLinearGauge.Scales>
+                                        </linear:SfLinearGauge>
+
+                                        <!--<Grid Grid.Row="7" HeightRequest="60">
+                                            <buttons:SfButton Text="Next"
+                                              CornerRadius="30"
+                                              HorizontalOptions="Center"
+                                              Margin="10"
+                                              BackgroundColor="#319C8A"
+                                              TextColor="#FFF"
+                                              WidthRequest="140"
+                                              HeightRequest="40" />
+                                        </Grid>-->
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <borders:SfBorder BorderColor="#BDBDBD" BorderThickness="1" BorderWidth="1" HorizontalOptions="FillAndExpand" HeightRequest="1" Margin="10" />
+
+                                <Label Text="Let's take a look at where you should focus for next month." Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="18" Margin="10" HorizontalTextAlignment="Center" />
+
+                                <!--What you're doing right-->
+                                <borders:SfBorder BackgroundColor="White" BorderColor="#F2F2F2" Margin="10"  BorderWidth="2" BorderThickness="0" CornerRadius="10" ShadowColor="#F2F2F2" HasShadow="True">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="5" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="5" />
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="1"  Text="What you're doing right" TextColor="#006298"
+                                               Style="{StaticResource FoodTypeHeader}" />
+
+                                        <syncfusionListView:SfListView
+                                            Grid.Row="2"  Margin="10,5"
+                                            SelectionMode="None"
+                                            AutoFitMode="DynamicHeight"
+                                            IsScrollingEnabled="False"
+                                            ItemSpacing="6"
+                                            ItemsSource="{Binding ReportData.Right}">
+                                            <syncfusionListView:SfListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2" />
+                                                            <ColumnDefinition Width="1.5*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="2" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Column="1" Text="{Binding Key}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#FF5869" FontSize="16" FontAttributes="Bold" Margin="2" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="Start" />
+                                                        <Label Grid.Column="2" Text="{Binding Value}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="16" Margin="2" HorizontalTextAlignment="Start" HorizontalOptions="Start" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </syncfusionListView:SfListView.ItemTemplate>
+                                        </syncfusionListView:SfListView>
+
+                                        <borders:SfBorder Grid.Row="3" BorderColor="#BDBDBD" BorderThickness="1" BorderWidth="1" HorizontalOptions="FillAndExpand" HeightRequest="1" Margin="10" />
+
+                                        <Label Grid.Row="4"  Text="What you could improve" TextColor="#006298"
+                                               Style="{StaticResource FoodTypeHeader}" />
+
+                                        <syncfusionListView:SfListView
+                                            Grid.Row="5" Margin="10,5"
+                                            SelectionMode="None"
+                                            AutoFitMode="DynamicHeight"
+                                            IsScrollingEnabled="False"
+                                            ItemSpacing="6"
+                                            ItemsSource="{Binding ReportData.Improvement}">
+                                            <syncfusionListView:SfListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2" />
+                                                            <ColumnDefinition Width="1.5*" />
+                                                            <ColumnDefinition Width="2*" />
+                                                            <ColumnDefinition Width="2" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Label Grid.Column="1" Text="{Binding Key}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#FF5869" FontSize="16" FontAttributes="Bold" Margin="2" HorizontalTextAlignment="Start" HorizontalOptions="Start" VerticalOptions="Start" />
+                                                        <Label Grid.Column="2" Text="{Binding Value}" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="16" Margin="2" HorizontalTextAlignment="Start" HorizontalOptions="Start" />
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </syncfusionListView:SfListView.ItemTemplate>
+                                        </syncfusionListView:SfListView>
+                                    </Grid>
+                                </borders:SfBorder>
+
+                                <borders:SfBorder BorderColor="#BDBDBD" BorderThickness="1" BorderWidth="1" HorizontalOptions="FillAndExpand" HeightRequest="1" Margin="10" />
+
+                                <Label Text="Big changes come from small steps..." Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="18" Margin="10" HorizontalTextAlignment="Center" />
+
+                                <Label Grid.Row="2" VerticalOptions="Center"  HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="10,0" FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="We are not going to get too ambitious here. All great habits are built gradually over time.&#10;&#10;"  TextColor="#828282" />
+                                            <Span Text="Keep up the good work, and in months and years to come you will transform your body and health by making these small adjustments to your daily habits.&#10;"   TextColor="#828282" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                                <Label Text="What else could be useful?" Style="{StaticResource MonthlySubHeaderLabel}" TextColor="#319C8A" FontSize="18" Margin="10" HorizontalTextAlignment="Center" />
+
+                                <Label Grid.Row="2" VerticalOptions="Center"  HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="10,0" FontSize="16">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="We've noticed you have not subscribed to the glucose sensors. These sensors allow us to look for spikes in your blood sugar following glucose intake.&#10;&#10;"  TextColor="#828282" />
+                                            <Span Text="You don't need a sensor every day.
+Just once or twice a month to start with.&#10;"   TextColor="#828282" />
+                                            <Span Text="The insight will be tremendously valuable. It's your x-ray vision to what's happening inside your body. It's your way of making sense of exercise and diet plans, otherwise all such plans are generic and not personal to you or your needs. &#10;&#10;"   TextColor="#828282" />
+                                            <Span Text="Visit"   TextColor="#828282" />
+                                            <Span Text=" www.Miboko.com "   TextColor="#FF5869" >
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BlogCommand}" />
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                            <Span Text="for more details of the benefits of our sensors.&#10;&#10;"   TextColor="#828282" />
+                                            <Span Text="&#10;More about....&#10;"   TextColor="#319C8A" />
+                                            <Span Text="Each month we will have a new theme that we focus on - relevant to you and your score. This content will appear here and on subsequent pages. &#10;"   TextColor="#828282" />
+                                            <Span Text="We look forward to providing you with your next months update, so see you again soon. &#10;&#10;"   TextColor="#FF5869" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </Grid>
+                    </Grid>
+                </borders:SfBorder>
+            </ScrollView>
+        </Grid>
+    </ContentView.Content>
+</base:ContentViewBase>

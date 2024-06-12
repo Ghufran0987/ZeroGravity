@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:ISugarBeatConnectPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+                      xmlns:xListForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.SugarBeatConnectPage"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      xmlns:xForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                      Title="{Binding Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+            <Style x:Key="LabelSugerBeatHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.PlayfairDisplaynRegular}" />
+                <Setter Property="FontSize" Value="32" />
+                <Setter Property="TextColor"   Value="#319C8A" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="LabelSugerBeatSubHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanRegular}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor"   Value="#4F4F4F" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="SugerFullWidthButton-ZgButton"
+                   TargetType="{x:Type customControls:ZgButton}"
+                   BasedOn="{StaticResource FullWidthButton-ZgButton}">
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="25" />
+            </Style>
+
+            <Style x:Key="LabelSugerBeatSearch" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanLight}" />
+                <Setter Property="FontSize" Value="30" />
+                <Setter Property="TextColor"   Value="#828282" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+
+            <Style x:Key="LabelSugerBeatListHeader" TargetType="Label">
+                <Setter Property="FontFamily" Value="{Static fonts:CustomFontName.OpenSanBold}" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="TextColor"   Value="#FF5869" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Start" />
+            </Style>
+            <Style x:Key="EntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="MaxLength" Value="1" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{Binding Source={x:Static fonts:Typography.InputLayoutEntry}, Path=TextColor}" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView  BackgroundColor="{x:Static fonts:CustomColors.GrayBackgroundColor}">
+            <border:SfBorder CornerRadius="10" BorderThickness="0" BorderWidth="0" Margin="20,10">
+                <StackLayout>
+                    <!--Connection-->
+                    <Grid BackgroundColor="White"  IsVisible="{Binding IsShowSession, Converter={StaticResource NegateBooleanConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="180" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="155" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+
+                        <Label Text="You are connected and ready to go." Grid.Row="1"  Margin="5,0"
+                           IsVisible="{Binding Path=SugerBeatConnected}"
+                           Style="{StaticResource LabelSugerBeatHeader}" />
+
+                        <Label Text="Health Tracking" Grid.Row="1"
+                           IsVisible="{Binding Path=SugerBeatHeader}"
+                           Style="{StaticResource LabelSugerBeatHeader}" />
+
+                        <Label Text="Monitor your health and wellbeing with Miboko" Grid.Row="2"
+                           IsVisible="{Binding Path=SugerBeatHeader}"
+                           Style="{StaticResource LabelSugerBeatSubHeader}" />
+
+                        <Image Grid.Row="4" Aspect="AspectFit"  Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.background-logo.png}" IsVisible="{Binding Path=SugerBeatSearch, Converter={StaticResource NegateBooleanConverter}}" />
+
+                        <lottie:AnimationView x:Name="ltDevice" IsVisible="{Binding Path=SugerBeatSearch}"
+                              Grid.Row="4" WidthRequest="380" HeightRequest="380"
+                              HorizontalOptions="Center" VerticalOptions="Center"
+                              AnimationSource="EmbeddedResource"
+                              Speed="1" AutoPlay="True"
+                              Animation="Resources.Animation.cgm-device-glow-animation-red.json"
+                              RepeatMode="Infinite" />
+
+                        <border:SfBorder Grid.Row="5" Grid.RowSpan="2" IsVisible="{Binding Path=SugerBeatActive}"
+                                     Margin="10,0,10,0"
+                                     BorderWidth="1"
+                                     BorderColor="#E0E0E0"
+                                     BorderThickness="0" CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Label Text="Connect Device" Grid.Row="0" Margin="10,3"
+                                   Style="{StaticResource LabelSugerBeatSubHeader}"
+                                   HorizontalOptions="Start"
+                                   TextColor="#FF5869" />
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10" />
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="120" />
+                                        <ColumnDefinition Width="10" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="1" Aspect="AspectFit"
+                                       Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.cgm_device.png}" />
+                                    <StackLayout Grid.Column="2" Orientation="Vertical" Margin="5,0">
+                                        <Label Text="{Binding Name}"
+                                           TextColor="Black" VerticalOptions="End" VerticalTextAlignment="Center"
+                                           FontSize="14" LineBreakMode="TailTruncation" MaxLines="2"
+                                           FontFamily="{Static fonts:CustomFontName.OpenSanBold}" />
+                                        <Label Text="{Binding Address}"
+                                           TextColor="Gray" MaxLines="1" LineBreakMode="TailTruncation"
+                                           FontSize="12" VerticalOptions="Start" VerticalTextAlignment="Center"
+                                           FontFamily="{Static fonts:CustomFontName.OpenSanMedium}" />
+                                    </StackLayout>
+                                </Grid>
+                                <border:SfBorder BorderThickness="0,1.5,0,0" BorderColor="#E0E0E0" Margin="15,0" Grid.Row="2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30" />
+                                            <RowDefinition Height="50" />
+                                            <RowDefinition Height="40" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="10" />
+                                        </Grid.RowDefinitions>
+                                        <Label Text="Please enter the device PIN code below" Grid.Row="0" Margin="5"
+                                       HorizontalOptions="Center" />
+
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="50" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <border:SfBorder Grid.Column="1" BorderThickness="0" BorderWidth="1" BorderColor="#BDBDBD" CornerRadius="5">
+                                                <Entry x:Name="pass1"  Style="{StaticResource EntryStyle}" Text="{Binding Password1, Mode=TwoWay}"
+                                                   Keyboard="Plain"
+                                                   IsTextPredictionEnabled="False"
+                                                   TextChanged="OnPass1TextChange" Focused="OnPassFocus" />
+                                            </border:SfBorder>
+                                            <border:SfBorder Grid.Column="2" BorderThickness="0" BorderWidth="1" BorderColor="#BDBDBD" CornerRadius="5">
+                                                <Entry x:Name="pass2" Style="{StaticResource EntryStyle}" Text="{Binding Password2, Mode=TwoWay}"
+                                                    IsTextPredictionEnabled="False"   Keyboard="Plain"
+                                                    TextChanged="OnPass2TextChange" Focused="OnPassFocus" />
+                                            </border:SfBorder>
+                                            <border:SfBorder Grid.Column="3" BorderThickness="0" BorderWidth="1" BorderColor="#BDBDBD" CornerRadius="5">
+                                                <Entry x:Name="pass3"  Style="{StaticResource EntryStyle}" Text="{Binding Password3, Mode=TwoWay}"
+                                                    IsTextPredictionEnabled="False"   Keyboard="Plain"
+                                                    TextChanged="OnPass3TextChange" Focused="OnPassFocus" />
+                                            </border:SfBorder>
+                                            <border:SfBorder Grid.Column="4" BorderThickness="0" BorderWidth="1" BorderColor="#BDBDBD" CornerRadius="5">
+                                                <Entry x:Name="pass4" Style="{StaticResource EntryStyle}" Text="{Binding Password4, Mode=TwoWay}"
+                                                    IsTextPredictionEnabled="False"    Keyboard="Plain"
+                                                    TextChanged="OnPass4TextChange" Focused="OnPassFocus" />
+                                            </border:SfBorder>
+                                        </Grid>
+                                        <buttons:SfButton Grid.Row="2" x:Name="BtnSubmit"
+                                                      Command="{Binding Path=LinkDeviceCommand}"
+                                                      BackgroundColor="#319C8A"
+                                                      TextColor="#FFF"
+                                                      CornerRadius="30"
+                                                      FontSize="15"
+                                                      Padding="30,10"
+                                                      HorizontalOptions="Center"
+                                                      WidthRequest="120"
+                                                      FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                                      Text="Submit" />
+
+                                        <Label Text="Your PIN code is printed on your personal device/password card" Grid.Row="3" Margin="5"
+                                       HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                                    </Grid>
+                                </border:SfBorder>
+                            </Grid>
+                        </border:SfBorder>
+
+                        <Grid Grid.Row="5" IsVisible="{Binding Path=SugerBeatSearch}">
+                            <Label Text="Connecting to your device..."  Style="{StaticResource LabelSugerBeatSearch}" FontSize="20"  Margin="5"/>
+                        </Grid>
+
+                        <Grid Grid.Row="5" Grid.RowSpan="2" IsVisible="{Binding Path=SugerBeatFail}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="40" />
+                                <RowDefinition Height="40" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Text="Unable to detect device"  Style="{StaticResource LabelSugerBeatSearch}"  Margin="5"/>
+                            <Label Grid.Row="1" Style="{StaticResource LabelSugerBeatSubHeader}"
+                       Text="Enable Bluetooth to successfully connect to your device." />
+
+                            <buttons:SfButton Grid.Row="2"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  CornerRadius="30"
+                                  FontSize="15"
+                                  Margin="120,0"
+                                  WidthRequest="120"
+                                  FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                  Text="Retry" />
+
+                            <buttons:SfButton Grid.Row="3"
+                                  BackgroundColor="#FF5869"
+                                  TextColor="#FFF"
+                                  CornerRadius="30"
+                                  FontSize="15"
+                                   Margin="120,0"
+                                  WidthRequest="100"
+                                  FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                  Text="Back" />
+                        </Grid>
+
+                        <StackLayout Grid.Row="5" Grid.RowSpan="2" IsVisible="{Binding Path=SugerBeatConnected}">
+                            <!--<Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="60" />
+                            </Grid.RowDefinitions>-->
+
+                            <Label  Text="{Binding DisplayMessage}"
+                                    TextColor="#319C8A" Style="{StaticResource LabelSugerBeatSubHeader}" Margin="15,5" />
+
+                            <buttons:SfButton IsVisible="{Binding IsSessionCreationAllowed}"
+                                                      Command="{Binding Path=AboutToEatCommand}"
+                                                      CornerRadius="30"
+                                                      HorizontalOptions="Center"
+                                                      Margin="10"
+                                                      BackgroundColor="#319C8A"
+                                                      TextColor="#FFF"
+                                                      WidthRequest="160"
+                                                      HeightRequest="40"
+                                                      FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                                      Text="Activate" />
+
+                            <buttons:SfButton    IsVisible="{Binding ShowTodaysSessions, Mode=TwoWay}"
+                                                      Command="{Binding Path=ShowTodaysEatingSessionsCommand}"
+                                                      CornerRadius="30"
+                                                    HorizontalOptions="Center"
+                                                    Margin="10"
+                                                    BackgroundColor="#319C8A"
+                                                    TextColor="#FFF"
+                                                    WidthRequest="160"
+                                                    HeightRequest="40"
+                                                      FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                                      Text="My Eating Sessions" />
+
+                            <buttons:SfButton x:Name="BtnUnlink" 
+                                       IsVisible="{Binding IsDeviceConnected}"
+                                                      Command="{Binding Path=UnLinkDeviceCommand}"
+                                                      CornerRadius="30"
+                                                    HorizontalOptions="Center"
+                                                    Margin="10"
+                                                    BackgroundColor="#319C8A"
+                                                    TextColor="#FFF"
+                                                    WidthRequest="160"
+                                                    HeightRequest="40"
+                                                      FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                             Grid.Row="4"
+                                Text="Disconnect Device" />
+
+                        </StackLayout>
+                    </Grid>
+
+                    <!--Today's Eating Session-->
+                    <Grid BackgroundColor="White" IsVisible="{Binding IsShowSession}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="10" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="10" />
+                        </Grid.RowDefinitions>
+
+                        <Label Text="{Binding UserName}" Grid.Row="1"  Margin="5,0" FontSize="28"  Style="{StaticResource LabelSugerBeatHeader}" HorizontalOptions="Center" />
+                        <Label Text="My metabolic health tracking sessions" Grid.Row="2" Style="{StaticResource LabelSugerBeatSubHeader}" HorizontalOptions="Center" />
+
+                        <shimmer:SfShimmer HorizontalOptions="FillAndExpand" IsActive="{Binding IsBusy}" Type="Shopping" Grid.Row="4">
+                            <shimmer:SfShimmer.Content>
+                                <xForms:SfListView  ItemsSource="{Binding TodaysEatingSessions,Mode=TwoWay }"
+                                        SelectionMode="Single"
+                                        Margin="0,0,0,0"
+                                        HorizontalOptions="Fill"
+                                        ItemSpacing="0,8"                                      
+                                        ItemSize="50"
+                                        IsScrollingEnabled="False"
+                                        SelectedItem="{Binding SelectedEatingSession, Mode=TwoWay}"
+                                                  SelectionChanged="SfListView_SelectionChanged"
+                                        SelectionBackgroundColor="WhiteSmoke"
+                                         
+                                                    >
+
+                                    <xForms:SfListView.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid BackgroundColor="#E0E0E0" HeightRequest="45">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="0"
+                                                        Margin="5" Text="Start" FontAttributes="Bold"
+                                                        FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="1"
+                                                        Margin="5" Text="End" FontAttributes="Bold"
+                                                        FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+
+                                                <Label  LineBreakMode="NoWrap" Grid.Column="2"  Margin="5" Text="Score" FontAttributes="Bold"
+                      FontSize="16" TextColor="#FF5869" HorizontalOptions="Center"
+                                                        VerticalOptions="Center" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </xForms:SfListView.HeaderTemplate>
+
+                                    <xForms:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell >
+                                                <Grid  HeightRequest="80">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Label  LineBreakMode="NoWrap"  Grid.Column="0"
+                                                            Margin="5" Text="{Binding StartTime, StringFormat='{}{0:h\\:mm tt}'}" FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" />
+                                                    <Label  LineBreakMode="NoWrap"  Grid.Column="1"
+                                                            Margin="5" Text="{Binding EndTime, StringFormat='{}{0:h\\:mm tt}'}" FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" />
+
+                                                    <Label  LineBreakMode="NoWrap" Grid.Column="2"
+                                                            Margin="5" Text="{Binding MetabolicScore}" FontAttributes="Bold"
+                                                            FontSize="14" TextColor="#FF5869" HorizontalOptions="Center"
+                                                            VerticalOptions="Center" />
+                                                </Grid>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </xForms:SfListView.ItemTemplate>
+                                </xForms:SfListView>
+                            </shimmer:SfShimmer.Content>
+                        </shimmer:SfShimmer>
+                        <Label Text="Tap on an eating session to reveal your data so far." Grid.Row="6" Margin="10" Style="{StaticResource LabelSugerBeatSubHeader}" HorizontalOptions="Center" />
+
+                        <buttons:SfButton Grid.Row="8" 
+                                                      Command="{Binding Path=ShowHoldingPageCommand}"
+                                                     CornerRadius="30"
+                                                    HorizontalOptions="Center"
+                                                    Margin="10"
+                                                    BackgroundColor="#319C8A"
+                                                    TextColor="#FFF"
+                                                    WidthRequest="120"
+                                                    HeightRequest="40"
+                                                      FontFamily="{Static fonts:CustomFontName.OpenSanRegular}"
+                                                      Text="Back" />
+
+                    </Grid>
+                </StackLayout>
+            </border:SfBorder>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

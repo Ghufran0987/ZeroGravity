@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IActivitySyncOverviewPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms1="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.ActivitySyncOverviewPage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IntegrationTypeToIconStringConverter x:Key="IntegrationTypeToIconStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout Padding="0,30,0,30">
+
+                    <Label Text="{x:Static resources:AppResources.ActivitySyncOverview_Title}"
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource HeadlineL-Label}" />
+
+                    <Label Text="{x:Static resources:AppResources.ActivitySyncOverview_Subtitle}"
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource Byline-Label}" />
+
+
+                    <xForms1:SfListView ItemsSource="{Binding IntegrationDataProxies}" Margin="0,20,0,0"
+                                        SelectionMode="None" TapCommand="{Binding OnItemTappedCommand}" ItemSize="75">
+                        <xForms1:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <customControls:ZgButton Text="{Binding Name}"
+                                                             IconUnicode="{Binding IntegrationType, Converter={StaticResource IntegrationTypeToIconStringConverter}}"
+                                                             Style="{StaticResource WhiteButton-ZgButton}" Padding="5" IsEnabled="False"/>
+                           
+                                </ViewCell>
+                            </DataTemplate>
+                        </xForms1:SfListView.ItemTemplate>
+                    </xForms1:SfListView>
+
+                    <xForms:SfBusyIndicator
+                        IsBusy="{Binding Path=IsBusy}"
+                        Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+                </StackLayout>
+            </ScrollView>
+
+            <!--<customControls:ZgButton Grid.Row="1" Text="{x:Static resources:AppResources.Button_Save}"
+                                     HorizontalTextAlignment="Center"
+                                     Style="{StaticResource FullWidthButton-ZgButton}"
+                                     Command="{Binding SaveCommand}" />-->
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IStepCountPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.StepCountPage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout Padding="0,30,0,30">
+                    <Label
+                        Text="{x:Static resources:AppResources.StepCount_Title}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource HeadlineL-Label}" />
+
+                    <Label
+                        Text="{x:Static resources:AppResources.StepCount_Description}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource Byline-Label}" />
+
+
+                    <Grid Margin="0,20,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <customControls:ZgBubble Grid.Column="1"
+                                                 ShowBadge="False"
+                                                 Style="{StaticResource BubbleWBadge-ZgBubble}">
+                            <customControls:ZgBubble.Content>
+                                <StackLayout Spacing="0">
+                                    <Label Text="{Binding StepCount}"
+                                           HorizontalTextAlignment="Center" Style="{StaticResource HeadlineXl-Label}" />
+                                    <Label Text="{x:Static resources:AppResources.StepCount_Steps}"
+                                           HorizontalTextAlignment="Center" Style="{StaticResource BubbleText-Label}" />
+                                </StackLayout>
+                            </customControls:ZgBubble.Content>
+
+                            <customControls:ZgBubble.BadgeContent>
+                                <Label Text="1" Style="{StaticResource BubbleBadgeText-Label}" />
+                            </customControls:ZgBubble.BadgeContent>
+                        </customControls:ZgBubble>
+                    </Grid>
+
+                </StackLayout>
+            </ScrollView>
+
+            <customControls:ZgButton Grid.Row="1"
+                                     Text="{x:Static resources:AppResources.Button_Save}"
+                                     HorizontalTextAlignment="Center"
+                                     Command="{Binding Path=SaveStepCountDataCommand}"
+                                     Style="{StaticResource FullWidthButton-ZgButton}" />
+
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IVideoUploadPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com" xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.VideoUploadPage"
+                      BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:VideoUploadStatusToColorConverter x:Key="VideoUploadStatusToColorConverter" />
+            <converter:VideoUploadStatusToIconStringConverter x:Key="VideoUploadStatusToIconStringConverter" />
+            <converter:VideoUploadStatusToRotationDoubleConverter x:Key="VideoUploadStatusToRotationDoubleConverter" />
+            <converter:NegateBooleanConverter x:Key="NegateBooleanConverter" />
+            <converter:VideoUploadProgressToFixedStringLengthConverter
+                x:Key="VideoUploadProgressToFixedStringLengthConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0, 30, 0 ,0" Spacing="10">
+
+                    <Label Text="{x:Static resources:AppResources.VideoUploadPageTitle}"
+                           Style="{StaticResource HeadlineXl-Label}" TextColor="#006298" />
+
+                    <Label Text="Upload content to share with other Miboko users"
+                        HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"  Style="{StaticResource Byline-Label}" />
+
+                    <!--select video-->
+                    <Frame Margin="20" BackgroundColor="#C8C8C8" CornerRadius="5" HasShadow="True">
+                        <Grid
+                          BackgroundColor="{Binding UploadStatus, Converter={StaticResource VideoUploadStatusToColorConverter}}">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=SelectVideoCommand}" />
+                            </Grid.GestureRecognizers>
+
+                            <StackLayout Grid.Row="0" Spacing="20"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+
+                                <Label
+                                Text="{Binding UploadStatus, Converter={StaticResource VideoUploadStatusToIconStringConverter}}"
+                                Rotation="{Binding UploadStatus, Converter={StaticResource VideoUploadStatusToRotationDoubleConverter}}"
+                                TextColor="{x:Static fonts:CustomColors.White}"
+                                FontSize="70" HorizontalTextAlignment="Center"
+                                Style="{StaticResource BubbleIcon-Label}" />
+
+                                <StackLayout
+                                IsVisible="{Binding IsUploading, Converter={StaticResource NegateBooleanConverter}}">
+
+                                    <Label Text="{Binding UploadDescriptionText}"
+                                       Style="{StaticResource Byline-Label}"
+                                       TextColor="{x:Static fonts:CustomColors.White}"
+                                       HorizontalTextAlignment="Center" />
+                                </StackLayout>
+
+                                <Grid HorizontalOptions="CenterAndExpand"
+                                  IsVisible="{Binding IsUploading}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="70" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0"
+                                       Text="{x:Static resources:AppResources.VideoUpload_Uploading}"
+                                       Style="{StaticResource Byline-Label}"
+                                       TextColor="{x:Static fonts:CustomColors.White}"
+                                       HorizontalTextAlignment="Center"
+                                       Margin="0" />
+
+                                    <Label Grid.Column="1"
+                                       Text="{Binding UploadProgressInPercent, Converter={StaticResource VideoUploadProgressToFixedStringLengthConverter}}"
+                                       Style="{StaticResource Byline-Label}"
+                                       TextColor="{x:Static fonts:CustomColors.White}"
+                                       HorizontalTextAlignment="Start"
+                                       Margin="0" />
+                                </Grid>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                    <!--<Label Style="{StaticResource Separator-Label}" />-->
+
+                    <StackLayout Margin="-10,10,-10,30">
+
+                        <!--video title-->
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                      Label="{x:Static resources:AppResources.VideoUpload_VideoTitle_Capitals}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+
+                                                      HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                      UseHighlighting="True">
+                            <customControls:ZgEntry Keyboard="Default" Text="{Binding VideoTitle}"
+                                                    Style="{StaticResource InputEntry-ZgEntry}" />
+                        </customControls:ZgInputLayout>
+
+                        <!--video description-->
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                      Label="{x:Static resources:AppResources.VideoUpload_VideoDescription_Capitals}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                      HeightRequest="70"
+                                                      HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                      UseHighlighting="True">
+                            <customControls:ZgEditor Keyboard="Default"
+                                                     Text="{Binding VideoDescription}" BackgroundColor="Transparent"
+                                                     Style="{StaticResource InputEntry-Editor}"
+                                                     HeightRequest="80" />
+                        </customControls:ZgInputLayout>
+
+                        <!--video language-->
+                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                      Label="{x:Static resources:AppResources.Language}"
+                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}">
+                            <customControls:ZgPicker ItemsSource="{Binding LanguageList}"
+                                                     SelectedIndex="{Binding LanguageIndex, Mode=TwoWay}"
+                                                     ItemDisplayBinding="{Binding Text}"
+                                                     Title="{x:Static resources:AppResources.Language_Capitals}"
+                                                     Style="{StaticResource InputPicker-ZgPicker}" />
+                        </customControls:ZgInputLayout>
+
+                        <!--<Label Style="{StaticResource Separator-Label}" />-->
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <StackLayout Grid.Row="1" BackgroundColor="#FFF">
+
+                <!--upload button-->
+
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_StartUpload}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  IsVisible="{Binding IsUploadButtonVisible}"
+                                  Command="{Binding StartUploadCommand}" />
+
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_CancelUpload}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#FF5869"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  IsVisible="{Binding IsCancelButtonVisible}"
+                                  Command="{Binding StartUploadCommand}" />
+
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_GoToStream}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  IsVisible="{Binding IsGoBackToStreamButtonVisible}"
+                                  Command="{Binding GoBackToStreamCommand}" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

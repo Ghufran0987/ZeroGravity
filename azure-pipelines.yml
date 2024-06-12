@@ -1,0 +1,536 @@
+trigger:
+  #- '*' 
+  - develop
+  - release/*
+  - master
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: AzurePipeline/AzurePipeline
+      endpoint: AzurePipelines
+      ref: refs/tags/1.0.0
+
+####################################################################################################
+#
+# Build .NET Core project
+#
+####################################################################################################
+
+stages:
+- stage: BuildBackend
+  dependsOn: []
+  displayName: 'Backend'
+  condition: eq(variables.runDotNetCore, true)
+  pool:
+    vmImage: 'windows-latest'
+   
+  jobs:
+  - job:
+    displayName: "Build Backend"
+    variables:
+      solution: '**/*.sln'
+      buildPlatform: 'Any CPU'
+      buildConfigurationWebApp: 'Release_WebApp'
+
+    steps:
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
+
+    - task: gitversion/execute@0
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)'
+        additionalArguments: '/updateprojectfiles ./ZeroGravity/ZeroGravity.csproj'
+
+    - template: build/steps/get-environment-variables.yml@templates
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'restore'
+        projects: |
+          ZeroGravity/ZeroGravity.csproj
+          ZeroGravity.Tests\ZeroGravity.Tests.csproj          
+          ZeroGravity.Db.Tests\ZeroGravity.Db.Tests.csproj
+        feedsToUse: 'select'
+        vstsFeed: 'c9aff788-6f35-4de6-9958-b79481228036/1128537d-9528-4ac5-9733-1e2dd689f0bb'
+        includeNuGetOrg: false
+      displayName: 'Restore NuGet packages'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfigurationWebApp)'
+      displayName: 'Build'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfigurationWebApp)'
+      displayName: 'Run unit tests'
+
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifacts'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'WebApp'
+        publishLocation: 'pipeline'
+
+- stage: DeployBackend
+  displayName: 'Deploy Backend'
+  dependsOn: BuildBackend
+
+  jobs:          
+    - deployment: DeployBackend
+      displayName: Deploy Backend
+
+      pool:
+        vmImage: 'windows-latest'
+      environment: backend
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+
+            # Deployment to testing
+            - task: AzureRmWebAppDeployment@4
+              condition: and(succeeded(), or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), eq(variables['Build.TargetBranch'], 'refs/heads/develop')))
+              displayName: 'Deploy to testing'
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'zerogravity'
+                appType: 'webApp'
+                WebAppName: 'zerogravity'
+                deployToSlotOrASE: true
+                ResourceGroupName: 'nemaura-zerogravity-backend'
+                SlotName: 'testing'
+                packageForLinux: '$(Pipeline.Workspace)/**/WebApp.zip'
+
+
+            # Deployment to staging
+            - task: AzureRmWebAppDeployment@4
+              condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+              displayName: 'Deploy to staging'
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'zerogravity'
+                appType: 'webApp'
+                WebAppName: 'zerogravity'
+                deployToSlotOrASE: true
+                ResourceGroupName: 'nemaura-zerogravity-backend'
+                SlotName: 'staging'
+                packageForLinux: '$(Pipeline.Workspace)/**/WebApp.zip'
+
+
+####################################################################################################
+#
+# Build Xamarin Android App
+#
+####################################################################################################
+
+- stage: BuildAndroid
+  displayName: 'Android App'
+  condition: eq(variables.runAndroid, true)
+  dependsOn: []
+  pool:
+    vmImage: 'windows-latest'
+      
+  jobs:
+  - job: jobBuildAndroidApp
+    displayName: 'Build Android App'
+    condition: eq(variables.runAndroid, true)
+    
+    pool:
+      vmImage: 'windows-latest'
+
+    variables:
+      buildConfigurationAndroid: 'Release' # Configuration from .csproj and not from .sln is used.
+      outputDirectory: '$(build.binariesDirectory)/$(buildConfigurationAndroid)'
+      PathToAndroidManifest: 'ZeroGravity.Mobile/ZeroGravity.Mobile.Android/Properties/AndroidManifest.xml'
+
+    steps:
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
+
+    - task: gitversion/execute@0
+      inputs:
+        targetPath: '$(Build.SourcesDirectory)'
+        additionalArguments: '/updateAssemblyInfo .\ZeroGravity.Mobile\ZeroGravity.Mobile.Android\Properties\AssemblyInfo.cs'
+
+    # Extract commit number to use it as 
+    - task: ExtractVersionFromTag@1
+      inputs:
+        projectFolderPath: '$(Build.SourcesDirectory)'
+
+    - task: UpdateAndroidVersionManifest@1
+      inputs:
+        androidManifestPath: '$(PathToAndroidManifest)'
+        versionName: '$(GitVersion.FullSemVer)'
+
+    - template: build/steps/get-environment-variables.yml@templates
+
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet Tool'
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '**/*.sln'
+      displayName: 'Restore NuGet packages'
+
+  # Set server Url of backend depending on branch we are on.
+    # if no URL is set from one of the powershell scripts, the committed one is used. Useful for testing of feature branches where local server can be used.
+    - task: PowerShell@2
+      displayName: 'Set Url to Testing for develop branch and Pull Requests'
+      condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), eq(variables['System.PullRequest.TargetBranch'], 'refs/heads/develop'))
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlTesting)'
+
+    - task: PowerShell@2
+      displayName: 'Set Url to Staging'
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlStaging)'
+          
+    - task: PowerShell@2
+      displayName: 'Set Url to Production'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlProduction)'
+
+    - task: XamarinAndroid@1
+      inputs:
+        projectFile: '**/*android*.csproj'
+        outputDirectory: '$(outputDirectory)'
+        configuration: '$(buildConfigurationAndroid)'
+      displayName: 'Build'
+
+    - task: AndroidSigning@3
+      inputs:
+        apkFiles: '$(outputDirectory)/*.apk'
+        apksignerKeystoreFile: 'tzmdev.keystore'
+        apksignerKeystorePassword: '$(androidSignKey)'
+        apksignerKeystoreAlias: 'tzmdev'
+      displayName: 'Signing'
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: $(outputDirectory)
+        contents: '**/*.apk'
+        targetFolder: '$(Build.ArtifactStagingDirectory)'
+        overWrite: true      
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifacts'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'MiBoKo_Android'
+        publishLocation: 'pipeline'
+
+- stage: DeployAndoid
+  displayName: 'Deploy Android App'
+  condition: eq(variables.runAndroid, true)
+  dependsOn: BuildAndroid
+    
+  jobs:
+  - deployment: DeployAndroidApp
+    displayName: Deploy Android App
+
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: AndroidApp
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+            # Deploy to group "MiBoKo-Pull-Requests"
+          - task: AppCenterDistribute@3
+            condition: and(succeeded(),  eq(variables['System.PullRequest.TargetBranch'], 'refs/heads/develop'))
+            inputs:
+              serverEndpoint: 'VSAC'
+              appSlug: 'TZM-Testing/MiBoKo-Pull-Requests'
+              appFile: '$(Pipeline.Workspace)/**/*.apk'
+              symbolsOption: 'Android'
+              releaseNotesOption: 'input'
+              releaseNotesInput: 'new release'
+              destinationType: 'groups'
+              distributionGroupId: 'fa481a10-ebef-4cc8-8fe0-47c91bf3e86d'
+              isSilent: true
+            displayName: 'Deploy Android to PR Testing via App Center'
+
+            # Deploy to group "Testing"
+          - task: AppCenterDistribute@3
+            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+            inputs:
+              serverEndpoint: 'VSAC'
+              appSlug: 'TZM-Testing/ZeroG-Android'
+              appFile: '$(Pipeline.Workspace)/**/*.apk'
+              symbolsOption: 'Android'
+              releaseNotesOption: 'input'
+              releaseNotesInput: 'new release'
+              destinationType: 'groups'
+              distributionGroupId: '4e1f3353-3ae6-4b57-877f-686c94d9a7b8'
+              isSilent: false
+            displayName: 'Deploy Android to Testing via App Center'
+
+            # Deploy to group "Staging"
+          - task: AppCenterDistribute@3
+            condition: and(succeeded(),  startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+            inputs:
+              serverEndpoint: 'VSAC'
+              appSlug: 'TZM-Testing/MiBoKo-Staging-1'
+              appFile: '$(Pipeline.Workspace)/**/*.apk'
+              symbolsOption: 'Android'
+              releaseNotesOption: 'input'
+              releaseNotesInput: 'new release'
+              destinationType: 'groups'
+              distributionGroupId: 'a8a6c1ee-a70f-4cfb-af70-3c45aa6d31c9'
+              isSilent: false
+            displayName: 'Deploy Android to Staging via App Center'
+####################################################################################################
+#
+# Build Xamarin iOS App for App Center
+#
+####################################################################################################    
+
+- stage: buildIosAppCenter
+  displayName: 'iOS App for App Center'
+  condition: eq(variables.runIos, true)
+  dependsOn: []
+  pool:
+    vmImage: 'macOS-latest'
+  jobs:
+  - job: iOS
+
+    variables:
+      buildConfigurationIos: 'Release_iOS'
+      PathToIosPlist: 'ZeroGravity.Mobile/ZeroGravity.Mobile.iOS/Info.plist'
+
+    steps:
+    - task: InstallAppleCertificate@2
+      inputs:
+        certSecureFile: '$(p12FileName)'
+        certPwd: '$(p12Password)'
+        keychain: 'temp'
+
+    # Get provisioning profile for AdHoc Provisioning
+    - task: InstallAppleProvisioningProfile@1
+      inputs:
+        provisioningProfileLocation: 'secureFiles'
+        provProfileSecureFile: '$(provisioningProfileAdHoc)'
+
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
+
+    - task: gitversion/execute@0
+
+    - task: ExtractVersionFromTag@1
+      inputs:
+        projectFolderPath: '$(Build.SourcesDirectory)'
+
+    - task: UpdateiOSVersionInfoPlist@1
+      inputs:
+        infoPlistPath: '$(PathToIosPlist)'
+        bundleShortVersionString: '$(GitVersion.Major).$(GitVersion.Minor).$(GitVersion.Patch)'
+
+    - template: build/steps/get-environment-variables.yml@templates
+
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet Tool'
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '**/*.sln'
+      displayName: 'Restore NuGet packages'
+
+  # Set server Url of backend depending on branch we are on.
+    # if no URL is set from one of the powershell scripts, the committed one is used. Useful for testing of feature branches where local server can be used.
+    - task: PowerShell@2
+      displayName: 'Set Url to Testing for develop branch and Pull Requests'
+      condition: or(eq(variables['Build.SourceBranch'], 'refs/heads/develop'), eq(variables['System.PullRequest.TargetBranch'], 'refs/heads/develop'))
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlTesting)'
+
+    - task: PowerShell@2
+      displayName: 'Set Url to Staging'
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlStaging)'
+          
+    - task: PowerShell@2
+      displayName: 'Set Url to Production'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlProduction)'
+
+    - task: XamariniOS@2
+      inputs:
+        solutionFile: '**/*.sln'
+        configuration: '$(buildConfigurationIos)'
+        packageApp: true
+        runNugetRestore: false
+        signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+        signingProvisioningProfileID: '$(APPLE_PROV_PROFILE_UUID)'
+      displayName: 'Build Xamarin iOS'
+
+      # Deploy iOS to Pull Request Testing
+    - task: AppCenterDistribute@3
+      condition: and(succeeded(),  eq(variables['System.PullRequest.TargetBranch'], 'refs/heads/develop'))
+      inputs:
+        serverEndpoint: 'VSAC'
+        appSlug: 'TZM-Testing/MiBoKo-Pull-Requests-1'
+        appFile: '$(build.SourcesDirectory)/**/*.ipa'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'Version: $(GitVersion.FullSemVer)'
+        destinationType: 'groups'
+        distributionGroupId: 'fa481a10-ebef-4cc8-8fe0-47c91bf3e86d'
+        isSilent: true
+      displayName: 'Deploy iOS to PR Testing via App Center'
+
+      # Deploy iOS to Testing
+    - task: AppCenterDistribute@3
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+      inputs:
+        serverEndpoint: 'VSAC'
+        appSlug: 'TZM-Testing/ZeroG-Test'
+        appFile: '$(build.SourcesDirectory)/**/*.ipa'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'Version: $(GitVersion.FullSemVer)'
+        destinationType: 'groups'
+        distributionGroupId: '4e1f3353-3ae6-4b57-877f-686c94d9a7b8'
+      displayName: 'Deploy iOS to Testing via App Center'
+
+      # Deploy iOS to Staging
+    - task: AppCenterDistribute@3
+      condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        serverEndpoint: 'VSAC'
+        appSlug: 'TZM-Testing/MiBoKo-Staging'
+        appFile: '$(build.SourcesDirectory)/**/*.ipa'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'Version: $(GitVersion.FullSemVer)'
+        destinationType: 'groups'
+        distributionGroupId: 'a8a6c1ee-a70f-4cfb-af70-3c45aa6d31c9'
+      displayName: 'Deploy iOS to Staging via App Center'
+
+####################################################################################################
+#
+# Build Xamarin iOS App for Store and Testflight
+#
+####################################################################################################
+
+- stage: buildIosStore
+  displayName: 'iOS App for Store and Testflight'
+  # if: (release branch OR master branch) AND runIos
+  condition: and(eq(variables.runIos, true), or(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'), eq(variables['Build.SourceBranch'], 'refs/heads/master')))
+  dependsOn: []
+  pool:
+    vmImage: 'macOS-latest'
+  jobs:
+  - job: iOS
+
+    variables:
+      buildConfigurationIos: 'Release_iOS'
+      PathToIosPlist: 'ZeroGravity.Mobile/ZeroGravity.Mobile.iOS/Info.plist'
+
+    steps:
+    - task: InstallAppleCertificate@2
+      inputs:
+        certSecureFile: '$(p12FileName)'
+        certPwd: '$(p12Password)'
+        keychain: 'temp'
+
+    # Get provisioning profile for Store Provisioning
+    - task: InstallAppleProvisioningProfile@1
+      inputs:
+        provisioningProfileLocation: 'secureFiles'
+        provProfileSecureFile: '$(provisioningProfile)'
+
+    - task: gitversion/setup@0
+      inputs:
+        versionSpec: '5.x'
+
+    - task: gitversion/execute@0
+
+    - task: ExtractVersionFromTag@1
+      inputs:
+        projectFolderPath: '$(Build.SourcesDirectory)'
+
+    - task: UpdateiOSVersionInfoPlist@1
+      inputs:
+        infoPlistPath: '$(PathToIosPlist)'
+        bundleShortVersionString: '$(GitVersion.Major).$(GitVersion.Minor).$(GitVersion.Patch)'
+
+    - template: build/steps/get-environment-variables.yml@templates
+
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet Tool'
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '**/*.sln'
+      displayName: 'Restore NuGet packages'
+
+  # Set server Url of backend depending on branch we are on.
+    - task: PowerShell@2
+      displayName: 'Set Url to Staging'
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlStaging)'
+
+    - task: PowerShell@2
+      displayName: 'Set Url to Production'
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+      inputs:
+        filePath: './scripts/setBackendServerUrl.ps1'
+        arguments: '-projDirPath $(System.DefaultWorkingDirectory) -ServerUrl $(ServerUrlProduction)'
+
+    - task: XamariniOS@2
+      inputs:
+        solutionFile: '**/*.sln'
+        configuration: '$(buildConfigurationIos)'
+        packageApp: true
+        runNugetRestore: false
+        signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
+        signingProvisioningProfileID: '$(APPLE_PROV_PROFILE_UUID)'
+      displayName: 'Build Xamarin iOS'
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)'
+        Contents: '**/*.ipa'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        flattenFolders: true
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish Pipeline Artifacts'
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)'
+        artifact: 'MiBoKo_iOS'
+        publishLocation: 'pipeline'
+
+      # Deploy iOS to AppCenter Staging Store group
+      # TODO: until now it just uploads to AppCenter. Next step is automatic deployment to Testflight
+    - task: AppCenterDistribute@3
+      condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        serverEndpoint: 'VSAC'
+        appSlug: 'TZM-Testing/MiBoKo-Staging'
+        appFile: '$(build.SourcesDirectory)/**/*.ipa'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'Version: $(GitVersion.FullSemVer)'
+        destinationType: 'groups'
+        distributionGroupId: '554caf38-612e-4738-9239-8899a3d5d39e' # staging store group
+      displayName: 'Deploy iOS to Testflight via App Center'

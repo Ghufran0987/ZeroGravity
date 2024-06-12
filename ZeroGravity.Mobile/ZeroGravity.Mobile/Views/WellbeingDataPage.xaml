@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IWellbeingDataPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:resources1="clr-namespace:ZeroGravity.Mobile.Resources;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.WellbeingDataPage"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      xmlns:FFImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                         ShowGreyBackground="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:WellbeingRatingIconStringConverter x:Key="WellbeingRatingIconStringConverter" />
+            <converter:WellbeingRatingToStringConverter x:Key="WellbeingRatingToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <ScrollView  BackgroundColor="#E7E8EA">
+            <StackLayout>
+                <Grid RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <!--Top Margin-->
+                        <RowDefinition Height="20" />
+                        <!--Header-->
+                        <RowDefinition Height="Auto" />
+                        <!--Sub Header-->
+                        <RowDefinition Height="20" />
+                        <!--Top Margin from Image-->
+                        <RowDefinition Height="168" />
+
+                        <RowDefinition Height="Auto" />
+
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+
+                    <Image HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill" HeightRequest="250" WidthRequest="250" Source="{Binding WellbeingImageSource}" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Margin="0,-30" />
+
+                    <Label Grid.Column="1" Grid.Row="1" Text="{x:Static resources:AppResources.WellbeingData_Title}"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="36"
+                           TextColor="#B996C3"
+                           Style="{StaticResource HeadlineXl-Label}" />
+
+                    <Label Grid.Column="1" Grid.Row="2" Text="{x:Static resources:AppResources.WellbeingData_Subtitle}"
+                          HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource Byline-Label}" TextColor="#4F4F4F" />
+
+                    <!--<customControls:ZgMessageBox Grid.Column="1" Grid.Row="2"
+                                                 Style="{StaticResource MessageGray-ZgMessageBox}"
+                                                 Text="{Binding FastingData.Message}"
+                                                 IconText="&#xf845;"
+                                                 IsVisible="{Binding FastingData.ShowMessage}" />-->
+                    <shimmer:SfShimmer  Grid.Row="4" Grid.Column="1" HorizontalOptions="FillAndExpand" IsActive="{Binding ShowProgress}" Type="Shopping">
+                        <shimmer:SfShimmer.Content>
+                            <Grid  RowSpacing="8" ColumnSpacing="8" Margin="0,5" HorizontalOptions="FillAndExpand" VerticalOptions="Start">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition  Height="110" />
+                                    <RowDefinition  Height="110" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <RadioButton ControlTemplate="{StaticResource FramePurpleRadioTemplate}" Grid.Row="0" Grid.Column="0"  HeightRequest="110" WidthRequest="120" Value="{Binding WellbeingType.VeryBad}" IsChecked="{Binding WellbeingTypeVeryBad.IsChecked}">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf5b4;" HorizontalOptions="Start"
+                                       TextColor="#d61616" Margin="10"
+                                       FontSize="24" />
+                                            <Label Text="Very Bad" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" Margin="10,0,10,10" TextColor="#B996C3" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FramePurpleRadioTemplate}" Grid.Row="0" Grid.Column="1" HeightRequest="110" WidthRequest="120" Value="{Binding WellbeingType.Bad}" IsChecked="{Binding WellbeingTypeBad.IsChecked}">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf119;" HorizontalOptions="Start"
+                                       TextColor="#ff6c00" Margin="10"
+                                       FontSize="24" />
+                                            <Label Text="Bad" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" Margin="10,0,10,10" TextColor="#B996C3" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FramePurpleRadioTemplate}" Grid.Row="0" Grid.Column="2" HeightRequest="110" WidthRequest="120" Value="{Binding WellbeingType.NotSoGreat}" IsChecked="{Binding WellbeingTypeNotSo.IsChecked}">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf11a;" HorizontalOptions="Start" TextColor="#ffc200" FontSize="24"  Margin="10" />
+                                            <Label Text="Not that great" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" Margin="10,0,10,10" TextColor="#B996C3" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FramePurpleRadioTemplate}" Grid.Row="1" Grid.Column="0" HeightRequest="110" WidthRequest="120" Value="{Binding WellbeingType.Great}" IsChecked="{Binding WellbeingTypeGreat.IsChecked}">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf118;" HorizontalOptions="Start" TextColor="#c8dd15" FontSize="24"  Margin="10" />
+                                            <Label Text="Great" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" TextColor="#B996C3" Margin="10,0,10,10" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FramePurpleRadioTemplate}" Grid.Row="1" Grid.Column="1" HeightRequest="100" WidthRequest="120" Value="{Binding WellbeingType.Fantastic}" IsChecked="{Binding WellbeingTypeFantastic.IsChecked}">
+                                    <RadioButton.Content>
+                                        <StackLayout>
+                                            <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}"
+                                       Text="&#xf59a;" HorizontalOptions="Start" TextColor="#6bc43c" FontSize="24"  Margin="10" />
+                                            <Label Text="Fantastic" FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}" TextColor="#B996C3" Margin="10,0,10,10" VerticalOptions="EndAndExpand" HorizontalOptions="Start"     HorizontalTextAlignment="Start" />
+                                        </StackLayout>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </Grid>
+                        </shimmer:SfShimmer.Content>
+                    </shimmer:SfShimmer>
+                </Grid>
+
+                <!--Save-->
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_Save}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  Command="{Binding SaveWellbeingDataCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    <base:ContentPageBase.Overlay>
+        <shimmer:SfShimmer   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsActive="{Binding IsLoadingImageBusy}">
+            <shimmer:SfShimmer.CustomView>
+                <Grid Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <shimmer:ShimmerView Grid.Row="0" />
+                </Grid>
+            </shimmer:SfShimmer.CustomView>
+            <shimmer:SfShimmer.Content>
+                <Grid>
+                    <FFImage:CachedImage Source="{Binding Path=ProductImage}" Aspect="AspectFit"
+                                         CacheType="All" CacheDuration="1"
+                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                </Grid>
+            </shimmer:SfShimmer.Content>
+        </shimmer:SfShimmer>
+    </base:ContentPageBase.Overlay>
+</base:ContentPageBase>

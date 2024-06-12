@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+             xmlns:xForms="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgPageWrapper"
+             x:Name="Root">
+  <ContentView.ControlTemplate>
+      <ControlTemplate>
+          <Grid RowSpacing="0">
+              <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+
+              <Label Grid.Row="0"
+                     HeightRequest="1"
+                     BackgroundColor="{x:Static fonts:CustomColors.LightGray}"
+                     IsVisible="{Binding Source={x:Reference Root}, Path=ShowTopBorder}"/>
+
+              <ContentPresenter Grid.Row="1"
+                                Content="{Binding Source={x:Reference Root}, Path=Content}"/>
+
+              <Grid Grid.Row="1" 
+                    BackgroundColor="{x:Static fonts:CustomColors.White}"
+                    IsVisible="{Binding Source={x:Reference Root}, Path=ShowBusyIndicator}">
+                  <xForms:SfBusyIndicator IsBusy="{Binding Source={x:Reference Root}, Path=ShowBusyIndicator}"
+                                          Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+              </Grid>
+
+              <Label Grid.Row="2"
+                     HeightRequest="1"
+                     BackgroundColor="{x:Static fonts:CustomColors.LightGray}"
+                     IsVisible="{Binding Source={x:Reference Root}, Path=ShowBottomBorder}"/>
+
+            </Grid>
+      </ControlTemplate>
+  </ContentView.ControlTemplate>
+</ContentView>

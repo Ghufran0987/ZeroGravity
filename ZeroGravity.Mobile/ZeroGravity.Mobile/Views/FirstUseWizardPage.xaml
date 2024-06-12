@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IFirstUseWizardPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:rotator="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+                      xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:views="clr-namespace:ZeroGravity.Mobile.Views;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.FirstUseWizardPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="20" VerticalOptions="StartAndExpand">
+                <StackLayout IsVisible="{Binding IsFirstWizwardPage}">
+                    <Label
+                        Text="{x:Static resources:AppResources.FirstUseWizard_Greeting_Title}"
+                        TextColor="Black"
+                        Style="{StaticResource CustomLabelFontStyleBold}" FontSize="30" />
+
+                    <Label
+                        Text="{x:Static resources:AppResources.FirstUseWizard_Greeting_Description}"
+                        TextColor="Gray"
+                        Style="{StaticResource CustomLabelFontStyleBold}" FontSize="18" />
+
+                    <Label HeightRequest="2" BackgroundColor="LightGray" Margin="0, 10" />
+                </StackLayout>
+
+
+                <rotator:SfRotator x:Name="WizardRotator"
+                                   BackgroundColor="Transparent" NavigationStripPosition="Bottom"
+                                   SelectedDotColor="DeepPink"
+                                   DotsBorderColor="DeepPink" EnableSwiping="False">
+
+                    <rotator:SfRotator.DataSource>
+                        <ListCollection:List x:TypeArguments="rotator:SfRotatorItem">
+                            <rotator:SfRotatorItem>
+                                <rotator:SfRotatorItem.ItemContent>
+                                    <views:PersonalDataPage x:Name="PersonalDataPage" />
+                                </rotator:SfRotatorItem.ItemContent>
+                            </rotator:SfRotatorItem>
+                            <rotator:SfRotatorItem>
+                                <rotator:SfRotatorItem.ItemContent>
+                                    <views:DietPreferencesPage x:Name="DietPreferencesPage" />
+                                </rotator:SfRotatorItem.ItemContent>
+                            </rotator:SfRotatorItem>
+                            <rotator:SfRotatorItem>
+                                <rotator:SfRotatorItem.ItemContent>
+                                    <views:MedicalPreConditionsPage x:Name="MedicalPreConditionsPage" />
+                                </rotator:SfRotatorItem.ItemContent>
+                            </rotator:SfRotatorItem>
+                            <rotator:SfRotatorItem>
+                                <rotator:SfRotatorItem.ItemContent>
+                                    <views:PersonalGoalsPage x:Name="PersonalGoalsPage" />
+                                </rotator:SfRotatorItem.ItemContent>
+                            </rotator:SfRotatorItem>
+                        </ListCollection:List>
+                    </rotator:SfRotator.DataSource>
+                </rotator:SfRotator>
+
+
+                <Button Text="{Binding ButtonText}"
+                        Command="{Binding Path=NextWizardStepCommand}"
+                        CommandParameter="{x:Reference WizardRotator}"
+                        BackgroundColor="DeepPink"
+                        TextColor="White"
+                        HeightRequest="60" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

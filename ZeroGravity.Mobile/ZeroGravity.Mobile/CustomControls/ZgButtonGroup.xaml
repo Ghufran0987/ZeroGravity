@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgButtonGroup"
+             x:Name="This">
+    <ContentView.Content>
+        <Frame HasShadow="False"
+               CornerRadius="{Binding Source={x:Reference This}, Path=CornerRadius}"
+               Background="Transparent"
+               Padding="0"
+               Margin="0,20">
+            <ScrollView Orientation="Horizontal">
+                <FlexLayout BindableLayout.ItemsSource="{Binding Source={x:Reference This}, Path=ItemsSource}"
+                            AlignItems="Center"
+                            JustifyContent="SpaceBetween"
+                            Direction="Row"
+                            FlowDirection="LeftToRight"
+                            Wrap="NoWrap">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalOptions="FillAndExpand"
+                                  VerticalOptions="FillAndExpand"
+                                  FlexLayout.Basis="{Binding Source={x:Reference This}, Path=FlexLayoutBasis}">
+                                <Label Text="{Binding Label}" 
+                                       VerticalTextAlignment="Center" 
+                                       HorizontalTextAlignment="Center"
+                                       TextColor="{Binding Source={x:Reference This}, Path=InactiveTextColor}"
+                                       BackgroundColor="{Binding Source={x:Reference This}, Path=InactiveBackgroundColor}"
+                                       Padding="{Binding Source={x:Reference This}, Path=LabelPadding}"
+                                       FontFamily="{Binding Source={x:Reference This}, Path=FontFamily}"
+                                       FontSize="{Binding Source={x:Reference This}, Path=FontSize}">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Source={x:Reference HiddenRadioButton}, Path=IsChecked}"
+                                                     Value="True">
+                                            <Setter Property="Label.TextColor" Value="{Binding Source={x:Reference This}, Path=ActiveTextColor}" />
+                                            <Setter Property="Label.BackgroundColor" Value="{Binding Source={x:Reference This}, Path=ActiveBackgroundColor}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <buttons:SfRadioButton GroupKey="{Binding Source={x:Reference This}, Path=Group}"
+                                                       IsChecked="{Binding IsChecked}"
+                                                       IsVisible="False"
+                                                       x:Name="HiddenRadioButton">
+                                </buttons:SfRadioButton>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnTapped" />
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </ScrollView>
+
+
+        </Frame>
+    </ContentView.Content>
+</ContentView>

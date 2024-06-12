@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IWizardStep4Page"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.WizardStep4Page"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <buttons:SfRadioGroupKey x:Key="DietPreferenceOptions" />
+            <converter:NullVisibilityConverter x:Key="NullVisibilityConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0" Orientation="Vertical">
+                <StackLayout>
+                    <Image Source="{Binding LogoImageSource}" />
+
+                    <Label Text="Your diet"
+                    Style="{StaticResource HeadlineXl-Label}"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center" />
+
+                    <Label Text="What are your dietary preferences?"
+                           Style="{StaticResource Byline-Label}"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center" />
+
+                    <borders:SfBorder CornerRadius="6" BackgroundColor="#F2F2F2" Margin="20" BorderWidth="0"
+                                      IsVisible="{Binding DietPreferencesProxy, Converter={StaticResource NullVisibilityConverter}}">
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Text="{x:Static resources:AppResources.DietPreferences_Title}" Margin="10,20" FontSize="18" FontAttributes="Bold"  TextColor="#4F4F4F" FontFamily="OpenSans"/>
+
+                            <Grid Margin="10,0" Grid.Row="1" RowSpacing="10" ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="105" />
+                                    <RowDefinition Height="105" />
+                                    <RowDefinition Height="105" />
+                                </Grid.RowDefinitions>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" IsChecked="True" Grid.Row="0" Grid.Column="0">
+                                    <RadioButton.Content>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="1"
+                                                FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="0"
+                                                Text="{x:Static resources:AppResources.DietPreferences_Standart_Title}"
+                                                HorizontalOptions="Start" VerticalOptions="End"
+                                                TextColor="#FF5869" />
+                                            <Label Grid.Row="2"
+                                                   Text="{x:Static resources:AppResources.DietPreferences_Standart_Description}"
+                                                   TextColor="#FF5869" VerticalOptions="FillAndExpand" HorizontalTextAlignment="Start"
+                                                   HorizontalOptions="Start"
+                                                   FontFamily="{x:Static fonts:CustomFontName.AvenirNextMedium}" />
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="0" Grid.Column="1" HeightRequest="100" WidthRequest="150">
+                                    <RadioButton.Content>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="1"
+                                                 FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="0"  FontAttributes="Bold"
+                                                Text="{x:Static resources:AppResources.DietPreferences_Pescetarian_Title}"
+                                                HorizontalOptions="Start" VerticalOptions="End"
+                                                TextColor="#FF5869" />
+                                            <Label Grid.Row="2"
+                                                   Text="{x:Static resources:AppResources.DietPreferences_Pescetarian_Description}"
+                                                   TextColor="#FF5869" VerticalOptions="EndAndExpand"
+                                                   FontFamily="{x:Static fonts:CustomFontName.AvenirNextMedium}" />
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="1" Grid.Column="0">
+                                    <RadioButton.Content>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="1"
+                                                 FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="0"  FontAttributes="Bold"
+                                                Text="{x:Static resources:AppResources.DietPreferences_Vegetarian_Title}"
+                                                HorizontalOptions="Start"
+                                                TextColor="#FF5869" />
+                                            <Label Grid.Row="2"
+                                                   Text="{x:Static resources:AppResources.DietPreferences_Vegetarian_Description}"
+                                                   TextColor="#FF5869" VerticalOptions="EndAndExpand"
+                                                   FontFamily="{x:Static fonts:CustomFontName.AvenirNextMedium}" />
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="1" Grid.Column="1">
+                                    <RadioButton.Content>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="1"
+                                                 FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="0"  FontAttributes="Bold"
+                                                Text="{x:Static resources:AppResources.DietPreferences_LactoVegetarian_Title}"
+                                                HorizontalOptions="Start"
+                                                TextColor="#FF5869" />
+                                            <Label Grid.Row="2"
+                                                   Text="{x:Static resources:AppResources.DietPreferences_LactoVegetarian_Description}"
+                                                   TextColor="#FF5869" VerticalOptions="EndAndExpand"
+                                                   FontFamily="{x:Static fonts:CustomFontName.AvenirNextMedium}" />
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="2" Grid.Column="0">
+                                    <RadioButton.Content>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="1"
+                                                 FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="0"  FontAttributes="Bold"
+                                                Text="{x:Static resources:AppResources.DietPreferences_OvoVegetarian_Title}"
+                                                HorizontalOptions="Start"
+                                                TextColor="#FF5869" />
+                                            <Label Grid.Row="2"
+                                                   Text="{x:Static resources:AppResources.DietPreferences_OvoVegetarian_Description}"
+                                                   TextColor="#FF5869" VerticalOptions="EndAndExpand"
+                                                   FontFamily="{x:Static fonts:CustomFontName.AvenirNextMedium}" />
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+
+                                <RadioButton ControlTemplate="{StaticResource FrameRadioTemplate}" Grid.Row="2" Grid.Column="1">
+                                    <RadioButton.Content>
+                                        <Grid Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                                <RowDefinition Height="Auto"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <Label Grid.Row="1"
+                                                 FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                                                Margin="0"  FontAttributes="Bold"
+                                                Text="{x:Static resources:AppResources.DietPreferences_Vegan_Title}"
+                                                HorizontalOptions="Start"
+                                                TextColor="#FF5869" />
+                                            <Label Grid.Row="2"
+                                                   Text="{x:Static resources:AppResources.DietPreferences_Vegan_Description}"
+                                                   TextColor="#FF5869" VerticalOptions="EndAndExpand" HorizontalOptions="Start"
+                                                   FontFamily="{x:Static fonts:CustomFontName.AvenirNextMedium}" />
+                                        </Grid>
+                                    </RadioButton.Content>
+                                </RadioButton>
+                            </Grid>
+                        </Grid>
+                    </borders:SfBorder>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout BackgroundColor="#FFF" Grid.Row="1">
+                <!--<customControls:ZgButton Text="{x:Static resources:AppResources.Button_ContinueSkip}"                                                             Margin="20,10"
+                                                 Command="{Binding Path=WizardStep4SaveDataCommand}"
+                                                 Style="{StaticResource FullWidthButton-ZgButton}" />-->
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_ContinueSkip}"
+                                          Margin="15,10"
+                                  Style="{x:StaticResource SaveButton}"
+                                  Command="{Binding WizardStep4SaveDataCommand}" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

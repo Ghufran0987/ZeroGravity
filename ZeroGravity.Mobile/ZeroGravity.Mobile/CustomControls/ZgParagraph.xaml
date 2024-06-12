@@ -1,0 +1,22 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgParagraph"
+             x:Name="Root">
+    <ContentView.Content>
+        <Label FontFamily="{Binding Source={x:Reference Root}, Path=FontFamily}"
+               FontSize="{Binding Source={x:Reference Root}, Path=FontSize}"
+               LineHeight="1"
+               TextColor="{Binding Source={x:Reference Root}, Path=TextColor}"
+               LineBreakMode="WordWrap"
+               HorizontalTextAlignment="{Binding Source={x:Reference Root}, Path=HorizontalTextAlignment}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span LineHeight="{Binding Source={x:Reference Root}, Path=LineHeight}"
+                          Text="{Binding Source={x:Reference Root}, Path=Text}" 
+                          TextDecorations="{Binding Source={x:Reference Root}, Path=TextDecoration}"
+                          FontAttributes="{Binding Source={x:Reference Root}, Path=FontAttribute}"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </ContentView.Content>
+</ContentView>

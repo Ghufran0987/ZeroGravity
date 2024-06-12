@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:INoInternetConnectionPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:resx="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.NoInternetConnectionPage"
+                      BackgroundColor="{x:Static fonts:CustomColors.White}"
+                      NavigationPage.HasNavigationBar="False"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0,30,0,0" Spacing="15" VerticalOptions="Center">
+
+                    <Label Text="{x:Static resx:AppResources.Common_Connectivity_Message_NoInternet}"
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource HeadlineM-Label}" />
+
+                    <customControls:ZgButton Text="{x:Static resx:AppResources.Button_Retry}"
+                                             Command="{Binding GoBackCommand}"
+                                             Style="{StaticResource WhiteButton-ZgButton}"
+                                             IconUnicode="&#xf363;"
+                                             Margin="35, 0, 35, 20" />
+
+                </StackLayout>
+
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

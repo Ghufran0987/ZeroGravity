@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IAccountDeletePage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.AccountDeletePage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0,30,0,0" Spacing="15">
+
+                    <Label Text="{x:Static resources:AppResources.Account_Delete_Warning_Label}"
+                           Style="{StaticResource HeadlineM-Label}" />
+
+
+                    <!--info box-->
+                    <Grid Margin="30, 10, 30, 0" 
+                          BackgroundColor="{x:Static fonts:CustomColors.Red}">
+                        <Label Text="{x:Static resources:AppResources.Account_Delete_Warning_Text}"
+                               TextColor="{x:Static fonts:CustomColors.White}"
+                               FontSize="18"
+                               Margin="30"
+                               HorizontalTextAlignment="Center"
+                               Style="{StaticResource HeadlineS-Label}" />
+                    </Grid>
+
+                    <Label Style="{StaticResource Separator-Label}" />
+
+
+                    <Label Text="{x:Static resources:AppResources.Enter_Password_Continue_Label}"
+                           Style="{StaticResource HeadlineM-Label}" />
+
+                    <!--password input-->
+                    <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                  Label="{x:Static resources:AppResources.Password_Capitals}"
+                                                  BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                  BorderWidth="0.5"
+                                                  HighlightColor="{x:Static fonts:CustomColors.Pink}"
+                                                  UseHighlighting="True">
+                        <customControls:ZgEntry Keyboard="Default" Text="{Binding Password}"
+                                                IsPassword="True"
+                                                Style="{StaticResource InputEntry-ZgEntry}" />
+                    </customControls:ZgInputLayout>
+
+                </StackLayout>
+
+            </ScrollView>
+
+            <!--"sticky" Delete button-->
+            <customControls:ZgButton Grid.Row="1"
+                                     Text="{x:Static resources:AppResources.Account_Delete_Forever}"
+                                     Margin="0,30,0,0"
+                                     HorizontalTextAlignment="Center"
+                                     Command="{Binding Path=DeleteAccountForeverCommand}"
+                                     Style="{StaticResource FullWidthButton-ZgButton}"
+                                     ButtonColor="{x:Static fonts:CustomColors.Pink}" />
+
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

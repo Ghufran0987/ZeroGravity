@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IActivitiesPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms1="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+                      xmlns:xForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:resources1="clr-namespace:ZeroGravity.Mobile.Resources;assembly=ZeroGravity.Mobile"
+                      xmlns:timepicker="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:borders1="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
+                      xmlns:richtexteditor="clr-namespace:Syncfusion.XForms.RichTextEditor;assembly=Syncfusion.SfRichTextEditor.XForms"
+                      xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+                      xmlns:FFImage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                      x:Class="ZeroGravity.Mobile.Views.ActivitiesPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      x:Name="Page"
+                      ShowTopBorder="True"
+                         ShowGreyBackground="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:IntegrationTypeToIconStringConverter x:Key="IntegrationTypeToIconStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <ScrollView Grid.Row="0" BackgroundColor="#E0E0E0">
+            <StackLayout>
+                <Grid RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <!--Top Margin-->
+                        <RowDefinition Height="20" />
+                        <!--Header-->
+                        <RowDefinition Height="Auto" />
+                        <!--Sub Header-->
+                        <RowDefinition Height="Auto" />
+                        <!--Top Margin from Image-->
+                        <RowDefinition Height="230" />
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="Auto" />
+                        <!--Bottom Margin-->
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="10" />
+                    </Grid.RowDefinitions>
+
+                    <Image HorizontalOptions="Center" VerticalOptions="Start" Aspect="AspectFill" HeightRequest="250" WidthRequest="250" Source="{Binding ActivitiesImageSource}" Grid.Row="2" Grid.Column="1" Grid.RowSpan="3" Margin="0,-10" />
+
+                    <Label Grid.Column="1" Grid.Row="1" Text="{x:Static resources:AppResources.Activities_Title}"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="36"
+                           TextColor="#319C8A"
+                           Style="{StaticResource HeadlineXl-Label}" />
+
+                    <Label Grid.Column="1" Grid.Row="2" Text="How active were you today?"
+                          HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource Byline-Label}" TextColor="#4F4F4F" />
+
+                    <Label Grid.Column="1" Grid.Row="4"  Text="How long were you active?"
+                           FontFamily="{x:Static fonts:CustomFontName.OpenSanBold}"
+                           TextColor="#319C8A" FontAttributes="Bold" FontSize="14" />
+
+                    <Grid Grid.Row="5" Grid.Column="1"  Margin="0,15"  ColumnSpacing="4" RowSpacing="8" HorizontalOptions="Fill" VerticalOptions="Start">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Enter a duration : SLider-->
+                        <borders:SfBorder HeightRequest="115" WidthRequest="150"  Grid.Row="0" Grid.Column="0" BackgroundColor="#FFF" CornerRadius="6" BorderWidth="0">
+
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition  Height="*" />
+                                    <RowDefinition  Height="40" />
+                                    <RowDefinition  Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Grid.ColumnSpan="4" Text="Enter a duration" TextColor="#319C8A" Margin="0" HorizontalOptions="Start" VerticalOptions="Start"  FontSize="14" FontAttributes="Bold" ></Label>
+
+                                <borders:SfBorder  Grid.Row="1" Grid.Column="1" CornerRadius="6" BorderColor="#319C8A" HorizontalOptions="Center" VerticalOptions="FillAndExpand" WidthRequest="40">
+                                    <borders1:SfNumericTextBox  Maximum="23" Minimum="0" Margin="0,-2" TextAlignment="Center" TextColor="#319C8A" FontSize="20"   MaximumNumberDecimalDigits="0" Watermark="0" WatermarkColor="Gray" VerticalOptions="Center" BorderColor="White" Value="{Binding DurationHr}" />
+                                </borders:SfBorder>
+
+                                <borders:SfBorder  Grid.Row="1" Grid.Column="2" CornerRadius="6" BorderColor="#319C8A" HorizontalOptions="Center" VerticalOptions="FillAndExpand" WidthRequest="40">
+                                    <borders1:SfNumericTextBox  Maximum="59" Minimum="0" Margin="0,-2" TextAlignment="Center" TextColor="#319C8A" FontSize="20"   MaximumNumberDecimalDigits="0" Watermark="0" WatermarkColor="Gray" VerticalOptions="Center" BorderColor="White" Value="{Binding DurationMin}" />
+                                </borders:SfBorder>
+
+                                <Label Grid.Row="2" Grid.Column="1" Text="Hrs" TextColor="#319C8A" FontSize="12" HorizontalOptions="Center" VerticalOptions="FillAndExpand"></Label>
+                                <Label Grid.Row="2" Grid.Column="2" Text="Mins" TextColor="#319C8A" FontSize="12" HorizontalOptions="Center" VerticalOptions="FillAndExpand"></Label>
+                            </Grid>
+                        </borders:SfBorder>
+
+                        <!--Sync-->
+                        <borders:SfBorder HeightRequest="80" WidthRequest="150"  Grid.Row="0" Grid.Column="2" BackgroundColor="#BDBDBD" CornerRadius="6" BorderWidth="0">
+                            <Label Text="Or Sync to a device" TextColor="#FFF" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"   FontSize="14" FontAttributes="Bold" ></Label>
+                        </borders:SfBorder>
+
+                        <borders:SfBorder HeightRequest="80" WidthRequest="150"   Grid.Row="1" Grid.Column="0" BackgroundColor="#FFF" CornerRadius="6" BorderWidth="0">
+                            <StackLayout Orientation="Vertical" Margin="10">
+
+                                <Label Text="{x:Static resources:AppResources.Activities_TypeOfActivity}" TextColor="#319C8A"   FontSize="14" FontAttributes="Bold"></Label>
+                                <!--<customControls:ZgEditor Text="{Binding Path=ExerciseActivityProxy.Name}" Placeholder="For Example, type in walking"
+                                                            Style="{StaticResource InputEntry-ZgEntry}" HeightRequest="50" />-->
+                                <richtexteditor:SfRichTextEditor VerticalOptions="FillAndExpand" Text="{Binding ExerciseActivityProxy.Name}" PlaceHolder="For example, type in walking" ShowToolbar="False"
+                                                                 HeightRequest="50" DefaultFont="{x:Static fonts:CustomFontName.OpenSanLight}" PlaceHolderFontFamily="{x:Static fonts:CustomFontName.OpenSanLight}" Margin="0" />
+                            </StackLayout>
+                        </borders:SfBorder>
+
+                        <borders:SfBorder HeightRequest="80" WidthRequest="150" Grid.Row="1" Grid.Column="2" BackgroundColor="#FFF" CornerRadius="6" BorderWidth="0">
+                            <StackLayout Orientation="Vertical" Margin="10">
+
+                                <Label Text="{x:Static resources:AppResources.Activities_Time}" TextColor="#319C8A"  FontSize="14" FontAttributes="Bold"></Label>
+                                <customControls:ZgTimePicker Style="{StaticResource InputTime-ZgTimePicker}" FontSize="32"
+                                                             Time="{Binding ExerciseActivityProxy.ExerciseTime}"
+                                                             Format="{Binding Converter={converter:TimeDisplayTypeConverter}}" TextColor="#319C8A" />
+                            </StackLayout>
+                        </borders:SfBorder>
+
+                        <borders:SfBorder HeightRequest="80" WidthRequest="150" Grid.Row="2" Grid.Column="0" BackgroundColor="#FFF" CornerRadius="6" BorderWidth="0">
+                            <StackLayout Orientation="Vertical" Margin="10" VerticalOptions="FillAndExpand">
+                                <Label Text="{x:Static resources:AppResources.Activities_Intensity}" TextColor="#319C8A"    FontSize="14" FontAttributes="Bold"></Label>
+                                <borders:SfBorder HeightRequest="40" BackgroundColor="#E0E0E0" CornerRadius="6" BorderWidth="0" VerticalOptions="End" Margin="0,20,0,0">
+
+                                    <customControls:ZgPicker ItemsSource="{Binding Path=IntensitySource}"
+                                                         ItemDisplayBinding="{Binding Text}"
+                                                         TextColor="#319C8A" BackgroundColor="#E0E0E0"
+                                                         FontAttributes="Bold"
+                                                         Padding="5"
+                                                         Margin="5"
+                                                         HorizontalTextAlignment="Center"
+                                                         SelectedIndex="{Binding Path=ExerciseActivityProxy.SelectedIntensityIndex}"
+                                                         Title="{x:Static resources:AppResources.Activities_Intensity}"
+                                                         Style="{StaticResource InputPicker-ZgPicker}" />
+                                </borders:SfBorder>
+                            </StackLayout>
+                        </borders:SfBorder>
+
+                        <borders:SfBorder HeightRequest="80" WidthRequest="150"  Grid.Row="2" Grid.Column="2" BackgroundColor="#319C8A" CornerRadius="6" BorderWidth="0">
+                            <StackLayout Orientation="Vertical" Margin="10">
+
+                                <Label Text="{x:Static resources:AppResources.Activities_SummaryText}" TextColor="#FFF"   FontSize="14" FontAttributes="Bold" ></Label>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition  Height="Auto" />
+                                        <RowDefinition  Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Column="1" Grid.Row="0" Text="{Binding SummaryTextHr}" TextColor="#FFF" FontSize="32" Margin="0,-5" HorizontalTextAlignment="Center"></Label>
+                                    <Label Grid.Column="2" Grid.Row="0" Text="{Binding SummaryTextMin}" TextColor="#FFF" FontSize="32" Margin="0,-5" HorizontalTextAlignment="Center"></Label>
+
+                                    <Label  Grid.Column="1" Grid.Row="2"  Text="Hrs" TextColor="#FFF" FontSize="12" Margin="0,-5" FontFamily="{x:Static fonts:CustomFontName.OpenSanMedium}" HorizontalTextAlignment="Center"></Label>
+                                    <Label Grid.Column="2" Grid.Row="2" Text="Mins" TextColor="#FFF" FontSize="12" Margin="0,-5" FontFamily="{x:Static fonts:CustomFontName.OpenSanMedium}" HorizontalTextAlignment="Center"></Label>
+                                </Grid>
+                            </StackLayout>
+                        </borders:SfBorder>
+                    </Grid>
+
+                    <!--<borders:SfBorder HeightRequest="110" WidthRequest="170"  Grid.Row="0" Grid.Column="2"  BackgroundColor="#FFF" CornerRadius="6" Margin="0"  HasShadow="False" ShadowColor="Red" BorderWidth="0">
+                            <StackLayout Orientation="Vertical" Margin="10" VerticalOptions="FillAndExpand">
+                                <Label Text="{Binding EndsAtText}" TextColor="#FF5869" MaxLines="1" LineBreakMode="TailTruncation"></Label>
+                                <customControls:ZgTimePicker Margin="0,30"
+                                                         Time="{Binding FastingEndDateTime}"
+                                                             HorizontalOptions="Start"
+                                                             FontFamily="{x:Static fonts:CustomFontName.OpenSanLight}"
+                                                         Format="{Binding Converter={converter:TimeDisplayTypeConverter}}"
+                                    TextColor="#FF5869" FontSize="32" VerticalOptions="End" />
+                            </StackLayout>
+                        </borders:SfBorder>-->
+                </Grid>
+
+                <!--Save-->
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_Save}"
+                                  CornerRadius="30"
+                                  HorizontalOptions="Center"
+                                  Margin="10"
+                                  BackgroundColor="#319C8A"
+                                  TextColor="#FFF"
+                                  WidthRequest="140"
+                                  HeightRequest="40"
+                                  IsVisible="{Binding IsManual}"
+                                  Command="{Binding SaveCommand}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+    <base:ContentPageBase.Overlay>
+        <shimmer:SfShimmer   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" IsActive="{Binding IsLoadingImageBusy}">
+            <shimmer:SfShimmer.CustomView>
+                <Grid Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <shimmer:ShimmerView Grid.Row="0" />
+                </Grid>
+            </shimmer:SfShimmer.CustomView>
+            <shimmer:SfShimmer.Content>
+                <Grid>
+                    <FFImage:CachedImage Source="{Binding Path=ProductImage}" Aspect="AspectFit"
+                                         CacheType="All" CacheDuration="1"
+                                         HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                </Grid>
+            </shimmer:SfShimmer.Content>
+        </shimmer:SfShimmer>
+    </base:ContentPageBase.Overlay>
+</base:ContentPageBase>

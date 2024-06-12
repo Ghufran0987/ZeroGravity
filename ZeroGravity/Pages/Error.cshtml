@@ -1,0 +1,9 @@
+﻿@page "{message?}"
+@using ZeroGravity.Shared.Models
+@model ZeroGravity.Pages.ErrorModel
+
+<h1 class="headlineLG">@Model.StringLocalizer[MessageType.Error.Title]</h1>
+<p>@Model.Message</p>
+
+@{
+}

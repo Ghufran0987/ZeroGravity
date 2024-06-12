@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentViewBase x:TypeArguments="page:IProfileImagePage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+                      xmlns:sfAvatarView="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:system="clr-namespace:System;assembly=netstandard"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.ProfileImagePage"
+                      mvvm:ViewModelLocator.AutowireViewModel="true"
+                      BackgroundColor="Transparent"
+                      >
+
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <sfAvatarView:SfAvatarView Grid.Column="0"
+                                       Grid.Row="0"
+                                       AvatarSize="Medium"
+                                       ContentType="Default"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="Center"
+                                       AvatarShape="Circle"
+                                       BorderColor="#FF5869"
+                                       BackgroundColor="Transparent"
+                                       InitialsColor="#FF5869"
+                                       ImageSource="{Binding Image}">
+
+
+                <sfAvatarView:SfAvatarView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding Path=ProfilePageCommand}" />
+                </sfAvatarView:SfAvatarView.GestureRecognizers>
+            </sfAvatarView:SfAvatarView>
+
+            <badge:SfBadgeView Grid.Column="2" Grid.Row="0" BadgeText="{Binding BadgeText}" VerticalOptions="Center"
+                               x:Name="NotificationBadge" IsVisible="False">
+                <badge:SfBadgeView.Content>
+                    <!--<Image VerticalOptions="Center">
+                        <Image.Source>
+                            <svg:SvgImageSource Source="bell.svg" Height="22" />
+                        </Image.Source>
+                    </Image>-->
+                    <Label FontFamily="{x:Static fonts:CustomFontName.FaLight300}" Text="&#xf0f3;" FontSize="22"
+                           TextColor="#072330" VerticalTextAlignment="Center" />
+                </badge:SfBadgeView.Content>
+                <badge:SfBadgeView.BadgeSettings>
+                    <badge:BadgeSetting BadgePosition="TopRight" BadgeType="None" BackgroundColor="DeepPink"
+                                        BadgeAlignment="Center">
+                        <badge:BadgeSetting.FontSize>
+                            <OnPlatform x:TypeArguments="system:Double" iOS="1" />
+                        </badge:BadgeSetting.FontSize>
+                    </badge:BadgeSetting>
+                </badge:SfBadgeView.BadgeSettings>
+                <badge:SfBadgeView.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NotificationPageCommand}" />
+                </badge:SfBadgeView.GestureRecognizers>
+            </badge:SfBadgeView>
+        </Grid>
+
+
+    </ContentView.Content>
+</base:ContentViewBase>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.Examples.BubbleViewExample"
+             Title="BubbleView Example"
+             BackgroundColor="White">
+
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <customControls:BubbleView Command="{Binding PushCommand}"
+                             WidthRequest="200"
+                             HeightRequest="200"
+                             ButtonColor="Orange"
+                             ButtonRotationAngle="30"
+                             ButtonRadiusX="80"
+                             ButtonRadiusY="60"
+                             BadgeColor="Red"
+                             BadgeBounds="0.82, 0.73, 40, 40"
+                             BadgePositionX="0.82"
+                             BadgePositionY="0.73"
+                             BadgeCornerRadius="60"
+                             BadgeWidth="40"
+                             BadgeHeight="40"
+                             ShowBadge="True">
+            <customControls:BubbleView.ButtonContent>
+                <Label Text="Push" />
+            </customControls:BubbleView.ButtonContent>
+
+            <customControls:BubbleView.BadgeContent>
+                <Label Text="2" TextColor="Black" 
+                       VerticalOptions="Center" HorizontalOptions="Center"/>
+            </customControls:BubbleView.BadgeContent>
+        </customControls:BubbleView>
+
+    </StackLayout>
+</ContentPage>

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IWizardStep3Page"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:converter="clr-namespace:ZeroGravity.Mobile.Contract.Helper.Converter;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      x:Class="ZeroGravity.Mobile.Views.WizardStep3Page"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="False"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceToColorConverter x:Key="ImageSourceToColorConverter" />
+            <converter:ImageSourceToNegatedBooleanConverter x:Key="ImageSourceToNegatedBooleanConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0, 30, 0 ,30">
+
+                    <!--<Image Source="{Binding LogoImageSource}" />-->
+
+                    <Label Text="{x:Static resources:AppResources.WizardImageSelection_Title}"
+                           Style="{StaticResource HeadlineXl-Label}" />
+
+                    <!--<Label Grid.Row="2" Text="You can (Optionally) upload a picture for your profile."
+                        Style="{StaticResource Byline-Label}"
+                    HorizontalTextAlignment="Center" />-->
+
+                    <Grid Margin="30,30,30,0"
+                          BackgroundColor="{Binding ProfileImage, Converter={StaticResource ImageSourceToColorConverter}}">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=WizardStep3PickPictureCommand}" />
+                        </Grid.GestureRecognizers>
+
+                        <Image Grid.Row="0" Source="{Binding ProfileImage}"
+                               HeightRequest="{Binding Source={x:Reference Image}, Path=Width}"
+                               x:Name="Image" />
+                        <StackLayout  Grid.Row="0"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="20"
+                                     IsVisible="{Binding ProfileImage, Converter={StaticResource ImageSourceToNegatedBooleanConverter}}">
+                            <Label Text="&#xf0ee;"
+                                   TextColor="{x:Static fonts:CustomColors.White}"
+                                   FontSize="70"
+                                   Style="{StaticResource BubbleIcon-Label}" />
+
+                            <Label Text="{x:Static resources:AppResources.WizardImageSelection_Select}"
+                                   Style="{StaticResource Byline-Label}"
+                                   TextColor="#006298" />
+                        </StackLayout>
+                        <!--<Frame  HeightRequest="200" Grid.Row="0" CornerRadius="5" HasShadow="True" BackgroundColor="#C8C8C8">
+                        </Frame>-->
+                    </Grid>
+
+                    <StackLayout VerticalOptions="EndAndExpand">
+
+                        <!--<customControls:ZgButton Text="{x:Static resources:AppResources.Button_ContinueSkip}"                                                     Margin="20,10"
+                                                 Command="{Binding Path=WizardStep3SaveDataCommand}"
+                                                 Style="{StaticResource FulllWidthButton-ZgButton}" />-->
+
+                        <buttons:SfButton Text="{x:Static resources:AppResources.Button_ContinueSkip}"
+                                          Margin="15,10"
+                                  Style="{x:StaticResource SaveButton}"
+                                  Command="{Binding WizardStep3SaveDataCommand}" />
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

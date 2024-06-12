@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:extensions="clr-namespace:ZeroGravity.Mobile.Extensions;assembly=ZeroGravity.Mobile"
+             x:Class="ZeroGravity.Mobile.CustomControls.ZgJaggedIcon"
+             x:Name="This">
+  <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Image Grid.Column="1" 
+                   Source="{extensions:ImageSource ZeroGravity.Mobile.Resources.Images.jagged_circle.png}"
+                   HeightRequest="{Binding Source={x:Reference Image}, Path=Width}"
+                   x:Name="Image"/>
+
+            <Label Grid.Column="1"
+                   Text="{Binding Source={x:Reference This}, Path=Text}"
+                   TextColor="{Binding Source={x:Reference This}, Path=TextColor}"
+                   FontFamily="{Binding Source={x:Reference This}, Path=FontFamily}"
+                   FontSize="{Binding Source={x:Reference This}, Path=FontSize}"
+                   LineHeight="{Binding Source={x:Reference This}, Path=LineHeight}"
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center"/>
+        </Grid>
+  </ContentView.Content>
+</ContentView>

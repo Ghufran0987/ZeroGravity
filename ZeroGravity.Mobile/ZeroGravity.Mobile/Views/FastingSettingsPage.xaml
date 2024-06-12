@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IFastingSettingsPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+                      xmlns:mvvm="http://prismlibrary.com"
+                      xmlns:svg="clr-namespace:Xamarin.Forms.Svg;assembly=SvgImageSource"
+                      x:Class="ZeroGravity.Mobile.Views.FastingSettingsPage"
+                      mvvm:ViewModelLocator.AutowireViewModel="True"
+                      ShowTopBorder="True"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HorizontalOptions="Start" VerticalOptions="Start" Margin="0,30,0,0">
+                <Label
+                    Text="{x:Static resources:AppResources.FastingSetting_Title}"
+                    TextColor="Black"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource CustomLabelFontStyleBold}" FontSize="28" />
+
+                <Label
+                    Text="{x:Static resources:AppResources.FastingSetting_Subtitle}"
+                    TextColor="LightGray"
+                    VerticalTextAlignment="Center"
+                    HorizontalTextAlignment="Center" />
+
+                <StackLayout Margin="30,10,30,30">
+                    <buttons:SfButton Text="{x:Static resources:AppResources.FastingSetting_SkipBreakfast}"
+                                      ShowIcon="True" 
+                                      IsCheckable="True"
+                                      HeightRequest="60"
+                                      CornerRadius="5"
+                                      IsChecked="{Binding FastingSettingProxy.SkipBreakfast}">
+                        <buttons:SfButton.ImageSource>
+                            <svg:SvgImageSource Source="croissant.svg" Height="25" Color="White" />
+                        </buttons:SfButton.ImageSource>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LimeGreen" />
+                                        <Setter Property="TextColor" Value="White" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="White" />
+                                        <Setter Property="TextColor" Value="Black" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </buttons:SfButton>
+
+                    <buttons:SfButton Text="{x:Static resources:AppResources.FastingSetting_SkipLunch}" 
+                                      ShowIcon="True"
+                                      IsCheckable="True"
+                                      HeightRequest="60"
+                                      CornerRadius="5"
+                                      IsChecked="{Binding FastingSettingProxy.SkipLunch}">
+                        <buttons:SfButton.ImageSource>
+                            <svg:SvgImageSource Source="salad.svg" Height="25" Color="White" />
+                        </buttons:SfButton.ImageSource>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LimeGreen" />
+                                        <Setter Property="TextColor" Value="White" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="White" />
+                                        <Setter Property="TextColor" Value="Black" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </buttons:SfButton>
+
+                    <buttons:SfButton Text="{x:Static resources:AppResources.FastingSetting_SkipDinner}"
+                                      ShowIcon="True" 
+                                      IsCheckable="True"
+                                      HeightRequest="60"
+                                      CornerRadius="5"
+                                      IsChecked="{Binding FastingSettingProxy.SkipDinner}">
+                        <buttons:SfButton.ImageSource>
+                            <svg:SvgImageSource Source="pizza.svg" Height="25" Color="White" />
+                        </buttons:SfButton.ImageSource>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="LimeGreen" />
+                                        <Setter Property="TextColor" Value="White" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="White" />
+                                        <Setter Property="TextColor" Value="Black" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </buttons:SfButton>
+
+                    <Label HeightRequest="2" Background="LightGray" Margin="0, 15" />
+
+                    <Label
+                        Text="{x:Static resources:AppResources.FastingSetting_Title}"
+                        TextColor="Black"
+                        Style="{StaticResource CustomLabelFontStyleBold}" FontSize="22" />
+
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Monday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeMondays}" />
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Tuesday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeTuesdays}" />
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Wednesday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeWednesdays}" />
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Thursday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeThursdays}" />
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Friday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeFridays}" />
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Saturday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeSaturdays}" />
+
+                    <buttons:SfCheckBox Text="{x:Static resources:AppResources.FastingSetting_Sunday}"
+                                        Style="{StaticResource SfRadioButtonStyle}"
+                                        IsChecked="{Binding FastingSettingProxy.IncludeSundays}" />
+                </StackLayout>
+
+
+                <buttons:SfButton Text="{x:Static resources:AppResources.Button_Save}"
+                                  Command="{Binding SaveFastingSettingCommand}" HeightRequest="60"
+                                  VerticalOptions="EndAndExpand" Margin="0,15,0,0" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</base:ContentPageBase>

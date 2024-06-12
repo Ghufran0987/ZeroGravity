@@ -1,0 +1,781 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Configurations>Debug;Release</Configurations>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Resources\Animation\cgm-device-glow-animation-red.json" />
+		<None Remove="Resources\Animation\metabolic-score-loading.json" />
+		<None Remove="Resources\calendar-day.png" />
+		<None Remove="Resources\Fonts\avenir-next-demi.ttf" />
+		<None Remove="Resources\Fonts\avenir-next-medium.ttf" />
+		<None Remove="Resources\Fonts\fa-brands-400.ttf" />
+		<None Remove="Resources\Fonts\fa-light-300.ttf" />
+		<None Remove="Resources\Fonts\gordita-bold.otf" />
+		<None Remove="Resources\Fonts\gordita-medium.otf" />
+		<None Remove="Resources\Fonts\gordita-regular.otf" />
+		<None Remove="Resources\Fonts\OpenSans-Bold.ttf" />
+		<None Remove="Resources\Fonts\OpenSans-Light.ttf" />
+		<None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+		<None Remove="Resources\Fonts\OpenSans-SemiBold.ttf" />
+		<None Remove="Resources\Fonts\PlayfairDisplay-Bold.ttf" />
+		<None Remove="Resources\Fonts\PlayfairDisplay-Regular.ttf" />
+		<None Remove="Resources\Images\Activities.png" />
+		<None Remove="Resources\Images\add_plus.png" />
+		<None Remove="Resources\Images\Apple_Watch.png" />
+		<None Remove="Resources\Images\background-logo.png" />
+		<None Remove="Resources\Images\Arrow-Backwards.png" />
+		<None Remove="Resources\Images\Background.png" />
+		<None Remove="Resources\Images\basic-bg-hips.png" />
+		<None Remove="Resources\Images\basic-bg-neck.png" />
+		<None Remove="Resources\Images\basic-bg-waist.png" />
+		<None Remove="Resources\Images\basic-loseweight.png" />
+		<None Remove="Resources\Images\basic-stick-to-a-plan.png" />
+		<None Remove="Resources\Images\CalorieDrinks.png" />
+		<None Remove="Resources\Images\cgm_device.png" />
+		<None Remove="Resources\Images\coaching_blog.png" />
+		<None Remove="Resources\Images\coaching_educational.png" />
+		<None Remove="Resources\Images\coaching_podcast.png" />
+		<None Remove="Resources\Images\Coffee-Cup-Empty.png" />
+		<None Remove="Resources\Images\Coffee-Cup-Full.png" />
+		<None Remove="Resources\Images\Fasting.png" />
+		<None Remove="Resources\Images\Fasting_Main.png" />
+		<None Remove="Resources\Images\Female.png" />
+		<None Remove="Resources\Images\fitbit.png" />
+		<None Remove="Resources\Images\Garmin-Logo.wine.png" />
+		<None Remove="Resources\Images\Glass.png" />
+		<None Remove="Resources\Images\Happy.png" />
+		<None Remove="Resources\Images\history-finish-line-in-sight.png" />
+		<None Remove="Resources\Images\history-target-weight.png" />
+		<None Remove="Resources\Images\lets-change.jpg" />
+		<None Remove="Resources\Images\Logo.png" />
+		<None Remove="Resources\Images\Male.png" />
+		<None Remove="Resources\Images\MBK_Device.png" />
+		<None Remove="Resources\Images\MealsSnacks.png" />
+		<None Remove="Resources\Images\Breakfast.png" />
+		<None Remove="Resources\Images\FastingClock.png" />
+		<None Remove="Resources\Images\Meal_Activities.png" />
+		<None Remove="Resources\Images\Meal_Breakfast.png" />
+		<None Remove="Resources\Images\Meal_Dinner.png" />
+		<None Remove="Resources\Images\Meal_Healthy-Snack.png" />
+		<None Remove="Resources\Images\Meal_Lunch.png" />
+		<None Remove="Resources\Images\Meditation.png" />
+		<None Remove="Resources\Images\MileStone1.png" />
+		<None Remove="Resources\Images\MileStone2.png" />
+		<None Remove="Resources\Images\MileStone3.png" />
+		<None Remove="Resources\Images\MileStoneAchive.png" />
+		<None Remove="Resources\Images\MileStoneCircle.png" />
+		<None Remove="Resources\Images\MileStoneCompleted.png" />
+		<None Remove="Resources\Images\MileStone_male_1.png" />
+		<None Remove="Resources\Images\MileStone_male_2.png" />
+		<None Remove="Resources\Images\MileStone_male_3.png" />
+		<None Remove="Resources\Images\MileStone_male_Completed.png" />
+		<None Remove="Resources\Images\monthly-report.png" />
+		<None Remove="Resources\Images\Monthly_Activities.png" />
+		<None Remove="Resources\Images\Monthly_Breakfast.png" />
+		<None Remove="Resources\Images\Monthly_Dinner.png" />
+		<None Remove="Resources\Images\Monthly_Drinks.png" />
+		<None Remove="Resources\Images\Monthly_Healthy_Snacks.png" />
+		<None Remove="Resources\Images\Monthly_Lunch.png" />
+		<None Remove="Resources\Images\Monthly_meditation.png" />
+		<None Remove="Resources\Images\Monthly_UnHealthy_Snacks.png" />
+		<None Remove="Resources\Images\Monthly_water.png" />
+		<None Remove="Resources\Images\Neutral.png" />
+		<None Remove="Resources\Images\neutral_gender.png" />
+		<None Remove="Resources\Images\neutral_gender_hips.png" />
+		<None Remove="Resources\Images\neutral_gender_neck.png" />
+		<None Remove="Resources\Images\neutral_gender_waist.png" />
+		<None Remove="Resources\Images\PlaceHolder.png" />
+		<None Remove="Resources\Images\Progress1.png" />
+		<None Remove="Resources\Images\Progress2.png" />
+		<None Remove="Resources\Images\Progress3.png" />
+		<None Remove="Resources\Images\Progress4.png" />
+		<None Remove="Resources\Images\Progress5.png" />
+		<None Remove="Resources\Images\Progress6.png" />
+		<None Remove="Resources\Images\ProgressEllipse10.png" />
+		<None Remove="Resources\Images\ProgressEllipse11.png" />
+		<None Remove="Resources\Images\ProgressEllipse12.png" />
+		<None Remove="Resources\Images\ProgressEllipse13.png" />
+		<None Remove="Resources\Images\ProgressEllipse7.png" />
+		<None Remove="Resources\Images\ProgressEllipse8.png" />
+		<None Remove="Resources\Images\ProgressEllipse9.png" />
+		<None Remove="Resources\Images\Progress_activity.png" />
+		<None Remove="Resources\Images\Progress_BreakFast.png" />
+		<None Remove="Resources\Images\Progress_Dinner.png" />
+		<None Remove="Resources\Images\Progress_Fasting.png" />
+		<None Remove="Resources\Images\Progress_HealthySnack.png" />
+		<None Remove="Resources\Images\Progress_Lunch.png" />
+		<None Remove="Resources\Images\Progress_Meditation.png" />
+		<None Remove="Resources\Images\Progress_UnhealthySnack.png" />
+		<None Remove="Resources\Images\quick-fixes.jpg" />
+		<None Remove="Resources\Images\Sad.png" />
+		<None Remove="Resources\Images\Samsung_Galaxy_Gear-Logo.wine.png" />
+		<None Remove="Resources\Images\smarter-boks.png" />
+		<None Remove="Resources\Images\smarter-daily-routines.png" />
+		<None Remove="Resources\Images\smarter-mind-and-body.png" />
+		<None Remove="Resources\Images\smarter-smarter-you.png" />
+		<None Remove="Resources\Images\smarter-snaks.png" />
+		<None Remove="Resources\Images\smarter-yo-yo.png" />
+		<None Remove="Resources\Images\Tick_Happy.png" />
+		<None Remove="Resources\Images\Tick_Neutral.png" />
+		<None Remove="Resources\Images\Tick_result.png" />
+		<None Remove="Resources\Images\Tick_Sad.png" />
+		<None Remove="Resources\Images\Tick_VHappy.png" />
+		<None Remove="Resources\Images\Tick_V_Sad.png" />
+		<None Remove="Resources\Images\Very_Happy.png" />
+		<None Remove="Resources\Images\Very_Sad.png" />
+		<None Remove="Resources\Images\Water-Cup-Empty.png" />
+		<None Remove="Resources\Images\Water-Cup-Full.png" />
+		<None Remove="Resources\Images\Water.png" />
+		<None Remove="Resources\Images\WeightTracker.png" />
+		<None Remove="Resources\Images\Weight_1.png" />
+		<None Remove="Resources\Images\Weight_2.png" />
+		<None Remove="Resources\Images\Weight_3.png" />
+		<None Remove="Resources\Images\Weight_4.png" />
+		<None Remove="Resources\Images\Weight_5.png" />
+		<None Remove="Resources\Images\Weight_6.png" />
+		<None Remove="Resources\Images\Weight_Achive.png" />
+		<None Remove="Resources\Images\Weight_Gain_Female_1.png" />
+		<None Remove="Resources\Images\Weight_Gain_Female_2.png" />
+		<None Remove="Resources\Images\Weight_Gain_Female_3.png" />
+		<None Remove="Resources\Images\Weight_Gain_Female_4.png" />
+		<None Remove="Resources\Images\Weight_Gain_Female_5.png" />
+		<None Remove="Resources\Images\Weight_Gain_Female_6.png" />
+		<None Remove="Resources\Images\Weight_Gain_Male_1.png" />
+		<None Remove="Resources\Images\Weight_Gain_Male_2.png" />
+		<None Remove="Resources\Images\Weight_Gain_Male_3.png" />
+		<None Remove="Resources\Images\Weight_Gain_Male_4.png" />
+		<None Remove="Resources\Images\Weight_Gain_Male_5.png" />
+		<None Remove="Resources\Images\Weight_Gain_Male_6.png" />
+		<None Remove="Resources\Images\Weight_Male_1.png" />
+		<None Remove="Resources\Images\Weight_Male_2.png" />
+		<None Remove="Resources\Images\Weight_Male_3.png" />
+		<None Remove="Resources\Images\Weight_Male_4.png" />
+		<None Remove="Resources\Images\Weight_Male_5.png" />
+		<None Remove="Resources\Images\Weight_Male_6.png" />
+		<None Remove="Resources\Images\Weight_Male_Achive.png" />
+		<None Remove="Resources\Images\Weight_Male_Reminder.png" />
+		<None Remove="Resources\Images\Weight_Reminder.png" />
+		<None Remove="Resources\Images\well-done.jpg" />
+		<None Remove="Resources\Images\Wellbeing.png" />
+		<None Remove="Resources\Images\Streaming.png" />
+		<None Remove="Resources\Images\background_uni.png" />
+		<None Remove="Resources\Images\breakfast_1.png" />
+		<None Remove="Resources\Images\breakfast_2.png" />
+		<None Remove="Resources\Images\breakfast_3.png" />
+		<None Remove="Resources\Images\breakfast_4.png" />
+		<None Remove="Resources\Images\breakfast_5.png" />
+		<None Remove="Resources\Images\caloriedrinks_1.png" />
+		<None Remove="Resources\Images\caloriedrinks_2.png" />
+		<None Remove="Resources\Images\caloriedrinks_3.png" />
+		<None Remove="Resources\Images\caloriedrinks_4.png" />
+		<None Remove="Resources\Images\caloriedrinks_5.png" />
+		<None Remove="Resources\Images\caloriedrinks_6.png" />
+		<None Remove="Resources\Images\dinner_1.png" />
+		<None Remove="Resources\Images\dinner_2.png" />
+		<None Remove="Resources\Images\dinner_3.png" />
+		<None Remove="Resources\Images\dinner_4.png" />
+		<None Remove="Resources\Images\dinner_5.png" />
+		<None Remove="Resources\Images\exercise_1.png" />
+		<None Remove="Resources\Images\exercise_2.png" />
+		<None Remove="Resources\Images\exercise_3.png" />
+		<None Remove="Resources\Images\exercise_4.png" />
+		<None Remove="Resources\Images\exercise_5.png" />
+		<None Remove="Resources\Images\exercise_6.png" />
+		<None Remove="Resources\Images\FASTING 1.png" />
+		<None Remove="Resources\Images\FASTING 2.png" />
+		<None Remove="Resources\Images\FASTING 3.png" />
+		<None Remove="Resources\Images\FASTING 4.png" />
+		<None Remove="Resources\Images\FASTING 5.png" />
+		<None Remove="Resources\Images\FASTING 6.png" />
+		<None Remove="Resources\Images\glucose.png" />
+		<None Remove="Resources\Images\healthysnack_1.png" />
+		<None Remove="Resources\Images\healthysnack_2.png" />
+		<None Remove="Resources\Images\healthysnack_3.png" />
+		<None Remove="Resources\Images\healthysnack_4.png" />
+		<None Remove="Resources\Images\healthysnack_5.png" />
+		<None Remove="Resources\Images\howToMeasure_dummy.PNG" />
+		<None Remove="Resources\Images\jagged_circle.png" />
+		<None Remove="Resources\Images\lunch_1.png" />
+		<None Remove="Resources\Images\lunch_2.png" />
+		<None Remove="Resources\Images\lunch_3.png" />
+		<None Remove="Resources\Images\lunch_4.png" />
+		<None Remove="Resources\Images\lunch_5.png" />
+		<None Remove="Resources\Images\meditation_1.png" />
+		<None Remove="Resources\Images\meditation_2.png" />
+		<None Remove="Resources\Images\meditation_3.png" />
+		<None Remove="Resources\Fonts\samantha.ttf" />
+		<None Remove="Resources\Images\unhealthysnack_1.png" />
+		<None Remove="Resources\Images\unhealthysnack_2.png" />
+		<None Remove="Resources\Images\unhealthysnack_3.png" />
+		<None Remove="Resources\Images\unhealthysnack_4.png" />
+		<None Remove="Resources\Images\unhealthysnack_5.png" />
+		<None Remove="Resources\Images\waterintake_1.png" />
+		<None Remove="Resources\Images\waterintake_2.png" />
+		<None Remove="Resources\Images\waterintake_3.png" />
+		<None Remove="Resources\Images\waterintake_4.png" />
+		<None Remove="Resources\Images\waterintake_5.png" />
+		<None Remove="Resources\Images\waterintake_6.png" />
+		<None Remove="Resources\Images\WATER_RING_1.png" />
+		<None Remove="Resources\Images\you-can-choose.jpg" />
+		<None Remove="Resources\Svgs\Coffee-Cup-Empty.svg" />
+		<None Remove="Resources\Svgs\Coffee-Cup-Full.svg" />
+		<None Remove="Resources\Svgs\pizza.svg" />
+		<None Remove="Resources\Svgs\Water-Cup-Empty.svg" />
+		<None Remove="Resources\Svgs\Water-Cup-Full.svg" />
+		<None Remove="ShowHeroes.html" />
+		<None Remove="Resources\Images\SugerBeat_Device.png" />
+		<None Remove="Resources\Images\SugerBeat_Device_Active.png" />
+		<None Remove="Resources\Images\SugerBeat_Device_Searching.png" />
+		<None Remove="Resources\Images\SugerBeat.png" />
+		<None Remove="Resources\Images\Sugar_report.png" />
+		<None Remove="Resources\Images\Progress_UnhealthySnack_new.png" />
+		<None Remove="Microsoft.AppCenter.Crashes" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Animation\cgm-device-glow-animation-red.json" />
+		<EmbeddedResource Include="Resources\Animation\metabolic-score-loading.json" />
+		<EmbeddedResource Include="Resources\Fonts\OpenSans-SemiBold.ttf" />
+		<EmbeddedResource Include="Resources\Images\Activities.png" />
+		<EmbeddedResource Include="Resources\Images\add_plus.png" />
+		<EmbeddedResource Include="Resources\Images\Apple_Watch.png" />
+		<EmbeddedResource Include="Resources\Images\Background.png" />
+		<EmbeddedResource Include="Resources\Images\basic-bg-hips.png" />
+		<EmbeddedResource Include="Resources\Images\basic-bg-neck.png" />
+		<EmbeddedResource Include="Resources\Images\basic-bg-waist.png" />
+		<EmbeddedResource Include="Resources\Images\basic-loseweight.png" />
+		<EmbeddedResource Include="Resources\Images\basic-stick-to-a-plan.png" />
+		<EmbeddedResource Include="Resources\Images\CalorieDrinks.png" />
+		<EmbeddedResource Include="Resources\Images\cgm_device.png" />
+		<EmbeddedResource Include="Resources\Images\coaching_blog.png" />
+		<EmbeddedResource Include="Resources\Images\coaching_educational.png" />
+		<EmbeddedResource Include="Resources\Images\coaching_podcast.png" />
+		<EmbeddedResource Include="Resources\Images\Coffee-Cup-Empty.png" />
+		<EmbeddedResource Include="Resources\Images\Coffee-Cup-Full.png" />
+		<EmbeddedResource Include="Resources\Images\Fasting.png" />
+		<EmbeddedResource Include="Resources\Images\Fasting_Main.png" />
+		<EmbeddedResource Include="Resources\Images\Female.png" />
+		<EmbeddedResource Include="Resources\Images\fitbit.png" />
+		<EmbeddedResource Include="Resources\Images\Garmin-Logo.wine.png" />
+		<EmbeddedResource Include="Resources\Images\Glass.png" />
+		<EmbeddedResource Include="Resources\Images\Happy.png" />
+		<EmbeddedResource Include="Resources\Images\history-finish-line-in-sight.png" />
+		<EmbeddedResource Include="Resources\Images\history-target-weight.png" />
+		<EmbeddedResource Include="Resources\Images\lets-change.jpg" />
+		<EmbeddedResource Include="Resources\Images\Logo.png" />
+		<EmbeddedResource Include="Resources\Images\Male.png" />
+		<EmbeddedResource Include="Resources\Images\MBK_Device.png" />
+		<EmbeddedResource Include="Resources\Images\MealsSnacks.png" />
+		<EmbeddedResource Include="Resources\Images\Breakfast.png" />
+		<EmbeddedResource Include="Resources\Images\Meal_Activities.png" />
+		<EmbeddedResource Include="Resources\Images\Meal_Breakfast.png" />
+		<EmbeddedResource Include="Resources\Images\Meal_Dinner.png" />
+		<EmbeddedResource Include="Resources\Images\Meal_Healthy-Snack.png" />
+		<EmbeddedResource Include="Resources\Images\Meal_Lunch.png" />
+		<EmbeddedResource Include="Resources\Images\Meditation.png" />
+		<EmbeddedResource Include="Resources\Images\MileStone1.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\Images\MileStone2.png" />
+		<EmbeddedResource Include="Resources\Images\MileStone3.png" />
+		<EmbeddedResource Include="Resources\Images\MileStoneAchive.png" />
+		<EmbeddedResource Include="Resources\Images\MileStoneCircle.png" />
+		<EmbeddedResource Include="Resources\Images\MileStoneCompleted.png" />
+		<EmbeddedResource Include="Resources\Images\MileStone_male_1.png" />
+		<EmbeddedResource Include="Resources\Images\MileStone_male_2.png" />
+		<EmbeddedResource Include="Resources\Images\MileStone_male_3.png" />
+		<EmbeddedResource Include="Resources\Images\MileStone_male_Completed.png" />
+		<EmbeddedResource Include="Resources\Images\monthly-report.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_Activities.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_Breakfast.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_Dinner.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_Drinks.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_Healthy_Snacks.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_Lunch.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_meditation.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_UnHealthy_Snacks.png" />
+		<EmbeddedResource Include="Resources\Images\Monthly_water.png" />
+		<EmbeddedResource Include="Resources\Images\Neutral.png" />
+		<EmbeddedResource Include="Resources\Images\neutral_gender.png" />
+		<EmbeddedResource Include="Resources\Images\neutral_gender_hips.png" />
+		<EmbeddedResource Include="Resources\Images\neutral_gender_neck.png" />
+		<EmbeddedResource Include="Resources\Images\neutral_gender_waist.png" />
+		<EmbeddedResource Include="Resources\Images\PlaceHolder.png" />
+		<EmbeddedResource Include="Resources\Images\Progress1.png" />
+		<EmbeddedResource Include="Resources\Images\Progress2.png" />
+		<EmbeddedResource Include="Resources\Images\Progress3.png" />
+		<EmbeddedResource Include="Resources\Images\Progress4.png" />
+		<EmbeddedResource Include="Resources\Images\Progress5.png" />
+		<EmbeddedResource Include="Resources\Images\Progress6.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse10.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse11.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse12.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse13.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse7.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse8.png" />
+		<EmbeddedResource Include="Resources\Images\ProgressEllipse9.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_activity.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_BreakFast.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_Dinner.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_Fasting.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_HealthySnack.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_Lunch.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_Meditation.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_UnhealthySnack.png" />
+		<EmbeddedResource Include="Resources\Images\quick-fixes.jpg" />
+		<EmbeddedResource Include="Resources\Images\Sad.png" />
+		<EmbeddedResource Include="Resources\Images\Samsung_Galaxy_Gear-Logo.wine.png" />
+		<EmbeddedResource Include="Resources\Images\smarter-boks.png" />
+		<EmbeddedResource Include="Resources\Images\smarter-daily-routines.png" />
+		<EmbeddedResource Include="Resources\Images\smarter-mind-and-body.png" />
+		<EmbeddedResource Include="Resources\Images\smarter-smarter-you.png" />
+		<EmbeddedResource Include="Resources\Images\smarter-snaks.png" />
+		<EmbeddedResource Include="Resources\Images\smarter-yo-yo.png" />
+		<EmbeddedResource Include="Resources\Images\Tick_Happy.png" />
+		<EmbeddedResource Include="Resources\Images\Tick_Neutral.png" />
+		<EmbeddedResource Include="Resources\Images\Tick_result.png" />
+		<EmbeddedResource Include="Resources\Images\Tick_Sad.png" />
+		<EmbeddedResource Include="Resources\Images\Tick_VHappy.png" />
+		<EmbeddedResource Include="Resources\Images\Tick_V_Sad.png" />
+		<EmbeddedResource Include="Resources\Images\Very_Happy.png" />
+		<EmbeddedResource Include="Resources\Images\Very_Sad.png" />
+		<EmbeddedResource Include="Resources\Images\Water-Cup-Empty.png" />
+		<EmbeddedResource Include="Resources\Images\Water-Cup-Full.png">
+		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\Images\Water.png" />
+		<EmbeddedResource Include="Resources\Images\Arrow-Backwards.png" />
+		<EmbeddedResource Include="Resources\Images\WeightTracker.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_1.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_2.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_3.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_4.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_5.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_6.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Achive.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Female_1.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Female_2.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Female_3.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Female_4.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Female_5.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Female_6.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Male_1.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Male_2.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Male_3.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Male_4.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Male_5.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Gain_Male_6.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_1.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_2.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_3.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_4.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_5.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_6.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_Achive.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Male_Reminder.png" />
+		<EmbeddedResource Include="Resources\Images\Weight_Reminder.png" />
+		<EmbeddedResource Include="Resources\Images\well-done.jpg" />
+		<EmbeddedResource Include="Resources\Images\Wellbeing.png" />
+		<EmbeddedResource Include="Resources\Images\Streaming.png" />
+		<EmbeddedResource Include="Resources\Images\FastingClock.png" />
+		<EmbeddedResource Include="Resources\Images\background_uni.png" />
+		<EmbeddedResource Include="Resources\Images\background-logo.png" />
+		<EmbeddedResource Include="Resources\Images\glucose.png" />
+		<EmbeddedResource Include="Resources\Images\howToMeasure_dummy.png" />
+		<EmbeddedResource Include="Resources\Images\jagged_circle.png" />
+		<EmbeddedResource Include="Resources\Images\you-can-choose.jpg" />
+		<EmbeddedResource Include="Resources\ShowHeroes.html" />
+		<EmbeddedResource Include="Resources\Fonts\avenir-next-demi.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\avenir-next-medium.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\fa-brands-400.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\fa-light-300.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\gordita-bold.otf" />
+		<EmbeddedResource Include="Resources\Fonts\gordita-medium.otf" />
+		<EmbeddedResource Include="Resources\Fonts\gordita-regular.otf" />
+		<EmbeddedResource Include="Resources\Fonts\OpenSans-Bold.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\OpenSans-Light.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\OpenSans-Regular.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\PlayfairDisplay-Bold.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\PlayfairDisplay-Regular.ttf" />
+		<EmbeddedResource Include="Resources\Fonts\samantha.ttf" />
+		<EmbeddedResource Include="Resources\Svgs\Coffee-Cup-Empty.svg" />
+		<EmbeddedResource Include="Resources\Svgs\Coffee-Cup-Full.svg" />
+		<EmbeddedResource Include="Resources\Svgs\pizza.svg" />
+		<EmbeddedResource Include="Resources\Svgs\Water-Cup-Empty.svg" />
+		<EmbeddedResource Include="Resources\Svgs\Water-Cup-Full.svg" />
+		<EmbeddedResource Include="Resources\Images\SugerBeat_Device.png" />
+		<EmbeddedResource Include="Resources\Images\SugerBeat_Device_Active.png" />
+		<EmbeddedResource Include="Resources\Images\SugerBeat_Device_Searching.png" />
+		<EmbeddedResource Include="Resources\Images\SugerBeat.png" />
+		<EmbeddedResource Include="Resources\Images\Sugar_report.png" />
+		<EmbeddedResource Include="Resources\Images\Progress_UnhealthySnack_new.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.9.0-beta.1" />
+		<PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.7" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="Plugin.BLE" Version="2.1.1" />
+		<PackageReference Include="Plugin.MediaManager" Version="1.0.9" />
+		<PackageReference Include="Plugin.MediaManager.Forms" Version="1.0.9" />
+		<PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.Core" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfChart" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfComboBox" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfGauge" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRangeSlider" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="18.3.0.47" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.7.1" />
+		<PackageReference Include="UnitsNet" Version="4.101.0" />
+		<PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+		<PackageReference Include="Xamarin.CommunityToolkit" Version="1.0.2" />
+		<PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.FFImageLoading.Svg" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+		<PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.6.1" />
+		<PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1422" />
+		<PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+		<PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
+		<PackageReference Include="Syncfusion.Xamarin.Cards" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfRichTextEditor" Version="18.3.0.47" />
+		<PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="18.3.0.47" />
+		<PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\ZeroGravity.Shared\ZeroGravity.Shared.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Svgs\plug.svg" />
+		<Resource Include="Resources\Svgs\utensils-alt.svg" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="CustomControls\ZgPageWrapper.xaml.cs">
+			<DependentUpon>ZgPageWrapper.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resx\AppResources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppResources.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CoachingDetailPage.xaml.cs">
+			<DependentUpon>CoachingDetailPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\EnduranceTrackingPage.xaml.cs">
+			<DependentUpon>EnduranceTrackingPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\MetabolicHealthPage.xaml.cs">
+			<DependentUpon>MetabolicHealthPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\CalorieDrinksAlcoholPage.xaml.cs">
+			<DependentUpon>CalorieDrinksAlcoholPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\StepCountPage.xaml.cs">
+			<DependentUpon>StepCountPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\HeartBeatPage.xaml.cs">
+			<DependentUpon>HeartBeatPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\SugarBeatMainPage.xaml.cs">
+			<DependentUpon>SugarBeatMainPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\WizardStep3Page.xaml.cs">
+			<DependentUpon>WizardStep3Page.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\WizardStep4Page.xaml.cs">
+			<DependentUpon>WizardStep4Page.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\WizardStep5Page.xaml.cs">
+			<DependentUpon>WizardStep5Page.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\WizardFinishSetupPage.xaml.cs">
+			<DependentUpon>WizardFinishSetupPage.xaml</DependentUpon>
+		</Compile>
+		<!--<Compile Update="Views\ContentShellPage.xaml.cs">
+      <DependentUpon>ContentShellPage.xaml</DependentUpon>
+    </Compile>-->
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="CustomControls\BubbleView.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgBubble.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgButton.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgButtonGroup.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgEducationalInfoView.xaml">
+		  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgEllipseGoal.xaml">
+		  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgEllipseProgressGoal.xaml">
+		  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgHoldingView.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgImageView.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgInputLayout.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgJaggedIcon.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgMessageBox.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgOverlayView.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgPageWrapper.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgParagraph.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgRadioButton.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgShadowSeparator.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="CustomControls\ZgSlider.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Examples\BubbleViewExample.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resx\AppResources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\AboutPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\AccountDeletePage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\AccountOverviewPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\AccountSecurityPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ActivitiesPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ActivitySyncDetailPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ActivitySyncOverviewPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\AnalysisPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ChangeEmailPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ChangePasswordPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\CoachingDetailPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ContentShellPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\DayToDayPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\DemoPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\DietPreferencesPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ExercisePage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\FastingDataPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\FastingSettingsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\FeedbackPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\FeedbackUpdateMeasurementsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\FirstUseWizardPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\GeneralSuccessPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\GetStartedPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MetabolicHealthPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\IntegrationDetailPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\IntegrationsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\EnduranceTrackingPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\LoginPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MeditationAreaPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MetabolicHealthTrackingHistoryPage.xaml">
+		  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MyWeightPage.xaml">
+		  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\NoInternetConnectionPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\NotificationsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MealsSnacksBreakfastPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MealsSnacksDinnerPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MealsSnacksHealthySnackPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MealsSnacksLunchPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MealsSnacksPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MealsSnacksUnhealthySnackPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\PasswordForgotPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\PersonalGoalsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\PrivacyPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ProfileImagePage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ProfilePage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\RegisterPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\MedicalPreConditionsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\PersonalDataPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\RegisterSuccessPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\ResultPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\CalorieDrinksAlcoholPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\StepCountPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\StreamingPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\HeartBeatPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\SugarBeatConnectPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\SugarBeatMainPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\SugarBeatScanPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\TabBarPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\TermsAndPrivacyPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\TermsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\UpdateBodyMeasurementsPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\VideoUploadPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WaterIntakePage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WellbeingDataPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardNewPage.xaml">
+		  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardStep1Page.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardStep2Page.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardStep3Page.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardStep4Page.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardStep5Page.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Views\WizardFinishSetupPage.xaml">
+			<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

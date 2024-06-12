@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:ContentPageBase x:TypeArguments="page:IActivitySyncDetailPage" xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:resources="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:xForms1="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      x:Class="ZeroGravity.Mobile.Views.ActivitySyncDetailPage"
+                      xmlns:borders="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      Style="{StaticResource PageBaseStyle}">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout Padding="0,30,0,30">
+
+                    <Label Text="{Binding SyncActivityProxies.Count, StringFormat={x:Static resources:AppResources.ActivitySyncDetail_FoundActivities}}"
+                           HorizontalTextAlignment="Center"
+                           Style="{StaticResource HeadlineL-Label}" />
+
+
+                    <Label Style="{StaticResource Separator-Label}"></Label>
+
+                    <xForms:SfListView ItemsSource="{Binding SyncActivityProxies}" Margin="0,10,0,0"
+                                        SelectionMode="None" ItemSize="180" x:Name="SyncList">
+                        <xForms:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Vertical" >
+                                        <customControls:ZgRadioButton Style="{StaticResource CheckBoxWithDescription-ZgRadioButton}"
+                                                                      LabelText="{Binding Name}"
+                                                                      DescriptionText="{Binding Description}"
+                                                                      IsChecked="{Binding IsSelectedForSync, Mode=TwoWay}" />
+
+                                        <customControls:ZgInputLayout Style="{StaticResource InputLayout-ZgInputLayout}"
+                                                                      Label="{x:Static resources:AppResources.ActivitySyncDetail_Intensity}"
+                                                                      BorderColor="{x:Static fonts:CustomColors.TextColorLight}"
+                                                                      BorderWidth="0.5">
+                                            <customControls:ZgPicker   ItemsSource="{Binding Path=IntensitySource}"
+                                                                       ItemDisplayBinding="{Binding Text}"
+                                                                       SelectedIndex="{Binding Path=SelectedIntensity}"
+                                                                       Title="{x:Static resources:AppResources.Activities_Intensity}"
+                                                                       Style="{StaticResource InputPicker-ZgPicker}" />
+                                        </customControls:ZgInputLayout>
+
+                                        <Label Style="{StaticResource Separator-Label}"></Label>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </xForms:SfListView.ItemTemplate>
+                    </xForms:SfListView>
+
+                    <xForms1:SfBusyIndicator
+                        IsBusy="{Binding Path=IsBusy}"
+                        Style="{StaticResource BusyIndicator-SfBusyIndicator}" />
+                </StackLayout>
+            </ScrollView>
+
+            <customControls:ZgButton Grid.Row="1" Text="{x:Static resources:AppResources.Button_Save}"
+                                     HorizontalTextAlignment="Center"
+                                     Style="{StaticResource FullWidthButton-ZgButton}"
+                                     Command="{Binding SaveCommand}" />
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>

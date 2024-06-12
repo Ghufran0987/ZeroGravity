@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<base:ContentPageBase x:TypeArguments="page:IProfilePage"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:prism="http://prismlibrary.com"
+                      xmlns:page="clr-namespace:ZeroGravity.Mobile.Interfaces.Page;assembly=ZeroGravity.Mobile"
+                      xmlns:base="clr-namespace:ZeroGravity.Mobile.Base;assembly=ZeroGravity.Mobile"
+                      xmlns:avatarView="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+                      xmlns:resx="clr-namespace:ZeroGravity.Mobile.Resx;assembly=ZeroGravity.Mobile"
+                      xmlns:customControls="clr-namespace:ZeroGravity.Mobile.CustomControls;assembly=ZeroGravity.Mobile"
+                      xmlns:fonts="clr-namespace:ZeroGravity.Mobile.Resources.Fonts;assembly=ZeroGravity.Mobile"
+                      prism:ViewModelLocator.AutowireViewModel="True"
+                      x:Class="ZeroGravity.Mobile.Views.ProfilePage"
+                      Title="{Binding Path=Title}"
+                      ShowTopBorder="True"
+                      ShowBottomBorder="False"
+                      ShowBusyIndicator="{Binding IsBusy}"
+                      Style="{StaticResource PageBaseStyle}">
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="{x:Static fonts:CustomColors.White}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="0">
+
+                <StackLayout Padding="0,30,0,0" Spacing="15">
+
+                    <!--if using AvatarShape: Circle the HeightRequest and WidthRequest properties dont' take any effect-->
+                    <!--and the AvatarSize is limited to "ExtraLarge" -->
+                    <!--Workaround: set AvatarShape to "Custom" and use a very high CornerRadius-->
+                    <avatarView:SfAvatarView ContentType="Default"
+                                             VerticalOptions="Start"
+                                             HorizontalOptions="Center"
+                                             Margin="0, 30, 0, 10"
+
+                                             AvatarShape="Custom"
+                                             HeightRequest="100"
+                                             WidthRequest="100"
+                                             CornerRadius="1000"
+                                             BorderColor="Black"
+
+                                             ImageSource="{Binding ProfileImage}">
+                        <avatarView:SfAvatarView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=UploadPictureCommand}" />
+                        </avatarView:SfAvatarView.GestureRecognizers>
+                    </avatarView:SfAvatarView>
+
+
+                    <Label Style="{StaticResource HeadlineL-Label}"
+                           HorizontalTextAlignment="Center">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="FirstName" />
+                                <Binding Path="LastName" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+
+
+                    <Label Text="{Binding MemberSince}" Style="{StaticResource Byline-Label}"
+                           HorizontalTextAlignment="Center" />
+
+                    <customControls:ZgButton Text="{x:Static resx:AppResources.Button_Logout}"
+                                             IconUnicode="&#xf235;"
+                                             Command="{Binding Path=LogoutCommand}"
+                                             Style="{StaticResource WhiteButton-ZgButton}" />
+
+
+                </StackLayout>
+
+            </ScrollView>
+
+        </Grid>
+    </ContentPage.Content>
+</base:ContentPageBase>
